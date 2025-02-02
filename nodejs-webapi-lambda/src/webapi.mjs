@@ -5,12 +5,12 @@ import http from "http";
 const webApp = express();
 
 webApp.get('/', (req, res) => {
-    console.log(`handling call at root /.`);
+    console.log(`sdkv3: handling call at root /.`);
     res.send(`Welcome! Two web methods are provided:  /aws-sdk-call    and    /outgoing-http-call`);
 });
 
 webApp.get('/aws-sdk-call', (req, res) => {
-    console.log(`handling /aws-sdk-call with S3 call.`);
+    console.log(`sdkv3: handling /aws-sdk-call with S3 call.`);
     try
     {
         const s3Client = new S3Client();
@@ -34,7 +34,7 @@ webApp.get('/aws-sdk-call', (req, res) => {
 });
 
 webApp.get('/outgoing-http-call', (req, res) => {
-    console.log(`handling /outgoing-http-call.`);
+    console.log(`sdkv3: handling /outgoing-http-call.`);
     const httpReq = http.get('http://aws.amazon.com', (httpResponse) => {
         console.log('Response status code:', httpResponse.statusCode);
         let data = "";
