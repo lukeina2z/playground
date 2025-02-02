@@ -19,6 +19,7 @@
   "types": "build/src/index.d.ts",
   "scripts": {
     "clean": "rimraf build/*",
+    "dev": "node index.mjs",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "precompile": "tsc --version",
