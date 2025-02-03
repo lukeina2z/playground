@@ -22,5 +22,5 @@ export const handler = async (_event, _context) => {
     return response;
 };
 
-await handler();
-console.log(`test completed.`);
+// await handler();
+// console.log(`test completed.`);
