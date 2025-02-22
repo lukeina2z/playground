@@ -4,16 +4,17 @@ export const handler = async (_event, _context) => {
     console.info('Serving lambda request.');
 
     console.info('Calling S3.');
-    callS3();
+    const responseA = await callS3();
 
     console.info("Ping web site.")
-    pingWebSite();
+    const responseB = await pingWebSite();
 
+    const bodyMsg = "S3 call:\r\n" + responseA + "\r\n\r\n" + "Web site:\r\n" + responseB;
     const response = {
         statusCode: 200,
-        body: "Great Feature!"
+        body: bodyMsg
     };
     return response;
 };
 
-handler();
+// handler();
