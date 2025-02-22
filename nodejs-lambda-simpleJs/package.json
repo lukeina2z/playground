@@ -1,9 +1,9 @@
 {
-  "name": "myLambdaFn01",
+  "name": "mylambdafn01",
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {
-    "dev": "node index.mjs",
+    "debug": "node index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
