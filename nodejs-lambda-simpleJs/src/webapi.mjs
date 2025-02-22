@@ -26,8 +26,7 @@ export function pingWebSite() {
     return new Promise((resolve, reject) => {
         const httpReq = http.get('http://aws.amazon.com', (httpResponse) => {
             console.log('Response status code:', httpResponse.statusCode);
-            
-            let data = "";
+            let data = `XRayTraceID: ${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}\r\n`;
             httpResponse.on('data', (chunk) => {
                 data += chunk;  // Accumulate the chunks of data
             });
@@ -45,4 +44,3 @@ export function pingWebSite() {
         });
     });
 };
-

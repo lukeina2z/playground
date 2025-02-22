@@ -9,7 +9,8 @@ export const handler = async (_event, _context) => {
     console.info("Ping web site.")
     const responseB = await pingWebSite();
 
-    const bodyMsg = "S3 call:\r\n" + responseA + "\r\n\r\n" + "Web site:\r\n" + responseB;
+    let bodyMsg = "S3 call:\r\n\r\n" + responseA + "\r\n\r\n";
+    bodyMsg = bodyMsg + "Ping web site:\r\n\r\n" + responseB;
     const response = {
         statusCode: 200,
         body: bodyMsg
