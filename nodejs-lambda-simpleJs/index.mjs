@@ -25,10 +25,10 @@ function main() {
 
 async function fnToCallS3() {
     return new Promise((resolve, reject) => {
-        tracer.startActiveSpan('xfnToCallS3', (span) => {
-            context.with(trace.setSpan(context.active(), span), async () => {
+        tracer.startActiveSpan('xfnToCallS3', async (span) => {
                 try {
                     const result = await callS3();
+                    dumpSpan(span);
                     span.end(); // Ensure span is properly ended
                     resolve(result); // Return the result
                 } catch (error) {
@@ -36,17 +36,16 @@ async function fnToCallS3() {
                     span.end();
                     reject(error); // Handle errors properly
                 }
-            });
         });
     });
 }
 
 async function fnToPingWebSite() {
     return new Promise((resolve, reject) => {
-        tracer.startActiveSpan('xfnToPingWebSite', (span) => {
-            context.with(trace.setSpan(context.active(), span), async () => {
+        tracer.startActiveSpan('xfnToPingWebSite', async (span) => {
                 try {
                     const result = await pingWebSite();
+                    dumpSpan(span);
                     span.end(); // Ensure span is properly ended
                     resolve(result);
                 } catch (error) {
@@ -54,7 +53,6 @@ async function fnToPingWebSite() {
                     span.end();
                     reject(error);
                 }
-            });
         });
     });
 }
@@ -73,6 +71,7 @@ export const handler = async (_event, _context) => {
                 const responseB = await fnToPingWebSite();
                 bodyMsg += "S3 call:\r\n\r\n" + responseA;
                 bodyMsg += "\r\n\r\n" + "Call web site:\r\n\r\n" + responseB;
+                dumpSpan(parentSpan);
                 parentSpan.end();
             } catch (error) {
                 parentSpan.recordException(error);
@@ -92,3 +91,7 @@ export const handler = async (_event, _context) => {
 };
 
 handler();
+
+function dumpSpan(span) {
+    console.log(`xxxSpan: name: ${span.name},   traceId: ${span._spanContext.traceId}   spanId: ${span._spanContext.spanId}   parentSpanId: ${span.parentSpanId}`);
+}
