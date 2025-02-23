@@ -13,3 +13,6 @@ export async function handler(event, context) {
     retObj.body += ("\r\n\r\n" + paramEvent + paramContext);
     return retObj;
 }
+
+// handler({ key1: 'value1', key2: 'value2' }, { /* context object */ });
+
