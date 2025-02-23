@@ -1,6 +1,5 @@
-// import { tracer, shutdownTracing } from './src/tracing.mjs';
-
-import { myHandler } from './src/autoInstrumentOnly.mjs';
+// import { myHandler } from './src/autoInstrumentOnly.mjs';
+import { myHandler } from './src/otel.mjs';
 
 export async function handler(event, context) {
 
