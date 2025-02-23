@@ -32,8 +32,7 @@ export function pingWebSite() {
             });
 
             httpResponse.on('end', () => {
-                console.log('Response body:');
-                console.log(data); // Complete response body after all chunks
+                console.log('Response body: ${data}');
                 resolve(data);
             });
         });

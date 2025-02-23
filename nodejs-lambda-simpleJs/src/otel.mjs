@@ -7,7 +7,6 @@ export const myHandler = async (_event, _context) => {
     const tracer = trace.getTracer('lambda-tracer');
     return tracer.startActiveSpan('my-main-span-for-lambda-handler', async (span) => {
         try {
-            console.log("Lambda function started");
             const responseA = await callS3WithSpan();
             const responseB = await callHttpWithSpan();
             let bodyMsg = "S3 call:\r\n\r\n" + responseA + "\r\n\r\n";
@@ -17,8 +16,6 @@ export const myHandler = async (_event, _context) => {
                 statusCode: 200,
                 body: bodyMsg
             };
-            
-            console.log("Lambda function completed");
             return response;
         } catch (error) {
             span.recordException(error);
