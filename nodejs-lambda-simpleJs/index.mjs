@@ -48,7 +48,7 @@ async function fnToPingWebSite() {
                 try {
                     const result = await pingWebSite();
                     span.end(); // Ensure span is properly ended
-                    resolve();
+                    resolve(result);
                 } catch (error) {
                     span.recordException(error);
                     span.end();
@@ -66,23 +66,21 @@ export const handler = async (_event, _context) => {
     console.log('Received xxxevent:', eventStr);
     let bodyMsg = "xxxEvent:\r\n\r\n" + eventStr + "\r\n\r\n";
 
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
         tracer.startActiveSpan('xfnMyLambdaMain', async (parentSpan) => {
-            context.with(trace.setSpan(context.active(), parentSpan), async () => {
-                try {
-                    const responseA = await fnToCallS3();
-                    const responseB = await fnToPingWebSite();
-                    bodyMsg = bodyMsg + "S3 call:\r\n\r\n" + responseA;
-                    bodyMsg = bodyMsg + "\r\n\r\n" + "Call web site:\r\n\r\n" + responseB;
-                    parentSpan.end();
-                    resolve(bodyMsg)
-                } catch (error) {
-                    parentSpan.recordException(error);
-                    parentSpan.end();
-                    console.error(error); // Handle errors properly
-                    reject(error);
-                }
-            });
+            try {
+                const responseA = await fnToCallS3();
+                const responseB = await fnToPingWebSite();
+                bodyMsg += "S3 call:\r\n\r\n" + responseA;
+                bodyMsg += "\r\n\r\n" + "Call web site:\r\n\r\n" + responseB;
+                parentSpan.end();
+            } catch (error) {
+                parentSpan.recordException(error);
+                parentSpan.end();
+                console.error(error);
+            } finally {
+                resolve(); // Ensure the handler waits for the span to complete
+            }
         });
     });
 
@@ -93,4 +91,4 @@ export const handler = async (_event, _context) => {
     return response;
 };
 
-// handler();
+handler();
