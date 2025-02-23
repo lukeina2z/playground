@@ -32,7 +32,7 @@ export function pingWebSite() {
             });
 
             httpResponse.on('end', () => {
-                console.log('Response body: ${data}');
+                console.log(`Response body: ${data}`);
                 resolve(data);
             });
         });

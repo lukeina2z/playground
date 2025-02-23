@@ -43,7 +43,7 @@ webApp.get('/outgoing-http-call', (req, res) => {
         });
 
         httpResponse.on('end', function () {
-            console.log('Response body: ${data}');
+            console.log(`Response body: ${data}`);
             res.json({
                 XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
                 Message: "Pinged aws.amazon.com",
