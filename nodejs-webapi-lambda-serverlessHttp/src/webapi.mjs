@@ -1,3 +1,4 @@
+import { context, trace } from "@opentelemetry/api";
 import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
 import express from "express";
 import http from "http";
@@ -15,8 +16,7 @@ webApp.get('/', (req, res) => {
 
 webApp.get('/aws-sdk-call', (req, res) => {
     console.log(`sdkv3: handling /aws-sdk-call with S3 call.`);
-    try
-    {
+    try {
         const s3Client = new S3Client();
         const command = new ListBucketsCommand({});
         s3Client.send(command)
@@ -31,10 +31,45 @@ webApp.get('/aws-sdk-call', (req, res) => {
                 res.status(500).send('Error listing S3 buckets: ' + err.message);
             });
     }
-    catch(err)
-    {
+    catch (err) {
         console.error(`error found in S3 call: ${err?.message || err}`);
     }
+});
+
+webApp.get('/aws-sdk-call-with-span', async (req, res) => {
+    const tracer = trace.getTracer('lambda-tracer');
+    await tracer.startActiveSpan('callS3-With-Span', async (span) => {
+        try {
+            console.log(`handling /aws-sdk-call-with-span with S3 call.`);
+            const s3Client = new S3Client();
+            const command = new ListBucketsCommand({});
+            // s3Client.send(command)
+            //     .then(function (data) {
+            //         res.json({
+            //             XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
+            //             S3Buckets: data.Buckets
+            //         });
+            //     })
+            //     .catch(function (err) {
+            //         console.error(`Error in aws-sdk-call:  ${err.message}`);
+            //         res.status(500).send('Error listing S3 buckets: ' + err.message);
+            //     });
+
+            const data = await s3Client.send(command);
+            res.json({
+                XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
+                S3Buckets: data.Buckets
+            });
+        } catch (error) {
+            span.recordException(error);
+            span.setStatus({ code: trace.SpanStatusCode.ERROR, message: error.message });
+            console.error(`error found in S3 call: ${error?.message || error}`);
+            res.status(500).send('Error listing S3 buckets: ' + err.message);
+            throw error;
+        } finally {
+            span.end();
+        }
+    });
 });
 
 webApp.get('/outgoing-http-call', (req, res) => {
