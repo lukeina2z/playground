@@ -7,7 +7,6 @@ const webApp = express();
 
 webApp.get('/', (req, res) => {
     console.log(`sdkv3: handling call at root /.`);
-    // res.send(`Welcome! Two web methods are provided:  /aws-sdk-call    and    /outgoing-http-call`);
     res.json({
         Message: `Two web methods are provided:  /aws-sdk-call    and    /outgoing-http-call`,
         XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`
@@ -38,23 +37,11 @@ webApp.get('/aws-sdk-call', (req, res) => {
 
 webApp.get('/aws-sdk-call-with-span', async (req, res) => {
     const tracer = trace.getTracer('lambda-tracer');
-    await tracer.startActiveSpan('callS3-With-Span', async (span) => {
+    await tracer.startActiveSpan('xspan-aws-sdk-call', async (span) => {
         try {
             console.log(`handling /aws-sdk-call-with-span with S3 call.`);
             const s3Client = new S3Client();
             const command = new ListBucketsCommand({});
-            // s3Client.send(command)
-            //     .then(function (data) {
-            //         res.json({
-            //             XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
-            //             S3Buckets: data.Buckets
-            //         });
-            //     })
-            //     .catch(function (err) {
-            //         console.error(`Error in aws-sdk-call:  ${err.message}`);
-            //         res.status(500).send('Error listing S3 buckets: ' + err.message);
-            //     });
-
             const data = await s3Client.send(command);
             res.json({
                 XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
@@ -72,27 +59,66 @@ webApp.get('/aws-sdk-call-with-span', async (req, res) => {
     });
 });
 
-webApp.get('/outgoing-http-call', (req, res) => {
-    console.log(`sdkv3: handling /outgoing-http-call.`);
-    const httpReq = http.get('http://aws.amazon.com', (httpResponse) => {
-        console.log('Response status code:', httpResponse.statusCode);
-        let data = "";
-        httpResponse.on('data', function (chunk) {
-            data += chunk;  // Accumulate the chunks of data
+function fetchHttp(url) {
+    return new Promise((resolve, reject) => {
+        const req = http.get(url, (res) => {
+            let data = "";
+
+            res.on("data", (chunk) => {
+                data += chunk;
+            });
+
+            res.on("end", () => {
+                resolve({ statusCode: res.statusCode, body: data });
+            });
         });
 
-        httpResponse.on('end', function () {
-            console.log(`Response body: ${data}`);
+        req.on("error", (err) => reject(err));
+    });
+}
+
+webApp.get("/outgoing-http-call", async (req, res) => {
+    try {
+        console.log(`handling /outgoing-http-call.`);
+
+        const { statusCode, body } = await fetchHttp("http://aws.amazon.com");
+
+        console.log("Response status code:", statusCode);
+        console.log(`Response body: ${body}`);
+
+        res.json({
+            XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
+            Message: "Pinged aws.amazon.com",
+            ResponseBody: body,
+        });
+    } catch (error) {
+        console.error(`Error in outgoing-http-call: ${error.message}`);
+        res.status(500).json({ error: `Error in outgoing-http-call:  ${err.message}` });
+    }
+});
+
+webApp.get('/outgoing-http-call-with-span', async (req, res) => {
+    const tracer = trace.getTracer('lambda-tracer');
+    await tracer.startActiveSpan('xspan-outgoing-http-call', async (span) => {
+        try {
+            console.log(`handling /outgoing-http-call-with-span.`);
+            const { statusCode, body } = await fetchHttp("http://aws.amazon.com");
+            console.log("Response status code:", statusCode);
+            console.log(`Response body: ${body}`);
             res.json({
                 XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
                 Message: "Pinged aws.amazon.com",
-                ResponseBody: data
+                ResponseBody: body,
             });
-        });
-    })
-
-    httpReq.on('error', function (err) {
-        console.error(`Error in outgoing-http-call:  ${err.message}`);
+        } catch (error) {
+            span.recordException(error);
+            span.setStatus({ code: trace.SpanStatusCode.ERROR, message: error.message });
+            console.error(`Error in outgoing-http-call-with-span: ${error.message}`);
+            res.status(500).json({ error: `Error in outgoing-http-call-with-span:  ${err.message}` });
+            throw error;
+        } finally {
+            span.end();
+        }
     });
 });
 
