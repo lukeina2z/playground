@@ -6,7 +6,11 @@ const webApp = express();
 
 webApp.get('/', (req, res) => {
     console.log(`sdkv3: handling call at root /.`);
-    res.send(`Welcome! Two web methods are provided:  /aws-sdk-call    and    /outgoing-http-call`);
+    // res.send(`Welcome! Two web methods are provided:  /aws-sdk-call    and    /outgoing-http-call`);
+    res.json({
+        Message: `Two web methods are provided:  /aws-sdk-call    and    /outgoing-http-call`,
+        XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`
+    });
 });
 
 webApp.get('/aws-sdk-call', (req, res) => {
