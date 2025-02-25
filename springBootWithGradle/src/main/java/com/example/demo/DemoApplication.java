@@ -28,10 +28,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
 
-
-
 import java.util.HashMap;
-
 
 record Greeting(long id, String content) {
 }
@@ -53,9 +50,8 @@ public class DemoApplication {
                  <body>
                      <p>Two web methods are provided:</p>
                      <ul>
-                         <li><a href="/hello" target="_blank">/hello</a></li>
-                         <li><a href="/aws-sdk-call" target="_blank">/aws-sdk-call</a></li>
-                         <li><a href="/outgoing-http-call" target="_blank">/outgoing-http-call</a></li>
+                         <li>/aws-sdk-call</li>
+                         <li>/outgoing-http-call</li>
                      </ul>
                  </body>
                  </html>
@@ -80,13 +76,6 @@ public class DemoApplication {
 
         StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<html><body>");
-        htmlContent.append("<p>Two web methods are provided:</p><ul>");
-        htmlContent.append("<li><a href=\"/hello\" target=\"_blank\">/hello</a></li>");
-        htmlContent.append("<li><a href=\"/aws-sdk-call\" target=\"_blank\">/aws-sdk-call</a></li>");
-        htmlContent.append("<li><a href=\"/outgoing-http-call\" target=\"_blank\">/outgoing-http-call</a></li>");
-        htmlContent.append("</ul>");
-
-        // Add S3 bucket listing
         htmlContent.append("<h2>S3 Buckets:</h2><ul>");
         try {
             ListBucketsResponse response = s3.listBuckets();
@@ -109,39 +98,36 @@ public class DemoApplication {
         try {
             // Create RestTemplate instance
             RestTemplate restTemplate = new RestTemplate();
-            
+
             // Make the HTTP GET request to Google
             ResponseEntity<String> response = restTemplate.exchange(
-                "http://aws.amazon.com",
-                HttpMethod.GET,
-                null,
-                String.class
-            );
-            
+                    "http://aws.amazon.com",
+                    HttpMethod.GET,
+                    null,
+                    String.class);
+
             // Create API response with the content and status
             ApiResponse apiResponse = new ApiResponse(
-                response.getBody(),
-                response.getStatusCode().value(),
-                "Success"
-            );
-            
+                    response.getBody(),
+                    response.getStatusCode().value(),
+                    "Success");
+
             // Return successful response with status code 200
             return ResponseEntity
-                .ok()
-                .body(apiResponse);
-                
+                    .ok()
+                    .body(apiResponse);
+
         } catch (Exception e) {
             // Create error response
             ApiResponse errorResponse = new ApiResponse(
-                null,
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Error: " + e.getMessage()
-            );
-            
+                    null,
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "Error: " + e.getMessage());
+
             // Return error response with status code 500
             return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(errorResponse);
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(errorResponse);
         }
     }
 }
