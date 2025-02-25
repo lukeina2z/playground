@@ -22,13 +22,11 @@ import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
-
-import java.util.HashMap;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 
 record Greeting(long id, String content) {
 }
@@ -96,33 +94,33 @@ public class DemoApplication {
     @GetMapping(value = "/outgoing-http-call", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse> outgoingHttpCall(String name) {
         try {
-            // Create RestTemplate instance
-            RestTemplate restTemplate = new RestTemplate();
+            final HttpClient httpClient = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
 
-            // Make the HTTP GET request to Google
-            ResponseEntity<String> response = restTemplate.exchange(
-                    "http://aws.amazon.com",
-                    HttpMethod.GET,
-                    null,
-                    String.class);
+            HttpRequest request = HttpRequest.newBuilder()
+            .GET()
+            .uri(URI.create("http://aws.amazon.com"))
+            .header("Accept", "application/json")
+            .build();
 
-            // Create API response with the content and status
-            ApiResponse apiResponse = new ApiResponse(
-                    response.getBody(),
-                    response.getStatusCode().value(),
-                    "Success");
+            HttpResponse<String> response = httpClient.send(request, 
+                    HttpResponse.BodyHandlers.ofString());
 
-            // Return successful response with status code 200
+                    ApiResponse apiResponse = new ApiResponse(
+                        response.body(),
+                        response.statusCode(),
+                        "Success");
+
             return ResponseEntity
-                    .ok()
+                    .status(response.statusCode())
                     .body(apiResponse);
 
         } catch (Exception e) {
-            // Create error response
             ApiResponse errorResponse = new ApiResponse(
-                    null,
+                    "Error: " + e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                    "Error: " + e.getMessage());
+                    "Internal error");
 
             // Return error response with status code 500
             return ResponseEntity
