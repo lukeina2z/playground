@@ -133,28 +133,4 @@ public class DemoApplication {
                 .body(errorResponse);
         }
     }
-
-    @GetMapping("/outgoing-http-call-text")
-    public String outgoingHttpCallxx(@RequestParam(value = "name", defaultValue = "World") String name) {
-        // return String.format("outgoing-http-call: %s!", name);
-
-        try {
-            // Create RestTemplate instance
-            RestTemplate restTemplate = new RestTemplate();
-            
-            // Make the HTTP GET request to Google
-            ResponseEntity<String> response = restTemplate.exchange(
-                "http://aws.amazon.com",
-                HttpMethod.GET,
-                null,
-                String.class
-            );
-            
-            // Return the response body
-            return response.getBody();
-            
-        } catch (Exception e) {
-            return "<html><body><h1>Error occurred: " + e.getMessage() + "</h1></body></html>";
-        }
-    }
 }
