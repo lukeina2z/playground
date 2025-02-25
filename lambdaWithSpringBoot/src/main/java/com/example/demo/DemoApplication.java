@@ -19,6 +19,12 @@ import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+
 @SpringBootApplication
 @RestController
 public class DemoApplication {
@@ -73,28 +79,35 @@ public class DemoApplication {
     @GetMapping(value = "/outgoing-http-call", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse> outgoingHttpCall(String name) {
         try {
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.exchange(
-                    "http://aws.amazon.com",
-                    HttpMethod.GET,
-                    null,
-                    String.class);
+            final HttpClient httpClient = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
 
-            ApiResponse apiResponse = new ApiResponse(
-                    response.getBody(),
-                    response.getStatusCode().value(),
-                    "Success");
+            HttpRequest request = HttpRequest.newBuilder()
+            .GET()
+            .uri(URI.create("http://aws.amazon.com"))
+            .header("Accept", "application/json")
+            .build();
+
+            HttpResponse<String> response = httpClient.send(request, 
+                    HttpResponse.BodyHandlers.ofString());
+
+                    ApiResponse apiResponse = new ApiResponse(
+                        response.body(),
+                        response.statusCode(),
+                        "Success");
 
             return ResponseEntity
-                    .ok()
+                    .status(response.statusCode())
                     .body(apiResponse);
 
         } catch (Exception e) {
             ApiResponse errorResponse = new ApiResponse(
-                    null,
+                    "Error: " + e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                    "Error: " + e.getMessage());
+                    "Internal error");
 
+            // Return error response with status code 500
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(errorResponse);

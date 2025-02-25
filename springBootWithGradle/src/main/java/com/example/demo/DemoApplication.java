@@ -67,7 +67,7 @@ public class DemoApplication {
         // return String.format("aws-sdk-call: %s!", name);
 
         // Create S3 client
-        Region region = Region.US_EAST_1; // or your preferred region
+        Region region = Region.US_WEST_2; // or your preferred region
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
