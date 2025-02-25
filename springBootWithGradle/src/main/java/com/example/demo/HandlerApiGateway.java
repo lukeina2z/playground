@@ -13,9 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.HashMap;
 import java.util.Map;
 
-// Handler value: example.HandlerApiGateway
 public class HandlerApiGateway implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
-
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
         LambdaLogger logger = context.getLogger();
@@ -27,7 +25,6 @@ public class HandlerApiGateway implements RequestHandler<APIGatewayProxyRequestE
         Map<String, Object> contextInfo = new HashMap<>();
 
         try {
-            // Collect event information
             eventInfo.put("path", event.getPath());
             eventInfo.put("httpMethod", event.getHttpMethod());
             eventInfo.put("headers", event.getHeaders());
@@ -36,7 +33,6 @@ public class HandlerApiGateway implements RequestHandler<APIGatewayProxyRequestE
             eventInfo.put("stageVariables", event.getStageVariables());
             eventInfo.put("requestContext", event.getRequestContext());
 
-            // Parse the body if it's JSON
             String body = event.getBody();
             if (body != null && !body.isEmpty()) {
                 try {
@@ -51,7 +47,6 @@ public class HandlerApiGateway implements RequestHandler<APIGatewayProxyRequestE
 
             eventInfo.put("isBase64Encoded", event.getIsBase64Encoded());
 
-            // Collect context information
             contextInfo.put("functionName", context.getFunctionName());
             contextInfo.put("functionVersion", context.getFunctionVersion());
             contextInfo.put("invokedFunctionArn", context.getInvokedFunctionArn());
@@ -61,11 +56,9 @@ public class HandlerApiGateway implements RequestHandler<APIGatewayProxyRequestE
             contextInfo.put("logGroupName", context.getLogGroupName());
             contextInfo.put("logStreamName", context.getLogStreamName());
 
-            // Combine both into response body
             responseBody.put("event", eventInfo);
             responseBody.put("context", contextInfo);
 
-            // Create response
             APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                     .withStatusCode(200)
                     .withHeaders(new HashMap<String, String>() {
