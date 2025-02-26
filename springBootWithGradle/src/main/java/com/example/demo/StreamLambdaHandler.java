@@ -5,6 +5,7 @@ import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.OutputStream;
 
 public class StreamLambdaHandler implements RequestStreamHandler {
     private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
+    LambdaLogger logger = null;
     static {
         try {
             handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(DemoApplication.class);
@@ -27,6 +29,12 @@ public class StreamLambdaHandler implements RequestStreamHandler {
     @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context)
             throws IOException {
+        if (logger == null) {
+            logger = context.getLogger();
+        }
+
+        logger.log("xlogger: before proxyStream call. " + inputStream.toString());
         handler.proxyStream(inputStream, outputStream, context);
+        logger.log("xlogger: after proxyStream call. " + outputStream.toString());;
     }
 }
