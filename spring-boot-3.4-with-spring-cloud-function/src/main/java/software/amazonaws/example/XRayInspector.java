@@ -1,4 +1,4 @@
-package software.amazonaws;
+package software.amazonaws.example;
 
 import com.amazonaws.xray.spring.aop.XRayEnabled;
 import org.springframework.boot.SpringApplication;
@@ -17,17 +17,12 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-@XRayEnabled
-public class Application {
 
-    @Bean
-    public Filter tracingFilter() {
-        return new AWSXRayServletFilter("your-application-name");
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-    
-
+@Aspect
+@Component
+public class XRayInspector extends AbstractXRayInterceptor {
+    @Override
+    @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && bean(*)")
+    public void xrayEnabledClasses() {}
 }
+
