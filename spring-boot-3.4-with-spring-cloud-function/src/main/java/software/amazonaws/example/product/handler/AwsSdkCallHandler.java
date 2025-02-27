@@ -22,6 +22,11 @@ import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import com.amazonaws.xray.interceptors.TracingInterceptor;
+import org.springframework.stereotype.Component;
+
 @Component
 public class AwsSdkCallHandler implements Function<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -37,7 +42,13 @@ public class AwsSdkCallHandler implements Function<APIGatewayProxyRequestEvent, 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .overrideConfiguration(
+                    ClientOverrideConfiguration.builder()
+                        .addExecutionInterceptor(new TracingInterceptor())
+                        .build())
                 .build();
+
+        
 
         StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<html><body>");
