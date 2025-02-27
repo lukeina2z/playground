@@ -16,7 +16,11 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import software.amazon.awssdk.http.HttpStatusCode;
-
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 @Component
 public class AwsSdkCallHandler implements Function<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
@@ -30,10 +34,27 @@ public class AwsSdkCallHandler implements Function<APIGatewayProxyRequestEvent, 
 
 	public APIGatewayProxyResponseEvent apply(APIGatewayProxyRequestEvent requestEvent) {
 
+        Region region = Region.US_WEST_2;
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
 
+        StringBuilder htmlContent = new StringBuilder();
+        htmlContent.append("<html><body>");
+        htmlContent.append("<h2>S3 Buckets:</h2><ul>");
+        try {
+            ListBucketsResponse response = s3.listBuckets();
+            for (Bucket bucket : response.buckets()) {
+                htmlContent.append("<li>").append(bucket.name()).append("</li>");
+            }
+        } catch (S3Exception e) {
+            htmlContent.append("<p>Error listing buckets: ").append(e.getMessage()).append("</p>");
+        }
+
+        htmlContent.append("</ul></body></html>");
 
 		return new APIGatewayProxyResponseEvent().withStatusCode(HttpStatusCode.OK)
-			.withBody("Product with id = xxx not found");
+			.withBody(htmlContent.toString());
 
 
 		
