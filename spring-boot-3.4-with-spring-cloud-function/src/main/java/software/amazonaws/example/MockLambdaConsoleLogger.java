@@ -1,4 +1,4 @@
-package software.amazonaws.example.product.handler;
+package software.amazonaws.example;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 

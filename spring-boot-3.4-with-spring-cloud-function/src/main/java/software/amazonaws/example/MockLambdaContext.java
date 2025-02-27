@@ -1,6 +1,4 @@
-package software.amazonaws.example.product.handler;
-
-
+package software.amazonaws.example;
 
 import com.amazonaws.services.lambda.runtime.ClientContext;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
