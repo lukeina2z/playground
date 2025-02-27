@@ -56,7 +56,7 @@
 		</dependency>
 
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-core</artifactId>
 		</dependency>
@@ -74,9 +74,9 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>6.1.0</version>  <!-- Use the latest stable version if available -->
+			<version>6.1.0</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 
 
 
@@ -127,13 +127,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>com.amazonaws</groupId>
 				<artifactId>aws-xray-recorder-sdk-bom</artifactId>
 				<version>2.18.2</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
+			</dependency> -->
 
 		</dependencies>
 	</dependencyManagement>
