@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    // id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
@@ -43,6 +43,9 @@ tasks.named('test') {
 }
 
 task buildZip(type: Zip) {
+    dependsOn configurations.runtimeClasspath
+    archiveFileName = "${project.name}-${version}.zip"
+    destinationDirectory = file("${buildDir}/distributions")
     from compileJava
     from processResources
     into('lib') {
@@ -50,6 +53,7 @@ task buildZip(type: Zip) {
     }
 }
 
+// Add buildZip to the build lifecycle
 build.dependsOn buildZip
 
 // shadowJar {
