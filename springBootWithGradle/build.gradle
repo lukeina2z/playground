@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    // id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
@@ -24,7 +24,6 @@ dependencies {
         'com.amazonaws:aws-lambda-java-core:1.2.3',
         'com.amazonaws:aws-lambda-java-events:3.15.0',
         'com.amazonaws.serverless:aws-serverless-java-container-springboot3:[2.0-SNAPSHOT,)',
-        'org.slf4j:slf4j-api:2.0.16',
         'org.springframework.boot:spring-boot-starter-web:3.2.6',
         'software.amazon.awssdk:lambda'
     )
@@ -43,6 +42,9 @@ tasks.named('test') {
 }
 
 task buildZip(type: Zip) {
+    dependsOn configurations.runtimeClasspath
+    archiveFileName = "${project.name}-${version}.zip"
+    destinationDirectory = file("${buildDir}/distributions")
     from compileJava
     from processResources
     into('lib') {
@@ -50,6 +52,7 @@ task buildZip(type: Zip) {
     }
 }
 
+// Add buildZip to the build lifecycle
 build.dependsOn buildZip
 
 // shadowJar {

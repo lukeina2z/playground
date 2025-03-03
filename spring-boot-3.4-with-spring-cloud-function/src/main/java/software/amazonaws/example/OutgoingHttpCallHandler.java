@@ -1,7 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-package software.amazonaws.example.product.handler;
+package software.amazonaws.example;
 
 import java.net.URI;
 import java.util.Optional;
