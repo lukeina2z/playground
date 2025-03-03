@@ -2,6 +2,18 @@ package example;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+
 import java.io.*;
 import org.json.JSONObject;
 
@@ -38,10 +50,35 @@ public class MyStreamLambdaHandler implements RequestStreamHandler {
         
         JSONObject responseBody = new JSONObject();
         responseBody.put("message", "xxx-Hello, " + name + "!");
+        responseBody.put("S3Call", getS3buckets());
         responseJson.put("body", responseBody.toString());
         
         // Write response
         writer.write(responseJson.toString());
         writer.flush();
     }
+
+    private static S3Client s3 = null;
+    String getS3buckets() {
+        Region region = Region.US_WEST_2; // or your preferred region
+        if (s3 == null) {
+            s3 = S3Client.builder()
+                    .region(region)
+                    .build();
+        }
+        StringBuilder strResponse = new StringBuilder();
+        strResponse.append("S3 Buckets: ");
+        try {
+            ListBucketsResponse response = s3.listBuckets();
+            for (Bucket bucket : response.buckets()) {
+                strResponse.append("   ").append(bucket.name()).append("   ");
+            }
+        } catch (S3Exception e) {
+            strResponse.append("Error listing buckets: ").append(e.getMessage());
+        }
+
+        return strResponse.toString();
+    }
 }
+
+
