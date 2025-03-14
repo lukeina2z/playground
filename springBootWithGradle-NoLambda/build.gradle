@@ -1,5 +1,5 @@
 plugins {
-    // id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
@@ -53,12 +53,12 @@ task buildZip(type: Zip) {
 }
 
 // Add buildZip to the build lifecycle
-build.dependsOn buildZip
+// build.dependsOn buildZip
 
-// shadowJar {
-//     manifest {
-//         attributes 'Main-Class': 'com.example.demo.DemoApplication'
-//     }
-// }
+shadowJar {
+    manifest {
+        attributes 'Main-Class': 'com.example.demo.DemoApplication'
+    }
+}
 
-// build.dependsOn shadowJar
+build.dependsOn shadowJar
