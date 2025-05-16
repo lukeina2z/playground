@@ -15,6 +15,7 @@ import io.opentelemetry.api.trace.Tracer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 
 import software.amazon.awssdk.regions.Region;
@@ -40,6 +41,7 @@ import io.opentelemetry.api.trace.SpanKind;
 public class DemoApplication {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
+    private String s3CallHtmlResponse = "";
 
     // Use a named tracer, ideally using your library's package or name
     private final Tracer tracer = GlobalOpenTelemetry.getTracer("com.xyxyxy.mylibrary");
@@ -55,6 +57,73 @@ public class DemoApplication {
             // Simulated work
             Thread.sleep(100);
         } catch (InterruptedException e) {
+            span.recordException(e);
+            Thread.currentThread().interrupt();
+        } finally {
+            span.end();
+        }
+    }
+
+    public void clientFoo() {
+        Span span = tracer.spanBuilder("xyxy-client-foo")
+                .setSpanKind(SpanKind.CLIENT)
+                .startSpan();
+
+        try (Scope scope = span.makeCurrent()) {
+            serverFoo();
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            span.recordException(e);
+            Thread.currentThread().interrupt();
+        } finally {
+            span.end();
+        }
+    }
+
+    public void serverFoo() {
+        Span span = tracer.spanBuilder("xyxy-server-foo")
+                .setSpanKind(SpanKind.SERVER)
+                .startSpan();
+
+        try (Scope scope = span.makeCurrent()) {
+            span.addEvent("doing some important work in server foo.");
+            clientCallS3();
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            span.recordException(e);
+            Thread.currentThread().interrupt();
+        } finally {
+            span.end();
+        }
+    }
+
+    public void clientCallS3() {
+        Span span = tracer.spanBuilder("xyxy-client-S3")
+                .setSpanKind(SpanKind.CLIENT)
+                .startSpan();
+
+        try (Scope scope = span.makeCurrent()) {
+
+            Region region = Region.US_WEST_2;
+            S3Client s3 = S3Client.builder()
+                    .region(region)
+                    .build();
+
+            StringBuilder htmlContent = new StringBuilder();
+            htmlContent.append("<html><body>");
+            htmlContent.append("<h2>S3 Buckets:</h2><ul>");
+            try {
+                ListBucketsResponse response = s3.listBuckets();
+                for (Bucket bucket : response.buckets()) {
+                    htmlContent.append("<li>").append(bucket.name()).append("</li>");
+                }
+            } catch (S3Exception e) {
+                htmlContent.append("<p>Error listing buckets: ").append(e.getMessage()).append("</p>");
+            }
+
+            htmlContent.append("</ul></body></html>");
+            this.s3CallHtmlResponse = htmlContent.toString();
+        } catch (Exception e) {
             span.recordException(e);
             Thread.currentThread().interrupt();
         } finally {
@@ -83,29 +152,12 @@ public class DemoApplication {
 
     @GetMapping("/aws-sdk-call")
     public String awsSdkCall(@RequestParam(value = "name", defaultValue = "World") String name) {
-        Span span = tracer.spanBuilder("xyxy-call-s3")
-                        .setSpanKind(SpanKind.SERVER)
-                        .startSpan();
+        Span span = tracer.spanBuilder("xyxy-SprintBoot-S3-Handler")
+                .setSpanKind(SpanKind.SERVER)
+                .startSpan();
 
-        StringBuilder htmlContent = new StringBuilder();
         try (Scope scope = span.makeCurrent()) {
-            Region region = Region.US_WEST_2;
-            S3Client s3 = S3Client.builder()
-                    .region(region)
-                    .build();
-
-            htmlContent.append("<html><body>");
-            htmlContent.append("<h2>S3 Buckets:</h2><ul>");
-            try {
-                ListBucketsResponse response = s3.listBuckets();
-                for (Bucket bucket : response.buckets()) {
-                    htmlContent.append("<li>").append(bucket.name()).append("</li>");
-                }
-            } catch (S3Exception e) {
-                htmlContent.append("<p>Error listing buckets: ").append(e.getMessage()).append("</p>");
-            }
-
-            htmlContent.append("</ul></body></html>");
+            clientFoo();
         } catch (Exception ex) {
             span.recordException(ex);
             Thread.currentThread().interrupt();
@@ -113,7 +165,7 @@ public class DemoApplication {
             span.end();
         }
 
-        return htmlContent.toString();
+        return this.s3CallHtmlResponse;
     }
 
     record ApiResponse(String content, int statusCode, String message) {
@@ -122,8 +174,8 @@ public class DemoApplication {
     @GetMapping(value = "/outgoing-http-call", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse> outgoingHttpCall(String name) {
         Span span = tracer.spanBuilder("xyxy-http-call")
-                    .setSpanKind(SpanKind.CLIENT)
-                    .startSpan();
+                .setSpanKind(SpanKind.CLIENT)
+                .startSpan();
 
         try (Scope scope = span.makeCurrent()) {
             final HttpClient httpClient = HttpClient.newBuilder()
@@ -145,7 +197,7 @@ public class DemoApplication {
                     "Success");
 
             return ResponseEntity
-                    .status(response.statusCode())
+                    .status(HttpStatus.OK)
                     .body(apiResponse);
 
         } catch (Exception e) {
