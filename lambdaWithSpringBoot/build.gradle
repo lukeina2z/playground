@@ -53,23 +53,16 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-shadowJar {
-    archiveBaseName.set('lambda-handler')
-    archiveClassifier.set('')
-    archiveVersion.set('')
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
 }
 
-tasks.build.dependsOn(shadowJar)
-
-// task buildZip(type: Zip) {
-//     from compileJava
-//     from processResources
-//     into('lib') {
-//         from configurations.runtimeClasspath
-//     }
-// }
-
-// build.dependsOn buildZip
+build.dependsOn buildZip
 
 // shadowJar {
 //     manifest {
