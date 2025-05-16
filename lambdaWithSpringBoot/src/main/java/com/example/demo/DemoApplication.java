@@ -70,8 +70,10 @@ public class DemoApplication {
                 .startSpan();
 
         try (Scope scope = span.makeCurrent()) {
+            span.addEvent("xyxy-evt:going to call serverFoo()");
+            Thread.sleep(300);
             serverFoo();
-            Thread.sleep(100);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             span.recordException(e);
             Thread.currentThread().interrupt();
@@ -86,7 +88,7 @@ public class DemoApplication {
                 .startSpan();
 
         try (Scope scope = span.makeCurrent()) {
-            span.addEvent("doing some important work in server foo.");
+            span.addEvent("xyxy-evt:going to ping S3.");
             clientCallS3();
             Thread.sleep(100);
         } catch (InterruptedException e) {
