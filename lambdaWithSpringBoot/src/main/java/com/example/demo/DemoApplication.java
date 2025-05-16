@@ -32,6 +32,8 @@ import java.time.Duration;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.context.Scope;
+import io.opentelemetry.api.trace.SpanKind;
 
 @SpringBootApplication
 @RestController
@@ -44,8 +46,11 @@ public class DemoApplication {
 
     public void doSomething() {
         // This will be a no-op if the user doesn't configure OpenTelemetry
-        Span span = tracer.spanBuilder("doSomething").startSpan();
-        try {
+        Span span = tracer.spanBuilder("xyxy-doSomething")
+                .setSpanKind(SpanKind.SERVER)
+                .startSpan();
+
+        try (Scope scope = span.makeCurrent()) {
             span.addEvent("doing some important work");
             // Simulated work
             Thread.sleep(100);
@@ -78,9 +83,12 @@ public class DemoApplication {
 
     @GetMapping("/aws-sdk-call")
     public String awsSdkCall(@RequestParam(value = "name", defaultValue = "World") String name) {
-        Span span = tracer.spanBuilder("xyxy-call-s3").startSpan();
+        Span span = tracer.spanBuilder("xyxy-call-s3")
+                        .setSpanKind(SpanKind.SERVER)
+                        .startSpan();
+
         StringBuilder htmlContent = new StringBuilder();
-        try {
+        try (Scope scope = span.makeCurrent()) {
             Region region = Region.US_WEST_2;
             S3Client s3 = S3Client.builder()
                     .region(region)
@@ -113,8 +121,11 @@ public class DemoApplication {
 
     @GetMapping(value = "/outgoing-http-call", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse> outgoingHttpCall(String name) {
-        Span span = tracer.spanBuilder("xyxy-http-call").startSpan();
-        try {
+        Span span = tracer.spanBuilder("xyxy-http-call")
+                    .setSpanKind(SpanKind.CLIENT)
+                    .startSpan();
+
+        try (Scope scope = span.makeCurrent()) {
             final HttpClient httpClient = HttpClient.newBuilder()
                     .connectTimeout(Duration.ofSeconds(10))
                     .build();
