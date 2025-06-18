@@ -30,7 +30,7 @@ async function doWork(parent, tracer) {
 module.exports = async function main() {
     const tracer = trace.getTracer('example-basic-tracer-node');
     // Create a span. A span must be closed.
-    const parentSpan = tracer.startSpan('main');
+    const parentSpan = tracer.startSpan('xy-top-root-span');
     for (let i = 0; i < 1; i += 1) {
         await doWork(parentSpan, tracer);
     }

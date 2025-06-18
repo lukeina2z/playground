@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "jar Manual-Tracing",
+            "request": "launch",
+            "mainClass": "org.example.App",
+            "args": "",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            // "preLaunchTask": "Build with Gradle",
+            "vmArgs": "",
+            "projectName": "",
+            "modulePaths": [],
+            "classPaths": [
+                "${workspaceFolder}/app/build/libs/app-all.jar"
+            ]
+        }
+    ]
+}
