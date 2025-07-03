@@ -12,8 +12,7 @@
    ```sh
    org.example.MyLambda::handleRequest
    ```
-4. Enable Application Signals and Lambda service traces.
-5. Enable debug log.
+4. Enable debug log.
    ```sh
    OTEL_JAVAAGENT_DEBUG=true
    OTEL_LOG_LEVEL=debug
