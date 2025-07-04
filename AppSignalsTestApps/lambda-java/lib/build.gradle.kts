@@ -31,8 +31,8 @@ dependencies {
     implementation("org.slf4j:slf4j-nop:2.0.16")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
-    implementation("io.opentelemetry:opentelemetry-api:1.52.0-xyz")
-    implementation("io.opentelemetry:opentelemetry-context:1.52.0-xyz")
+    implementation("io.opentelemetry:opentelemetry-api:1.45.99")
+    implementation("io.opentelemetry:opentelemetry-context:1.45.99")
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation(libs.guava)
