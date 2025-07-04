@@ -15,9 +15,10 @@
                     "-javaagent:/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar"
                 ],
                 "sourcePaths": [
-                    "/Users/lukezha/github/opentelemetry-java/api",
-                    "/Users/lukezha/github/opentelemetry-java/extensions",
-                    "/Users/lukezha/github/opentelemetry-java/sdk",
+                    "/Users/lukezha/github/java-stable/opentelemetry-java/api/all/src/main/java/io/opentelemetry/api/GlobalOpenTelemetry.java",
+                    "/Users/lukezha/github/java-stable/opentelemetry-java/api/all/src/main/java/io/opentelemetry/api",
+                    "/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/opentelemetry-java-instrumentation",
+                    "/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/opentelemetry-java-contrib",
                 ],
             },
             "env": {
