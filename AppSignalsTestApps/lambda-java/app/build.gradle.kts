@@ -12,7 +12,7 @@ plugins {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
+    mavenLocal()
     mavenCentral()
 }
 
@@ -23,10 +23,10 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     implementation("com.amazonaws:aws-lambda-java-core:1.3.0")
-    implementation("software.amazon.awssdk:s3:2.28.29")
-    implementation("org.slf4j:slf4j-nop:2.0.16")
     implementation("com.amazonaws:aws-lambda-java-events:3.11.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    // implementation("software.amazon.awssdk:s3:2.28.29")
+    // implementation("org.slf4j:slf4j-nop:2.0.16")
+    // implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
     implementation(project(":lib"))
 
