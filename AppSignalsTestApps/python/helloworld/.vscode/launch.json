@@ -5,14 +5,36 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger",
+            "name": "dbg-m-http.server",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "http.server",
+            // C:\Users\Administrator\AppData\Local\Programs\Python\Python313\Lib\http
+            "stopOnEntry": true,
+            "args": [
+                "8888"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "dbg-m-pip",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pip",
+            // C:\Users\Administrator\AppData\Local\Programs\Python\Python313\Lib\site-packages\pip
+            "stopOnEntry": true,
+            "args": [
+                "inspect"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "hello-world",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/helloworld.py",
             "console": "integratedTerminal",
-            "args": [
-
-            ]
+            "args": []
             // "args": "${command:pickArgs}"
         }
     ]
