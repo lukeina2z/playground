@@ -14,10 +14,10 @@ public class MyLambda implements RequestHandler<APIGatewayProxyRequestEvent, API
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
         try {
             Library library = new Library();
-            library.mainFunction();
+            String traceId = library.mainFunction();
 
             response.setStatusCode(200);
-            response.setBody("xxx Success !!!");
+            response.setBody("OTel TraceID:  " + traceId);
 
         } catch (Exception e) {
             response.setStatusCode(500);

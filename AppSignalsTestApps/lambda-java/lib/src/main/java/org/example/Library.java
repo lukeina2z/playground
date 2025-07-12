@@ -17,16 +17,19 @@ public class Library {
         tracer = MyOTel.getInstance().getTracer();
     }
 
-    public void mainFunction() {
+    public String mainFunction() {
         Span rootSpan = tracer.spanBuilder("Root-Span")
                 .setSpanKind(SpanKind.INTERNAL)
                 .startSpan();
+
+        String rootSpanId = rootSpan.getSpanContext().getTraceId();
 
         try (Scope scope = rootSpan.makeCurrent()) {
             doWork();
         } finally {
             rootSpan.end();
         }
+        return rootSpanId;
     }
 
     public void doWork() {
