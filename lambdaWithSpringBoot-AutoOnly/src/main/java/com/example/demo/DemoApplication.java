@@ -142,6 +142,7 @@ public class DemoApplication {
         return """
                  <html>
                  <body>
+                    <h1>Lambda With SpringBoot - Auto Only (for App Signals)</h1>
                      <p>Two web methods are provided:</p>
                      <ul>
                          <li>/aws-sdk-call</li>
