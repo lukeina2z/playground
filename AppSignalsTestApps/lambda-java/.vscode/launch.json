@@ -6,31 +6,27 @@
     "configurations": [
         {
             "type": "java",
-            "name": "jar Manual-Tracing",
+            "name": "run JavaAgent with Manual-Tracing",
             "request": "launch",
             "mainClass": "org.example.App",
             "osx": {
                 "args": [],
                 "vmArgs": [
-                    "-javaagent:/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar"
+                    // "-javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar"
                 ],
-                "sourcePaths": [
-                    "/Users/lukezha/github/java-stable/opentelemetry-java/api/all/src/main/java/io/opentelemetry/api/GlobalOpenTelemetry.java",
-                    "/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/opentelemetry-java-instrumentation/javaagent-tooling/src/main/java/io/opentelemetry/javaagent/tooling",
-                    "/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/opentelemetry-java-instrumentation",
-                    "/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/opentelemetry-java-contrib",
-                    "/Users/lukezha/github/java-stable/aws-otel-java-instrumentation/lambda-layer/opentelemetry-java-contrib/aws-resources/src/main/java/io/opentelemetry/contrib/aws",
-                    "/Users/lukezha/github/java-stable/opentelemetry-java/api/all/src/main/java/io/opentelemetry/api",
-                ],
+                "sourcePaths": [],
             },
             "env": {
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=OTel-JAVAAGENT-Lambda",
+                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/opentelemetry-java-instrumentation/javaagent/build/libs/opentelemetry-javaagent-2.18.99.jar",
+                // "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-JAVAAGENT-Lambda",
+                // "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar",
                 "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
                 "OTEL_JAVAAGENT_DEBUG": "true",
                 "OTEL_LOG_LEVEL": "debug",
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=xy-Lambda-Java",
                 "OTEL_METRICS_EXPORTER": "none",
                 "OTEL_LOGS_EXPORTER": "none",
-                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
+                // "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
                 "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
                 // "OTEL_METRIC_EXPORT_INTERVAL": "2000",
                 // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
@@ -38,7 +34,7 @@
                 "OTEL_TRACES_SAMPLER": "always_on",
                 "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
                 "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
-                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+                // "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
             },
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
