@@ -9,7 +9,7 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 # Settings control global defaults
 Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
 Settings.llm = Ollama(
-    model="qwen3:32b",
+    model="qwen3:30b-a3b",
     # model="mistral:7b",
     request_timeout=360.0,
     # Manually set the context window to limit memory usage
@@ -17,15 +17,30 @@ Settings.llm = Ollama(
 )
 
 # Create a RAG tool using LlamaIndex
-documents = SimpleDirectoryReader("mydata").load_data()
-index = VectorStoreIndex.from_documents(
-    documents,
+# documents = SimpleDirectoryReader("mydata").load_data()
+# index = VectorStoreIndex.from_documents(
+#     documents,
+#     # we can optionally override the embed_model here
+#     embed_model=Settings.embed_model,
+# )
+
+# # Save the index
+# index.storage_context.persist("my-storage")
+
+# Later, load the index
+from llama_index.core import StorageContext, load_index_from_storage
+
+storage_context = StorageContext.from_defaults(persist_dir="my-storage")
+index = load_index_from_storage(
+    storage_context,
     # we can optionally override the embed_model here
-    # embed_model=Settings.embed_model,
+    # it's important to use the same embed_model as the one used to build the index
+    embed_model=Settings.embed_model,
 )
+
 query_engine = index.as_query_engine(
     # we can optionally override the llm here
-    # llm=Settings.llm,
+    llm=Settings.llm,
 )
 
 
@@ -52,7 +67,7 @@ agent = AgentWorkflow.from_tools_or_functions(
 # Now we can ask questions about the documents or do calculations
 async def main():
     response = await agent.run(
-        "What did the author do in college? Also, what is the result of 10 * 9?"
+        "What did the author do in college? Which college did the autho go? Did author go to Harvard? When and what did he/she do? Also, what is the result of 10 * 9?"
     )
     print(str(response))
     
