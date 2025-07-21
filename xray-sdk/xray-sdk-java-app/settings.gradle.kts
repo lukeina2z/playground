@@ -10,6 +10,6 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
 }
 
-rootProject.name = "lambda-java"
+rootProject.name = "xray-sdk-java-app"
 include("app")
 include("lib")

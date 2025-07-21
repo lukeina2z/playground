@@ -3,48 +3,57 @@
  */
 package org.example;
 
-import io.opentelemetry.api.GlobalOpenTelemetry;
-import io.opentelemetry.api.OpenTelemetry;
-import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.SpanKind;
-import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Scope;
+// import io.opentelemetry.api.GlobalOpenTelemetry;
+// import io.opentelemetry.api.OpenTelemetry;
+// import io.opentelemetry.api.trace.Span;
+// import io.opentelemetry.api.trace.SpanKind;
+// import io.opentelemetry.api.trace.Tracer;
+// import io.opentelemetry.context.Scope;
 
 public class Library {
-    private final Tracer tracer;
+    // private final Tracer tracer;
 
     public Library() {
-        tracer = MyOTel.getInstance().getTracer();
+        // tracer = MyOTel.getInstance().getTracer();
     }
 
     public String mainFunction() {
-        Span rootSpan = tracer.spanBuilder("Root-Span")
-                .setSpanKind(SpanKind.INTERNAL)
-                .startSpan();
+        // Span rootSpan = tracer.spanBuilder("Root-Span")
+        // .setSpanKind(SpanKind.INTERNAL)
+        // .startSpan();
 
-        String rootSpanId = rootSpan.getSpanContext().getTraceId();
+        // String rootSpanId = rootSpan.getSpanContext().getTraceId();
 
-        try (Scope scope = rootSpan.makeCurrent()) {
-            doWork();
-        } finally {
-            rootSpan.end();
-        }
-        return rootSpanId;
+        // try (Scope scope = rootSpan.makeCurrent()) {
+        // doWork();
+        // } finally {
+        // rootSpan.end();
+        // }
+        // return rootSpanId;
+
+        doWork();
+        return "Hello-XRay-Sdk.";
     }
 
     public void doWork() {
-        Span rootSpan = tracer.spanBuilder("Do-Work-Span")
-                .setSpanKind(SpanKind.INTERNAL)
-                .startSpan();
+        // Span rootSpan = tracer.spanBuilder("Do-Work-Span")
+        // .setSpanKind(SpanKind.INTERNAL)
+        // .startSpan();
 
-        try (Scope scope = rootSpan.makeCurrent()) {
-            CallHttp callHttp = new CallHttp();
-            callHttp.call();
+        // try (Scope scope = rootSpan.makeCurrent()) {
+        // CallHttp callHttp = new CallHttp();
+        // callHttp.call();
 
-            CallS3 callS3 = new CallS3();
-            callS3.call();
-        } finally {
-            rootSpan.end();
-        }
+        // CallS3 callS3 = new CallS3();
+        // callS3.call();
+        // } finally {
+        // rootSpan.end();
+        // }
+
+        CallHttp callHttp = new CallHttp();
+        callHttp.call();
+
+        CallS3 callS3 = new CallS3();
+        callS3.call();
     }
 }

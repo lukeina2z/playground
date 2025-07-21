@@ -5,15 +5,21 @@
       "label": "Build with Gradle",
       "type": "shell",
       "osx": {
-        "command": "./gradlew"
+        "command": "./gradlew",
       },
       "command": "gradlew",
-      "args": ["clean","build", "shadowJar"],
+      "args": [
+        "clean",
+        "build",
+        // "shadowJar"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": ["$gradle"]
+      "problemMatcher": [
+        "$gradle"
+      ]
     }
   ]
 }

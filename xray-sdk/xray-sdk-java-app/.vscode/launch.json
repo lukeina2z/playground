@@ -17,11 +17,6 @@
                 "sourcePaths": [],
             },
             "env": {
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=OTel-JAVAAGENT-Lambda",
-                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/opentelemetry-java-instrumentation/javaagent/build/libs/opentelemetry-javaagent-2.18.99.jar",
-                // "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-JAVAAGENT-Lambda",
-                // "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar",
-                "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
                 "OTEL_JAVAAGENT_DEBUG": "true",
                 "OTEL_LOG_LEVEL": "debug",
                 "OTEL_METRICS_EXPORTER": "none",

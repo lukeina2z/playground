@@ -2,10 +2,10 @@ package org.example;
 
 import java.net.URI;
 
-import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.SpanKind;
-import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Scope;
+// import io.opentelemetry.api.trace.Span;
+// import io.opentelemetry.api.trace.SpanKind;
+// import io.opentelemetry.api.trace.Tracer;
+// import io.opentelemetry.context.Scope;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -13,22 +13,24 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 public class CallHttp {
-    private final Tracer tracer;
+    // private final Tracer tracer;
 
     public CallHttp() {
-        tracer = MyOTel.getInstance().getTracer();
+        // tracer = MyOTel.getInstance().getTracer();
     }
 
     public void call() {
-        Span rootSpan = tracer.spanBuilder("Call-HTTP-Span")
-                .setSpanKind(SpanKind.INTERNAL)
-                .startSpan();
+        // Span rootSpan = tracer.spanBuilder("Call-HTTP-Span")
+        //         .setSpanKind(SpanKind.INTERNAL)
+        //         .startSpan();
 
-        try (Scope scope = rootSpan.makeCurrent()) {
-            getHttpContent();
-        } finally {
-            rootSpan.end();
-        }
+        // try (Scope scope = rootSpan.makeCurrent()) {
+        //     getHttpContent();
+        // } finally {
+        //     rootSpan.end();
+        // }
+
+        getHttpContent();
     }
 
     String getHttpContent() {
