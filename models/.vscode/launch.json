@@ -4,16 +4,19 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
+            "stopOnEntry": false,
             "justMyCode": false,
             "program": "${file}",
-            // "program": "${workspaceFolder}/ollama-one.py",
+            // "program": "${workspaceFolder}/llamaindex-two.py",
             // "program": "${workspaceFolder}/deepseek-one.py",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "env": {},
+            "envFile": "${workspaceFolder}/.env",
+            // "python": "${workspaceFolder}/my_env/bin/python"
         }
     ]
 }
