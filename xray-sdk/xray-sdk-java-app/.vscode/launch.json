@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "run JavaAgent with Manual-Tracing",
+            "request": "launch",
+            "mainClass": "org.example.App",
+            "osx": {
+                "args": [],
+                "vmArgs": [
+                    // "-javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar"
+                ],
+                "sourcePaths": [],
+            },
+            "env": {
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=OTel-JAVAAGENT-Lambda",
+                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/opentelemetry-java-instrumentation/javaagent/build/libs/opentelemetry-javaagent-2.18.99.jar",
+                // "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-JAVAAGENT-Lambda",
+                // "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar",
+                "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
+                "OTEL_JAVAAGENT_DEBUG": "true",
+                "OTEL_LOG_LEVEL": "debug",
+                "OTEL_METRICS_EXPORTER": "none",
+                "OTEL_LOGS_EXPORTER": "none",
+                // "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+                // "OTEL_METRIC_EXPORT_INTERVAL": "2000",
+                // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                "OTEL_TRACES_SAMPLER": "always_on",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                // "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+            },
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            // "preLaunchTask": "Build with Gradle",
+            "projectName": "",
+            "modulePaths": [],
+            "classPaths": [
+                "${workspaceFolder}/app/build/libs/app-all.jar"
+            ]
+        }
+    ]
+}
