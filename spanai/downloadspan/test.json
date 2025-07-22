@@ -1,0 +1,74 @@
+{
+    "resource": {
+        "attributes": {
+            "cloud.provider": "aws",
+            "host.image.id": "ami-055f7bb3beb7440e4",
+            "aws.log.group.names": [
+                "/aws/containerinsights/demo/application"
+            ],
+            "cloud.platform": "aws_eks",
+            "host.id": "i-02755c92f1221e205",
+            "host.type": "m5.large",
+            "cloud.availability_zone": "us-east-1a",
+            "container.id": "d5729291ac44df620d741aec8939f47397b71bf0064700686e990d118a5bd6e3"
+        }
+    },
+    "traceId": "687fb3523f6988206562ddbd4a6eb229",
+    "spanId": "6e81fe34a05a4026",
+    "parentSpanId": "0b6d74aee5b4895b",
+    "name": "hsqldb",
+    "kind": "CLIENT",
+    "startTimeUnixNano": 1753199442023550208,
+    "endTimeUnixNano": 1753199442023555584,
+    "durationNano": 5376,
+    "attributes": {
+        "aws.local.service": "customers-service-java",
+        "EC2.AutoScalingGroup": "eks-ng-030982b6-f2c97ca2-24f2-be2a-23a5-5601be6cbacf",
+        "aws.xray.throttle": false,
+        "db.operation": "SELECT",
+        "aws.account_id": "140023401067",
+        "thread.name": "http-nio-8081-exec-111250",
+        "aws.local.environment": "eks:demo/default",
+        "aws.remote.operation": "SELECT",
+        "K8s.Namespace": "default",
+        "aws.local.operation": "GET /owners",
+        "aws.span.kind": "CLIENT",
+        "db.user": "sa",
+        "aws.xray": {
+            "auto_instrumentation": true,
+            "sdk_version": "1.44.1",
+            "sdk": "opentelemetry for java"
+        },
+        "aws.xray.annotation_keys": [
+            "aws.local.service",
+            "aws.local.operation",
+            "aws.remote.service",
+            "aws.local.environment",
+            "aws.remote.operation"
+        ],
+        "EKS.Cluster": "demo",
+        "aws.xray.fault": false,
+        "db.name": "76be25b5-3384-467a-9671-a609e1566bcc",
+        "thread.id": 193275,
+        "db.connection_string": "hsqldb:mem:",
+        "db.statement": "select pets0_.owner_id as owner_id4_1_0_, pets0_.id as id1_1_0_, pets0_.id as id1_1_1_, pets0_.birth_date as birth_da2_1_1_, pets0_.name as name3_1_1_, pets0_.owner_id as owner_id4_1_1_, pets0_.type_id as type_id5_1_1_, pettype1_.id as id1_2_2_, pettype1_.name as name2_2_2_ from pets pets0_ left outer join types pettype1_ on pets0_.type_id=pettype1_.id where pets0_.owner_id=?",
+        "Host": "ip-192-168-19-68.ec2.internal",
+        "aws.remote.service": "hsqldb",
+        "db.system": "hsqldb",
+        "aws.xray.error": false,
+        "EC2.InstanceId": "i-02755c92f1221e205",
+        "aws.xray.origin": "AWS::EKS::Container",
+        "PlatformType": "AWS::EKS",
+        "aws.remote.db.user": "sa"
+    },
+    "status": {
+        "code": "UNSET"
+    },
+    "_aws": {
+        "xray": {
+            "name": "hsqldb",
+            "namespace": "remote",
+            "type": "subsegment"
+        }
+    }
+}

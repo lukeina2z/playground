@@ -1,0 +1,81 @@
+{
+    "resource": {
+        "attributes": {
+            "k8s.container.name": "vets-service-java",
+            "aws.local.service": "vets-service-java",
+            "telemetry.distro.version": "2.10.0-aws",
+            "k8s.namespace.name": "default",
+            "host.image.id": "ami-055f7bb3beb7440e4",
+            "process.command_args": [
+                "/usr/lib/jvm/java-11-amazon-corretto/bin/java",
+                "org.springframework.boot.loader.JarLauncher"
+            ],
+            "process.runtime.version": "11.0.25+9-LTS",
+            "os.type": "linux",
+            "process.pid": 13,
+            "host.type": "m5.large",
+            "cloud.availability_zone": "us-east-1b",
+            "container.id": "2acb8f3deb035321c44817faea1c7f3f618be98469ffb881650a7366df56139a",
+            "com.amazonaws.cloudwatch.entity.internal.service.name.source": "K8sWorkload",
+            "telemetry.sdk.name": "opentelemetry",
+            "K8s.Pod": "vets-service-java-69ddcb6b89-nzk92",
+            "telemetry.sdk.language": "java",
+            "process.runtime.name": "OpenJDK Runtime Environment",
+            "service.instance.id": "9d9c702f-7c19-4795-b86c-985ea978db2c",
+            "os.description": "Linux 5.10.236-227.928.amzn2.x86_64",
+            "host.arch": "amd64",
+            "host.name": "ip-192-168-37-24.ec2.internal",
+            "telemetry.sdk.version": "1.44.1",
+            "cloud.platform": "aws_eks",
+            "host.id": "i-009fd12826988f40e",
+            "service.name": "vets-service-java",
+            "cloud.region": "us-east-1",
+            "telemetry.distro.name": "opentelemetry-java-instrumentation",
+            "K8s.Workload": "vets-service-java",
+            "k8s.replicaset.name": "vets-service-java-69ddcb6b89",
+            "cloud.provider": "aws",
+            "k8s.node.name": "ip-192-168-37-24.ec2.internal",
+            "service.version": "latest",
+            "K8s.Node": "i-009fd12826988f40e",
+            "cloud.account.id": "140023401067",
+            "process.executable.path": "/usr/lib/jvm/java-11-amazon-corretto/bin/java",
+            "aws.log.group.names": "/aws/containerinsights/demo/application",
+            "process.runtime.description": "Amazon.com Inc. OpenJDK 64-Bit Server VM 11.0.25+9-LTS"
+        }
+    },
+    "traceId": "687fbba3d69f70e4302d100c09713efb",
+    "spanId": "c1f8377dae23113f",
+    "name": "vets-service-java",
+    "kind": "SERVER",
+    "startTimeUnixNano": 1753201571750010112,
+    "endTimeUnixNano": 1753201571752316672,
+    "durationNano": 2306560,
+    "attributes": {
+        "aws.local.service": "vets-service-java",
+        "aws.local.operation": "InternalOperation",
+        "aws.xray": {
+            "auto_instrumentation": true,
+            "sdk_version": "1.44.1",
+            "sdk": "opentelemetry for java"
+        },
+        "aws.xray.throttle": false,
+        "aws.xray.error": false,
+        "aws.xray.origin": "AWS::EKS::Container",
+        "aws.xray.annotation_keys": [
+            "aws.local.service",
+            "aws.local.operation",
+            "aws.local.environment"
+        ],
+        "aws.xray.fault": false,
+        "aws.local.environment": "eks:demo/default"
+    },
+    "status": {
+        "code": "UNSET"
+    },
+    "_aws": {
+        "xray": {
+            "name": "vets-service-java",
+            "type": "segment"
+        }
+    }
+}
