@@ -18,7 +18,8 @@ Settings.llm = Ollama(
 )
 
 # Create a RAG tool using LlamaIndex
-documents = SimpleDirectoryReader("data/cw-logs").load_data()
+documents = SimpleDirectoryReader("data/readable-spans").load_data()
+# documents = SimpleDirectoryReader("data/cw-logs").load_data()
 index = VectorStoreIndex.from_documents(
     documents,
     # we can optionally override the embed_model here
@@ -28,18 +29,4 @@ index = VectorStoreIndex.from_documents(
 # Save the index
 index.storage_context.persist("data/index")
 
-# Later, load the index
-# from llama_index.core import StorageContext, load_index_from_storage
-
-# storage_context = StorageContext.from_defaults(persist_dir="my-storage")
-# index = load_index_from_storage(
-#     storage_context,
-#     # we can optionally override the embed_model here
-#     # it's important to use the same embed_model as the one used to build the index
-#     embed_model = Settings.embed_model,
-# )
-
-query_engine = index.as_query_engine(
-    # we can optionally override the llm here
-    llm=Settings.llm,
-)
+print("The end.")
