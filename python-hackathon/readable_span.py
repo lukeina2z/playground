@@ -64,6 +64,14 @@ def get_logs():
 
                 if isinstance(parsed_message, dict):
                     spanContent = f"Begin open telemetry span {parsed_message.get('spanId')}. "
+                    spanContent += f"Trace id is {parsed_message.get('traceId')}. "
+                    spanContent += f"Span name is {parsed_message.get('name')}. "
+                    spanContent += f"Span kind is {parsed_message.get('kind')}. "
+                    spanContent += f"Parent span id is {parsed_message.get('parentSpanId')}. "
+                    spanContent += f"Status is {parsed_message.get('status', {}).get('code', '')}. "
+                    spanContent += f"Span started at  {from_unix_nano_to_readable_time(parsed_message.get('startTimeUnixNano'))}. "
+                    spanContent += f"Span ended at  {from_unix_nano_to_readable_time(parsed_message.get('endTimeUnixNano'))}. "
+                    spanContent += f"Span duration in nano seconds is {parsed_message.get('durationNano')}. "
 
                     formatted = {
                         'trace_id': parsed_message.get('traceId'),

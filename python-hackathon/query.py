@@ -40,9 +40,29 @@ agent = AgentWorkflow.from_tools_or_functions(
 
 async def main():
     response = await agent.run(
-        "How many Open Telemetry spans you found? can you list all the span IDs? How many trace IDs you found from these spans? How many spans have error?"
-    )
+        "How many Open Telemetry spans you found?"
+    )    
     print(str(response))
+    print ("\n\n")
+
+    response = await agent.run(
+        "Can you list all the span IDs?"
+    )    
+    print(str(response))
+    print ("\n\n")
+
+    response = await agent.run(
+        "How many trace IDs you found from these spans?"
+    )    
+    print(str(response))
+    print ("\n\n")
+
+    response = await agent.run(
+        "How many spans have error?"
+    )    
+    print(str(response))
+    print ("\n\n")
+    
     print("The End!")
 
 if __name__ == "__main__":

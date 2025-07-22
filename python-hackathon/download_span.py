@@ -60,28 +60,28 @@ def get_logs():
                     print(f"Failed to parse message: {event['message']}")
                     parsed_message = event['message']
 
-                all_events.append(parsed_message)
+                # all_events.append(parsed_message)
 
-                # if isinstance(parsed_message, dict):
-                #     formatted = {
-                #         'trace_id': parsed_message.get('traceId'),
-                #         'span_name': parsed_message.get('name'),
-                #         'span_id': parsed_message.get('spanId'),
-                #         'span_kind': parsed_message.get('kind'),
-                #         'parent_span_id': parsed_message.get('parentSpanId', ''),
-                #         'status': parsed_message.get('status', {}).get('code', ''),
-                #         'start_time': from_unix_nano_to_readable_time(parsed_message.get('startTimeUnixNano')),
-                #         'end_time': from_unix_nano_to_readable_time(parsed_message.get('endTimeUnixNano')),
-                #         'duration_nano': parsed_message.get('durationNano'),
-                #         'rsc_cloud_platform': parsed_message.get('resource', {}).get('attributes', {}).get('cloud.platform', ''),
-                #         'rsc_cloud_provider': parsed_message.get('resource', {}).get('attributes', {}).get('cloud.provider', ''),
-                #         'rsc_container_id': parsed_message.get('resource', {}).get('attributes', {}).get('container.id', ''),
-                #         'rsc_host_id': parsed_message.get('resource', {}).get('attributes', {}).get('host.id', ''),
-                #         'rsc_host_image_id': parsed_message.get('resource', {}).get('attributes', {}).get('host.image.id', ''),
-                #         'rsc_host_type': parsed_message.get('resource', {}).get('attributes', {}).get('host.type', ''),
-                #         'message': parsed_message,
-                #     }
-                #     all_events.append(formatted)
+                if isinstance(parsed_message, dict):
+                    formatted = {
+                        'trace_id': parsed_message.get('traceId'),
+                        'span_name': parsed_message.get('name'),
+                        'span_id': parsed_message.get('spanId'),
+                        'span_kind': parsed_message.get('kind'),
+                        'parent_span_id': parsed_message.get('parentSpanId', ''),
+                        'status': parsed_message.get('status', {}).get('code', ''),
+                        'start_time': from_unix_nano_to_readable_time(parsed_message.get('startTimeUnixNano')),
+                        'end_time': from_unix_nano_to_readable_time(parsed_message.get('endTimeUnixNano')),
+                        'duration_nano': parsed_message.get('durationNano'),
+                        'resource_cloud_platform': parsed_message.get('resource', {}).get('attributes', {}).get('cloud.platform', ''),
+                        'resource_cloud_provider': parsed_message.get('resource', {}).get('attributes', {}).get('cloud.provider', ''),
+                        'resource_container_id': parsed_message.get('resource', {}).get('attributes', {}).get('container.id', ''),
+                        'resource_host_id': parsed_message.get('resource', {}).get('attributes', {}).get('host.id', ''),
+                        'resource_host_image_id': parsed_message.get('resource', {}).get('attributes', {}).get('host.image.id', ''),
+                        'resource_host_type': parsed_message.get('resource', {}).get('attributes', {}).get('host.type', ''),
+                        # 'message': parsed_message,
+                    }
+                    all_events.append(formatted)
 
             new_token = response.get('nextForwardToken')
             if new_token == next_token:
@@ -92,7 +92,7 @@ def get_logs():
             print(f"Error fetching logs: {e}")
             break
 
-    log_file_path = os.path.join(os.path.dirname(__file__), './.data/cw-logs/cw-logs.json')
+    log_file_path = os.path.join(os.path.dirname(__file__), './data/cw-logs/cw-logs.json')
 
     # Ensure the directory exists
     os.makedirs(os.path.dirname(log_file_path), exist_ok=True)

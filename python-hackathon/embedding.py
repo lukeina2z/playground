@@ -18,8 +18,8 @@ Settings.llm = Ollama(
 )
 
 # Create a RAG tool using LlamaIndex
-documents = SimpleDirectoryReader("data/readable-spans").load_data()
-# documents = SimpleDirectoryReader("data/cw-logs").load_data()
+# documents = SimpleDirectoryReader("data/readable-spans").load_data()
+documents = SimpleDirectoryReader("data/cw-logs").load_data()
 index = VectorStoreIndex.from_documents(
     documents,
     # we can optionally override the embed_model here
