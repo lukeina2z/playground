@@ -25,6 +25,9 @@ dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api(libs.commons.math3)
 
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-xray-recorder-sdk-core
+    implementation("com.amazonaws:aws-xray-recorder-sdk-core:2.18.99")
+
     // implementation("com.amazonaws:aws-lambda-java-core:1.3.0")
     // implementation("com.amazonaws:aws-lambda-java-events:3.11.4")
     implementation("software.amazon.awssdk:s3:2.28.29")

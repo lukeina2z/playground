@@ -9,10 +9,10 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 // import io.opentelemetry.api.trace.Tracer;
 // import io.opentelemetry.context.Scope;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+// import software.amazon.awssdk.services.s3.S3Client;
+// import software.amazon.awssdk.services.s3.model.Bucket;
+// import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+// import software.amazon.awssdk.services.s3.model.S3Exception;
 
 public class CallS3 {
     // private final Tracer tracer;

@@ -50,6 +50,9 @@ public class Library {
         // rootSpan.end();
         // }
 
+        SmokeTest smokeTest = new SmokeTest();
+        smokeTest.emits();
+
         CallHttp callHttp = new CallHttp();
         callHttp.call();
 
