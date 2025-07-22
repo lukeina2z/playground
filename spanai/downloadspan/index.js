@@ -33,7 +33,10 @@ function fromUnixNanoToReadableTime(nanoTime) {
 
 const now = Date.now();
 // const twoHoursAgo = now - 2 * 60 * 60 * 1000;
-const tenMinutuesAgo = now - 10 * 60 * 1000;
+// const tenMinutuesAgo = now - 7 * 24 * 60 * 60 * 1000;
+
+const tenMinutuesAgo = now - 3 * 60 * 1000;
+
 
 async function getLogs() {
     let nextToken;
@@ -49,6 +52,7 @@ async function getLogs() {
             startTime: tenMinutuesAgo,
             endTime: now,
             nextToken: nextToken,
+            startFromHead: true,
             limit: 10000,
         });
 
@@ -68,11 +72,11 @@ async function getLogs() {
                 }
 
                 const newMsg = {
-                    // logEventId: event.eventId,
-                    // logTimestampReadableUtc: toReadableUtcTime(event.timestamp),
-                    // logTimestampReadableLocal: toReadableLocalTime(event.timestamp),
-                    // logIngestionTimeReadableUtc: toReadableUtcTime(event.ingestionTime),
-                    // logIngestionTimeReadableLocal: toReadableLocalTime(event.ingestionTime),
+                    logEventId: event.eventId,
+                    logTimestampReadableUtc: toReadableUtcTime(event.timestamp),
+                    logTimestampReadableLocal: toReadableLocalTime(event.timestamp),
+                    logIngestionTimeReadableUtc: toReadableUtcTime(event.ingestionTime),
+                    logIngestionTimeReadableLocal: toReadableLocalTime(event.ingestionTime),
                     trace_id: parsedMessage.traceId,
                     span_name: parsedMessage.name,
                     span_id: parsedMessage.spanId,
