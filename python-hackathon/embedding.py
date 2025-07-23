@@ -1,4 +1,3 @@
-# import asyncio
 import os
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings

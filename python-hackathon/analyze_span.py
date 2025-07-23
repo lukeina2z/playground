@@ -7,12 +7,22 @@ agent = FunctionAgent(
     llm = Ollama(
         # model="llama3.1",
         model="qwen3:30b-a3b",
-        request_timeout=360.0,
-        # Manually set the context window to limit memory usage
-        context_window=8000,
+        request_timeout = 360.0,
+        context_window = 200000,
     ),
     system_prompt="You are a helpful assistant that can analyze Open Telemetry trace span.",
 )
+
+def read_file_content(file_path: str) -> str:
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            content = file.read()
+        return content
+    except FileNotFoundError:
+        return f"File not found: {file_path}"
+    except Exception as e:
+        return f"An error occurred while reading the file: {str(e)}"
+
 
 async def main():
     span_json_string = """
@@ -72,9 +82,13 @@ async def main():
     
     """
 
-    response = await agent.run('Please analyze this Open Telemetry Trace span. It is in JSON format:  ' + span_json_string)
+    file_path = "./data/cw-logs/cw-logs.json"
+    span_json_from_file = read_file_content(file_path)
 
-    # crude split by "Thought:" if format is known
+    # response = await agent.run('Please analyze this Open Telemetry Trace span. It is in JSON format:  ' + span_json_string)
+    userPrompt = "Please analyze this Open Telemetry Trace spans. Here is the json document, each element of 'All spans' field is an open telemetry span.  " + span_json_from_file
+    response = await agent.run(userPrompt)
+
     parts = str(response).split("</think>")
     thought = parts[0].strip() if len(parts) > 1 else "N/A"
     answer = parts[1].strip() if len(parts) > 1 else response.response_str
