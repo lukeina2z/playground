@@ -98,7 +98,7 @@ def get_logs():
     os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
 
     with open(log_file_path, 'w') as f:
-        json.dump(all_events, f, indent=2)
+        json.dump({"all spans" : all_events}, f, indent=2)
     print(f"✅ Logs saved to {log_file_path}")
 
 
