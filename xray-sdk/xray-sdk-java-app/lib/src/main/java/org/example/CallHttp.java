@@ -12,6 +12,27 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
+import com.amazonaws.xray.proxies.apache.http.HttpClientBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+// import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class CallHttp {
     // private final Tracer tracer;
 
@@ -20,17 +41,27 @@ public class CallHttp {
     }
 
     public void call() {
-        // Span rootSpan = tracer.spanBuilder("Call-HTTP-Span")
-        //         .setSpanKind(SpanKind.INTERNAL)
-        //         .startSpan();
+        try {
+            getRandomNameFromWeb();
+        } catch (IOException ex) {
+        }
+    }
 
-        // try (Scope scope = rootSpan.makeCurrent()) {
-        //     getHttpContent();
-        // } finally {
-        //     rootSpan.end();
-        // }
-
-        getHttpContent();
+    public String getRandomNameFromWeb() throws IOException {
+        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet("http://names.example.com/api/");
+        CloseableHttpResponse response = httpclient.execute(httpGet);
+        try {
+            HttpEntity entity = response.getEntity();
+            InputStream inputStream = entity.getContent();
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, String> jsonMap = mapper.readValue(inputStream, Map.class);
+            String name = jsonMap.get("name");
+            EntityUtils.consume(entity);
+            return name;
+        } finally {
+            response.close();
+        }
     }
 
     String getHttpContent() {

@@ -1,19 +1,17 @@
 package org.example;
 
 import com.amazonaws.xray.AWSXRayRecorder;
-import com.amazonaws.xray.AWSXRayRecorderBuilder;
-import com.amazonaws.xray.emitters.Emitter;
+
 
 class SmokeTest {
+    private AWSXRayRecorder xrayRecorder;
 
-    private Emitter emitter;
+    public SmokeTest(AWSXRayRecorder recorder) {
+        xrayRecorder = recorder;
+    }
 
     void emits() {
-        AWSXRayRecorder recorder = AWSXRayRecorderBuilder.standard()
-                                                         .withEmitter(emitter)
-                                                         .build();
-
-        recorder.beginSegment("test");
-        recorder.endSegment();
+        xrayRecorder.beginSubsegment("Smoke-Test-Segment");
+        xrayRecorder.endSubsegment();
     }
 }

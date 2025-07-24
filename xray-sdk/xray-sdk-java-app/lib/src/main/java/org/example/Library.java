@@ -3,60 +3,45 @@
  */
 package org.example;
 
-// import io.opentelemetry.api.GlobalOpenTelemetry;
-// import io.opentelemetry.api.OpenTelemetry;
-// import io.opentelemetry.api.trace.Span;
-// import io.opentelemetry.api.trace.SpanKind;
-// import io.opentelemetry.api.trace.Tracer;
-// import io.opentelemetry.context.Scope;
+import com.amazonaws.xray.AWSXRayRecorder;
+import com.amazonaws.xray.AWSXRayRecorderBuilder;
+import com.amazonaws.xray.emitters.Emitter;
+
+import com.amazonaws.xray.AWSXRay;
 
 public class Library {
     // private final Tracer tracer;
+    private Emitter emitter;
+    private AWSXRayRecorder xrayRecorder;
 
     public Library() {
         // tracer = MyOTel.getInstance().getTracer();
+        xrayRecorder = AWSXRayRecorderBuilder.standard()
+                .withEmitter(emitter)
+                .build();
+
+        AWSXRay.setGlobalRecorder(xrayRecorder);
     }
 
     public String mainFunction() {
-        // Span rootSpan = tracer.spanBuilder("Root-Span")
-        // .setSpanKind(SpanKind.INTERNAL)
-        // .startSpan();
-
-        // String rootSpanId = rootSpan.getSpanContext().getTraceId();
-
-        // try (Scope scope = rootSpan.makeCurrent()) {
-        // doWork();
-        // } finally {
-        // rootSpan.end();
-        // }
-        // return rootSpanId;
-
         doWork();
         return "Hello-XRay-Sdk.";
     }
 
     public void doWork() {
-        // Span rootSpan = tracer.spanBuilder("Do-Work-Span")
-        // .setSpanKind(SpanKind.INTERNAL)
-        // .startSpan();
-
-        // try (Scope scope = rootSpan.makeCurrent()) {
-        // CallHttp callHttp = new CallHttp();
-        // callHttp.call();
-
-        // CallS3 callS3 = new CallS3();
-        // callS3.call();
-        // } finally {
-        // rootSpan.end();
-        // }
-
-        SmokeTest smokeTest = new SmokeTest();
+        xrayRecorder.beginSegment("ParentOf-Smoke-Test-Segment");
+        SmokeTest smokeTest = new SmokeTest(xrayRecorder);
         smokeTest.emits();
+        xrayRecorder.endSegment();
 
-        CallHttp callHttp = new CallHttp();
-        callHttp.call();
-
+        xrayRecorder.beginSegment("ParentOf-S3-Call-Segment");
         CallS3 callS3 = new CallS3();
         callS3.call();
+        xrayRecorder.endSegment();
+
+        xrayRecorder.beginSegment("ParentOf-HTTP-Call-Segment");
+        CallHttp callHttp = new CallHttp();
+        callHttp.call();
+        xrayRecorder.endSegment();
     }
 }

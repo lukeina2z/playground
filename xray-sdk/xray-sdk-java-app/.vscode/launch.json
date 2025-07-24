@@ -17,6 +17,7 @@
                 "sourcePaths": [],
             },
             "env": {
+                "AWS_XRAY_TRACING_NAME": "Old-XRay-SDK-TestSvc",
                 "OTEL_JAVAAGENT_DEBUG": "true",
                 "OTEL_LOG_LEVEL": "debug",
                 "OTEL_METRICS_EXPORTER": "none",

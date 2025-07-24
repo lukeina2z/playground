@@ -28,6 +28,13 @@ dependencies {
     // https://mvnrepository.com/artifact/com.amazonaws/aws-xray-recorder-sdk-core
     implementation("com.amazonaws:aws-xray-recorder-sdk-core:2.18.99")
 
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-xray-recorder-sdk-aws-sdk-v2
+    implementation("com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2:2.18.99")
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-xray-recorder-sdk-aws-sdk-v2-instrumentor
+    implementation("com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2-instrumentor:2.18.99")
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-xray-recorder-sdk-apache-http
+    implementation("com.amazonaws:aws-xray-recorder-sdk-apache-http:2.18.99")
+
     // implementation("com.amazonaws:aws-lambda-java-core:1.3.0")
     // implementation("com.amazonaws:aws-lambda-java-events:3.11.4")
     implementation("software.amazon.awssdk:s3:2.28.29")
