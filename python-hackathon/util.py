@@ -1,25 +1,26 @@
-import asyncio
-from datetime import datetime
-from llama_index.core.agent.workflow import FunctionAgent
-from llama_index.llms.ollama import Ollama
-from util import display_llm_response, get_single_sample_span
+def display_llm_response(response):
+    parts = str(response).split("</think>")
+    thought = parts[0].strip() if len(parts) > 1 else "N/A"
+    answer = parts[1].strip() if len(parts) > 1 else str(response)
 
-print(f"Loading model. {datetime.now()}")
-agent = FunctionAgent(
-    llm = Ollama(
-        model = "qwen3:8b",
-        # model = "qwen3:30b-a3b",
-        temperature = 0.0,
-        request_timeout = 360.0,
-        context_window = 20000,
-        thinking= True,
-    ),
-    system_prompt="You are a helpful assistant that can analyze Open Telemetry trace span.",
-)
+    print("\n\n=== Thought ===\n\n")
+    print(thought)
 
-async def main():
-    print(f"Running main. {datetime.now()}")
-    span_json = """
+    print("\n\n=== Final Answer ===\n\n")
+    print(answer)
+
+def read_file_content(file_path: str) -> str:
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            content = file.read()
+        return content
+    except FileNotFoundError:
+        return f"File not found: {file_path}"
+    except Exception as e:
+        return f"An error occurred while reading the file: {str(e)}"
+    
+def get_single_sample_span() -> str:
+    return  """
         {
             "resource": {
                 "attributes": {
@@ -75,17 +76,3 @@ async def main():
         }
     
     """
-
-    userPrompt = "Please analyze this Open Telemetry Trace spans. Here is the json document, each element of 'All spans' field is an open telemetry span.  "
-    userPrompt += span_json
-    print(f"Run agent. {datetime.now()}")
-    response = await agent.run(userPrompt)
-    print(f"Completed inference. {datetime.now()}")
-    display_llm_response(response)
-    print(f"The end: {datetime.now()}")
-
-if __name__ == "__main__":
-    asyncio.run(main())
-
-    # file_path = "./data/cw-logs/cw-logs.json"
-    # span_json = read_file_content(file_path)

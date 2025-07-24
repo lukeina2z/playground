@@ -8,10 +8,11 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import StorageContext, load_index_from_storage
 
 Settings.llm = Ollama(
-    model="qwen3:30b-a3b",
+    # model="qwen3:30b-a3b",
+    model = "qwen3:8b",
     # model="mistral:7b",
     request_timeout = 360.0,
-    context_window = 8000,
+    context_window = 20000,
     temperature = 0.0,
 )
 
