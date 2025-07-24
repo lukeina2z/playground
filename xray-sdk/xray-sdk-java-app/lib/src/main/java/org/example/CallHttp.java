@@ -1,16 +1,13 @@
 package org.example;
 
 import java.net.URI;
-
-// import io.opentelemetry.api.trace.Span;
-// import io.opentelemetry.api.trace.SpanKind;
-// import io.opentelemetry.api.trace.Tracer;
-// import io.opentelemetry.context.Scope;
-
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
@@ -20,24 +17,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import com.amazonaws.xray.proxies.apache.http.HttpClientBuilder;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-// import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class CallHttp {
-    // private final Tracer tracer;
-
     public CallHttp() {
-        // tracer = MyOTel.getInstance().getTracer();
     }
 
     public void call() {

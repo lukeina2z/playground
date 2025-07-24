@@ -2,7 +2,6 @@ package org.example;
 
 import com.amazonaws.xray.AWSXRayRecorder;
 
-
 class SmokeTest {
     private AWSXRayRecorder xrayRecorder;
 
