@@ -3,10 +3,13 @@
  */
 package org.example;
 
+import java.util.concurrent.TimeUnit;
+
 import com.amazonaws.xray.AWSXRayRecorder;
 import com.amazonaws.xray.AWSXRayRecorderBuilder;
 import com.amazonaws.xray.emitters.Emitter;
 
+import com.amazonaws.xray.strategy.sampling.CentralizedSamplingStrategy;
 import com.amazonaws.xray.AWSXRay;
 
 public class Library {
@@ -17,6 +20,7 @@ public class Library {
     public Library() {
         // tracer = MyOTel.getInstance().getTracer();
         xrayRecorder = AWSXRayRecorderBuilder.standard()
+                .withSamplingStrategy(new CentralizedSamplingStrategy())
                 .withEmitter(emitter)
                 .build();
 
@@ -24,6 +28,7 @@ public class Library {
     }
 
     public String mainFunction() {
+        runForever();
         doWork();
         return "Hello-XRay-Sdk.";
     }
@@ -43,5 +48,21 @@ public class Library {
         CallHttp callHttp = new CallHttp();
         callHttp.call();
         xrayRecorder.endSegment();
+    }
+
+    public void runForever() {
+        while (true) {
+            try {
+                xrayRecorder.beginSegmentWithSampling("ParentOf-Smoke-Test-Segment");
+                SmokeTest smokeTest = new SmokeTest(xrayRecorder);
+                smokeTest.emits();
+                xrayRecorder.endSegment();
+                TimeUnit.MILLISECONDS.sleep(30);
+            } catch (InterruptedException e) {
+                // Handle interruption
+                Thread.currentThread().interrupt(); // Restore interrupt status
+                break;
+            }
+        }
     }
 }
