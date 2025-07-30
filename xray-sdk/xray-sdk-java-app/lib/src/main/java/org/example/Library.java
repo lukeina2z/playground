@@ -57,6 +57,9 @@ public class Library {
                 SmokeTest smokeTest = new SmokeTest(xrayRecorder);
                 smokeTest.emits();
                 xrayRecorder.endSegment();
+
+                // doWork();
+
                 TimeUnit.MILLISECONDS.sleep(30);
             } catch (InterruptedException e) {
                 // Handle interruption

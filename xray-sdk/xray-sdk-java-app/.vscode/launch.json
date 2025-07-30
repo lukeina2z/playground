@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "run JavaAgent with Manual-Tracing",
+            "name": "Old-XRay-SDK-TestSvc",
             "request": "launch",
             "mainClass": "org.example.App",
             "osx": {
