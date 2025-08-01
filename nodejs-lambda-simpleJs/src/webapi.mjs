@@ -5,7 +5,7 @@ export async function callS3() {
     console.log(`Make S3 call.`);
     let response = "";
     try {
-        const s3Client = new S3Client();
+        const s3Client = new S3Client({ region: "us-west-2" });
         const command = new ListBucketsCommand({});
         const data = await s3Client.send(command);
 
