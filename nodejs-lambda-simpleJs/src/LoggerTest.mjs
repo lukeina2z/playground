@@ -21,7 +21,10 @@ function pinoLogCall() {
 function winstonLogCall() {
     const logger = winston.createLogger({
         level: 'debug',
-        format: winston.format.json(),
+        format: winston.format.combine(
+            winston.format.errors({ stack: true }), // Add this line
+            winston.format.json()
+        ),
         defaultMeta: { service: 'nodejs-lambda-fn-01' },
         transports: [
             new winston.transports.Console(), // <— must add this to log to stdout
