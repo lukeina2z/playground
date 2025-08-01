@@ -19,5 +19,5 @@ export async function handler(event, context) {
     return retObj;
 }
 
-handler({ key1: 'value1', key2: 'value2' }, { /* context object */ });
+// handler({ key1: 'value1', key2: 'value2' }, { /* context object */ });
 
