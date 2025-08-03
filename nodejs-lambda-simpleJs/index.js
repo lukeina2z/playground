@@ -32,6 +32,6 @@ async function handler(event, context) {
     return response;
 }
 
-// module.exports = handler;
+module.exports = handler;
 
-handler({ key1: 'value1', key2: 'value2' }, { /* context object */ });
+// handler({ key1: 'value1', key2: 'value2' }, { /* context object */ });
