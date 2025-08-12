@@ -12,22 +12,21 @@
             "osx": {
                 "args": [],
                 "vmArgs": [
-                    // "-javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar"
+                    // "-javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-foo/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar"
                 ],
                 "sourcePaths": [],
             },
             "env": {
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=OTel-JAVAAGENT-Lambda",
-                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/opentelemetry-java-instrumentation/javaagent/build/libs/opentelemetry-javaagent-2.18.99.jar",
-                // "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-JAVAAGENT-Lambda",
-                // "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/99bld/aws-otel-java-instrumentation-lambda/lambda-layer/build/distributions/aws-opentelemetry-javaagent.jar",
-                "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Java-EC2",
+                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-foo/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar",
+                // "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
                 "OTEL_JAVAAGENT_DEBUG": "true",
                 "OTEL_LOG_LEVEL": "debug",
                 "OTEL_METRICS_EXPORTER": "none",
-                "OTEL_LOGS_EXPORTER": "none",
-                // "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+                // "OTEL_LOGS_EXPORTER": "none",
+                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4318/v1/traces",
+                // "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
                 // "OTEL_METRIC_EXPORT_INTERVAL": "2000",
                 // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
                 "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
