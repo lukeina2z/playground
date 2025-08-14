@@ -19,16 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation (
-        'ch.qos.logback:logback-classic:1.5.16',
-        'com.amazonaws:aws-lambda-java-core:1.2.3',
-        'com.amazonaws:aws-lambda-java-events:3.15.0',
-        'com.amazonaws.serverless:aws-serverless-java-container-springboot3:[2.0-SNAPSHOT,)',
-        'org.springframework.boot:spring-boot-starter-web:3.2.6',
-        'software.amazon.awssdk:lambda'
-    )
-
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'ch.qos.logback:logback-classic:1.5.16'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation platform('software.amazon.awssdk:bom:2.21.0')
     implementation 'software.amazon.awssdk:s3'
