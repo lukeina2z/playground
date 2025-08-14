@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "run JavaAgent with Manual-Tracing",
+            "name": "Adot-Java-EC2-Test",
             "request": "launch",
             "mainClass": "org.example.App",
             "osx": {
@@ -17,8 +17,8 @@
                 "sourcePaths": [],
             },
             "env": {
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Java-EC2",
-                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-foo/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Java-EC2-main-PR1",
+                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-foo-2.11/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar",
                 // "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
                 "OTEL_JAVAAGENT_DEBUG": "true",
                 "OTEL_LOG_LEVEL": "debug",
