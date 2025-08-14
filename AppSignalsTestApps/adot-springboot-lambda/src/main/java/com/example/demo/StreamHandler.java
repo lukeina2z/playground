@@ -20,9 +20,9 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-public class StreamLambdaHandler implements RequestStreamHandler {
+public class StreamHandler implements RequestStreamHandler {
     private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
-    private static final Logger logger = LoggerFactory.getLogger(StreamLambdaHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(StreamHandler.class);
 
     // LambdaLogger logger = null;
     static {
