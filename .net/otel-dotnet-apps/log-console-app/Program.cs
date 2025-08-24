@@ -6,9 +6,10 @@ using OpenTelemetry.Logs;
 var loggerFactory = LoggerFactory.Create(builder =>
 {
     builder.AddConsole();
-    builder.AddOpenTelemetry(logging =>
+    builder.AddOpenTelemetry(loggingOption =>
     {
-        logging.AddConsoleExporter();
+        loggingOption.AddConsoleExporter();
+        loggingOption.AddOtlpExporter();
     });
 });
 
