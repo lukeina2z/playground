@@ -5,6 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "exe: log-aspnetcore-app",
+            "type": "coreclr",
+            "request": "launch",
+            // "preLaunchTask": "build",
+            "program": "${workspaceFolder}/log-aspnetcore-app/bin/Debug/net9.0/log-aspnetcore-app.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "justMyCode": false,
+            "symbolOptions": {
+                "cachePath": "d:/syms",
+                "searchPaths": [],
+                "searchMicrosoftSymbolServer": true,
+                "searchNuGetOrgSymbolServer": true
+            },
+            "windows": {
+                // "MIMode": "cppvsdbg"
+            },
+            
+            "console": "integratedTerminal"
+        },
+        {
             "name": "exe: log-console-app",
             "type": "coreclr",
             "request": "launch",

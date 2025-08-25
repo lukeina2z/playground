@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log-console-app", "log-console-app\log-console-app.csproj", "{601247BE-8472-4B07-B9B0-115D963FFD25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log-aspnetcore-app", "log-aspnetcore-app\log-aspnetcore-app.csproj", "{2BFA3956-574A-4077-AD84-F4F7A007A9ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{601247BE-8472-4B07-B9B0-115D963FFD25}.Release|x64.Build.0 = Release|Any CPU
 		{601247BE-8472-4B07-B9B0-115D963FFD25}.Release|x86.ActiveCfg = Release|Any CPU
 		{601247BE-8472-4B07-B9B0-115D963FFD25}.Release|x86.Build.0 = Release|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Release|x64.Build.0 = Release|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{2BFA3956-574A-4077-AD84-F4F7A007A9ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
