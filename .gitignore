@@ -1,5 +1,7 @@
 .DS_Store
 
+*.csproj.user
+
 # Logs
 logs
 *.log
