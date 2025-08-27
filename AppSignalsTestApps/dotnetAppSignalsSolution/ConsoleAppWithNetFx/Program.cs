@@ -15,7 +15,7 @@ namespace ConsoleAppWithNetFx
             var traceId = tests.AWSSDKCall();
             System.Console.WriteLine($"AWS Call tracke Id: {traceId}");
 
-            traceId = tests.AWSSDKCall();
+            traceId = tests.OutgoingHttp();
             System.Console.WriteLine($"Outgoing Http Call tracke Id: {traceId}");
 
             Console.WriteLine("The End!");

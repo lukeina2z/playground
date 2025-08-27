@@ -22,13 +22,19 @@ namespace ConsoleAppWithNetFx
 
         public string OutgoingHttp()
         {
-            _ = this.httpClient.GetAsync("https://aws.amazon.com").Result;
+            var ret = this.httpClient.GetAsync("http://www.amazon.com").Result;
+            System.Console.WriteLine(ret);
             return this.GetTraceId();
         }
 
         public string AWSSDKCall()
         {
-            _ = this.s3Client.ListBucketsAsync().Result;
+            var ret = this.s3Client.ListBucketsAsync().Result;
+
+            foreach (var bucket in ret.Buckets)
+            {
+                Console.WriteLine(bucket.BucketName);
+            }
 
             return this.GetTraceId();
         }
