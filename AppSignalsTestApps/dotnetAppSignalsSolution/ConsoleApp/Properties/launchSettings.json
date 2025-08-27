@@ -20,6 +20,7 @@
         "OTEL_DOTNET_AUTO_HOME": "D:/Users/lukezha/github/otel-dotnet/aws-otel-dotnet-instrumentation/OpenTelemetryDistribution",
         "OTEL_DOTNET_AUTO_PLUGINS": "AWS.Distro.OpenTelemetry.AutoInstrumentation.Plugin, AWS.Distro.OpenTelemetry.AutoInstrumentation",
         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
+        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
         "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_SERVICE_NAME": "xxyy-dotnet-foo",
