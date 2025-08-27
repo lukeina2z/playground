@@ -3,6 +3,8 @@
     "ConsoleApp": {
       "commandName": "Project",
       "environmentVariables": {
+        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
+        "OTEL_SERVICE_NAME": "xxyy-dotnet-foo",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "OpenTelemetry.AutoInstrumentation.AspNetCoreBootstrapper",
         "CORECLR_ENABLE_PROFILING": "1",
         "CORECLR_PROFILER": "{918728DD-259F-4A6A-AC2B-B85E1B658318}",
@@ -20,14 +22,12 @@
         "OTEL_DOTNET_AUTO_HOME": "D:/Users/lukezha/github/otel-dotnet/aws-otel-dotnet-instrumentation/OpenTelemetryDistribution",
         "OTEL_DOTNET_AUTO_PLUGINS": "AWS.Distro.OpenTelemetry.AutoInstrumentation.Plugin, AWS.Distro.OpenTelemetry.AutoInstrumentation",
         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
-        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
         "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
         "OTEL_METRICS_EXPORTER": "none",
-        "OTEL_SERVICE_NAME": "xxyy-dotnet-foo",
         "OTEL_TRACES_SAMPLER": "xray",
         "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000"
       },
-      "nativeDebugging": true
+      "nativeDebugging": false
     }
   }
 }
