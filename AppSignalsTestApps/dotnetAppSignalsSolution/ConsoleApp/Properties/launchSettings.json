@@ -5,7 +5,7 @@
       "environmentVariables": {
         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://xyz-jaeger-100",
         //"OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
-        "OTEL_SERVICE_NAME": "xyxy-adot-dotnet-foo",
+        "OTEL_SERVICE_NAME": "xyxy-adot-dotnet-Net9ConsoleApp",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "OpenTelemetry.AutoInstrumentation.AspNetCoreBootstrapper",
         "CORECLR_ENABLE_PROFILING": "1",
         "CORECLR_PROFILER": "{918728DD-259F-4A6A-AC2B-B85E1B658318}",
