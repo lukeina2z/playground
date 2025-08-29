@@ -10,7 +10,6 @@ namespace ConsoleAppWithNetFx
     {
         static void Main(string[] args)
         {
-
             AdotTestCalls tests = new AdotTestCalls();
             var traceId = tests.AWSSDKCall();
             System.Console.WriteLine($"AWS Call tracke Id: {traceId}");

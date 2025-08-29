@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "dbg deadlock issue",
+            "type": "clr",
+            "request": "launch",
+            // "preLaunchTask": "build",
+            "program": "${workspaceFolder}/ConsoleAppWithNetFx/bin/x64/Debug/ConsoleAppWithNetFx-for-dbg.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/ConsoleAppWithNetFx/bin/x64/Debug",
+            "stopAtEntry": false,
+            "justMyCode": false,
+            "symbolOptions": {
+                "cachePath": "d:/syms",
+                "searchPaths": ["D:/Users/lukezha/github/playground/AppSignalsTestApps/dotnetAppSignalsSolution/ConsoleAppWithNetFx/bin/x64/Debug"],
+                "searchMicrosoftSymbolServer": true,
+                "searchNuGetOrgSymbolServer": true
+            },
+            "windows": {
+                // "MIMode": "cppvsdbg"
+            },
+            "console": "integratedTerminal"
+        }
+    ]
+}
