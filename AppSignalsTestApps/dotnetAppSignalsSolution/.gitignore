@@ -11,3 +11,4 @@ ConsoleApp/obj/*
 ConsoleAppWithNetFx/bin/x64/*
 ConsoleAppWithNetFx/obj/*
 
+HttpServer/bin/*
