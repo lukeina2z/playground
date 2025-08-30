@@ -1,0 +1,13 @@
+.vs
+**/bin/debug
+**/obj/debug
+bin/debug
+obj/debug
+
+packages/*
+
+
+ConsoleApp/obj/*
+ConsoleAppWithNetFx/bin/x64/*
+ConsoleAppWithNetFx/obj/*
+
