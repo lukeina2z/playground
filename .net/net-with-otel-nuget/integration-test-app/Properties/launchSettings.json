@@ -1,11 +1,21 @@
 {
   "profiles": {
-    "ConsoleApp": {
-      "commandName": "Project",
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
       "environmentVariables": {
-        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "integration_test_app": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "LISTEN_ADDRESS": "http://localhost:8080",
+        "OTEL_SERVICE_NAME": "ADOT-DotNet-Integration-Test-Svc",
         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
-        "OTEL_SERVICE_NAME": "OTel-Net9-Nuget-ConsoleApp",
+        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "OpenTelemetry.AutoInstrumentation.AspNetCoreBootstrapper",
         "CORECLR_ENABLE_PROFILING": "1",
         "CORECLR_PROFILER": "{918728DD-259F-4A6A-AC2B-B85E1B658318}",
@@ -25,9 +35,20 @@
         "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_TRACES_SAMPLER": "xray",
-        "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000"
+        "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000",
+        "aaaKey": "xyxyxy"
       },
-      "nativeDebugging": true
+      "applicationUrl": "http://localhost:8080",
+      "nativeDebugging": false
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:8080",
+      "sslPort": 0
     }
   }
 }
