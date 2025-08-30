@@ -1,13 +1,38 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Threading.Tasks;
 using ConsoleApp;
 
-OTelTraceTest traceTest = new OTelTraceTest();
+await MyProgram.Main(args);
 
-var traceId = traceTest.AWSSDKCall();
-System.Console.WriteLine($"AWS Call tracke Id: {traceId}");
+class MyProgram
+{
+    public static async Task Foo()
+    {
+        while (true)
+        {
+            Bar();
+            await Task.Delay(3000); // wait 3 seconds
+        }
+    }
 
-traceId = traceTest.OutgoingHttp();
-System.Console.WriteLine($"Outgoing Http Call tracke Id: {traceId}");
+    static void Bar()
+    {
+        OTelTraceTest traceTest = new OTelTraceTest();
 
-Console.WriteLine("Hello, World!");
+        var traceId = traceTest.AWSSDKCall();
+        System.Console.WriteLine($"AWS Call tracke Id: {traceId}");
+
+        traceId = traceTest.OutgoingHttp();
+        System.Console.WriteLine($"Outgoing Http Call tracke Id: {traceId}");
+
+        Console.WriteLine("\n");
+    }
+
+    internal static async Task Main(string[] args)
+    {
+        await Foo();
+    }
+}
+
+
