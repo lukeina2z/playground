@@ -3,8 +3,8 @@
     "ConsoleApp": {
       "commandName": "Project",
       "environmentVariables": {
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://xyz-jaeger-100",
-        //"OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
+        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
         "OTEL_SERVICE_NAME": "xyxy-adot-dotnet-Net9ConsoleApp",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "OpenTelemetry.AutoInstrumentation.AspNetCoreBootstrapper",
         "CORECLR_ENABLE_PROFILING": "1",
@@ -27,7 +27,7 @@
         "OTEL_TRACES_SAMPLER": "xray",
         "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000"
       },
-      "nativeDebugging": false
+      "nativeDebugging": true
     }
   }
 }
