@@ -8,6 +8,9 @@ packages/*
 
 
 ConsoleApp/obj/*
+
+ConsoleAppWithAwsSdkV4/obj/*
+
 ConsoleAppWithNetFx/bin/x64/*
 ConsoleAppWithNetFx/obj/*
 
