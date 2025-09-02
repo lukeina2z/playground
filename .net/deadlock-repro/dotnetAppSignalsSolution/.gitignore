@@ -1,0 +1,17 @@
+.vs
+**/bin/debug
+**/obj/debug
+bin/debug
+obj/debug
+
+packages/*
+
+
+ConsoleApp/obj/*
+
+ConsoleAppWithAwsSdkV4/obj/*
+
+ConsoleAppWithNetFx/bin/x64/*
+ConsoleAppWithNetFx/obj/*
+
+HttpServer/bin/*
