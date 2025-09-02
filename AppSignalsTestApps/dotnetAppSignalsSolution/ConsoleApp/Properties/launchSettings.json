@@ -3,8 +3,9 @@
     "ConsoleAppWithAwsSdkV4": {
       "commandName": "Project",
       "environmentVariables": {
-        "OTEL_EXPORTER_OTLP_ENDPOINT-J": "http://xyz-jaeger-100",
+        "OTEL_EXPORTER_OTLP_ENDPOINT-j": "http://xyz-jaeger-100",
         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
+        "OTEL_LOG_LEVEL": "debug",
         "OTEL_SERVICE_NAME": "OTel-Net9--ConsoleApp-AwsSdkV3",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "OpenTelemetry.AutoInstrumentation.AspNetCoreBootstrapper",
         "CORECLR_ENABLE_PROFILING": "1",
@@ -26,6 +27,7 @@
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_TRACES_SAMPLER": "xray",
         "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000",
+        "load_ec2_detector": "true",
         "force_sleep-no": "true"
       },
       "nativeDebugging": true
