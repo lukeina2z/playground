@@ -6,7 +6,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
+@app.route("/")
 @app.route("/rolldice")
 def roll_dice():
     player = request.args.get('player', default=None, type=str)
@@ -21,4 +21,7 @@ def roll_dice():
 def roll():
     return randint(1, 6)
 
+
+# if __name__ == "__main__":
+#     app.run(port=8080, threaded=True)
 
