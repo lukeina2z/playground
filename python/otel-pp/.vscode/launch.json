@@ -19,7 +19,9 @@
                 "--no-reload",
                 "--port=8000"
             ],
+            "subProcess": true,
             "jinja": true,
+            "python": "${workspaceFolder}/myenv/bin/python",
             "autoStartBrowser": false,
             "console": "integratedTerminal"
         }
