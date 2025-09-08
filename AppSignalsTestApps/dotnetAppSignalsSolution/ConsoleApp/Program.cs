@@ -12,7 +12,7 @@ class MyProgram
         while (true)
         {
             Bar();
-            await Task.Delay(3000); // wait 3 seconds
+            await Task.Delay(30); // wait 3 seconds
         }
     }
 

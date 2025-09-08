@@ -22,7 +22,7 @@
         "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
         "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://127.0.0.1:4316/v1/metrics",
         "OTEL_DOTNET_AUTO_HOME": "c:/ztest/OpenTelemetryDistribution",
-        "OTEL_DOTNET_AUTO_PLUGINS-NA": "AWS.Distro.OpenTelemetry.AutoInstrumentation.Plugin, AWS.Distro.OpenTelemetry.AutoInstrumentation",
+        "OTEL_DOTNET_AUTO_PLUGINS": "AWS.Distro.OpenTelemetry.AutoInstrumentation.Plugin, AWS.Distro.OpenTelemetry.AutoInstrumentation",
         "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_TRACES_SAMPLER": "xray",
