@@ -36,6 +36,15 @@
             "console": "integratedTerminal",
             "args": []
             // "args": "${command:pickArgs}"
+        },
+        {
+            "name": "adot-test",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/adot-test.py",
+            "console": "integratedTerminal",
+            "args": []
+            // "args": "${command:pickArgs}"
         }
     ]
 }
