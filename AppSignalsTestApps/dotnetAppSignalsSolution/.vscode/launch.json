@@ -4,20 +4,43 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
-            "name": "dbg deadlock issue",
-            "type": "clr",
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/<target-framework>/<project-name.dll>",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "dbg ConsoleApp.exe",
+            "type": "coreclr",
             "request": "launch",
             // "preLaunchTask": "build",
-            "program": "${workspaceFolder}/ConsoleAppWithNetFx/bin/x64/Debug/ConsoleAppWithNetFx-for-dbg.exe",
+            "osx": {
+                "program": "${workspaceFolder}/ConsoleApp/bin/Debug/net8.0/ConsoleApp",
+                "symbolOptions": {
+                    "cachePath": "/Users/lukezha/syms",
+                    "searchPaths": [
+                        "${workspaceFolder}/ConsoleApp/bin/Debug/net8.0/ConsoleApp"
+                    ],
+                    "searchMicrosoftSymbolServer": true,
+                    "searchNuGetOrgSymbolServer": true
+                },
+            },
+            "program": "${workspaceFolder}/bin/Debug/<insert-target-framework-here>/<insert-project-name-here>.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/ConsoleAppWithNetFx/bin/x64/Debug",
+            "cwd": "${workspaceFolder}/ConsoleApp/bin/Debug/net8.0",
             "stopAtEntry": false,
             "justMyCode": false,
             "symbolOptions": {
                 "cachePath": "d:/syms",
-                "searchPaths": ["D:/Users/lukezha/github/playground/AppSignalsTestApps/dotnetAppSignalsSolution/ConsoleAppWithNetFx/bin/x64/Debug"],
+                "searchPaths": [
+                    "D:/Users/lukezha/github/playground/AppSignalsTestApps/dotnetAppSignalsSolution/ConsoleAppWithNetFx/bin/x64/Debug"
+                ],
                 "searchMicrosoftSymbolServer": true,
                 "searchNuGetOrgSymbolServer": true
             },
