@@ -10,7 +10,7 @@ def call_aws_sdk():
 def main():
     while True:
         call_aws_sdk()
-        time.sleep(2)
+        time.sleep(0.03)
 
 if __name__ == "__main__":
     main()
