@@ -4,15 +4,40 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
-            "type": "node",
+            "name": "debug this app",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
+            "runtimeArgs": [
+                "run-script",
+                "start"
             ],
-            "program": "${workspaceFolder}/index.mjs"
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                // "<node_internals>/**"
+            ],
+            "type": "node",
+            "env": {
+                "NODE_OPTIONS": "--import @aws/aws-distro-opentelemetry-node-autoinstrumentation/register --experimental-loader=@opentelemetry/instrumentation/hook.mjs",
+                // "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
+                // "NODE_OPTIONS": "--require @opentelemetry/auto-instrumentations-node/register",
+                "OTEL_LOG_LEVEL": "info",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=Lambda-nodejs-Cognito-svc",
+                "OTEL_METRICS_EXPORTER": "none",
+                "OTEL_LOGS_EXPORTER": "none",
+                "OTEL_TRACES_EXPORTER": "console,otlp",
+                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+                "OTEL_METRIC_EXPORT_INTERVAL": "2000",
+                // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                // "OTEL_TRACES_SAMPLER": "always_on",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+            },
+            "sourceMaps": true,
+            "console": "integratedTerminal"
         }
     ]
 }
