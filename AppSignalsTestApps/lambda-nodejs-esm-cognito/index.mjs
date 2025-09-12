@@ -1,3 +1,6 @@
+import * as OTel from "@aws/aws-distro-opentelemetry-node-autoinstrumentation/register";
+
+
 import { myHandler  } from "./myHandler.mjs";
 
 // Remove testing call in Lambda

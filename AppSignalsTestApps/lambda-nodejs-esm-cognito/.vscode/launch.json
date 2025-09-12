@@ -7,18 +7,17 @@
         {
             "name": "debug this app",
             "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "start"
-            ],
+            "program": "${workspaceFolder}/index.mjs",
+            // "runtimeArgs": [
+            //     "run-script",
+            //     "start"
+            // ],
             "cwd": "${workspaceFolder}",
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                // "<node_internals>/**"
-            ],
+            "runtimeExecutable": "node",
             "type": "node",
             "env": {
-                "NODE_OPTIONS": "--import @aws/aws-distro-opentelemetry-node-autoinstrumentation/register --experimental-loader=@opentelemetry/instrumentation/hook.mjs",
+                "NODE_OPTIONS": " --experimental-loader=@opentelemetry/instrumentation/hook.mjs",
+                // "NODE_OPTIONS": "--import @aws/aws-distro-opentelemetry-node-autoinstrumentation/register --experimental-loader=@opentelemetry/instrumentation/hook.mjs",
                 // "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
                 // "NODE_OPTIONS": "--require @opentelemetry/auto-instrumentations-node/register",
                 "OTEL_LOG_LEVEL": "info",
@@ -32,11 +31,39 @@
                 // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
                 "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
                 // "OTEL_TRACES_SAMPLER": "always_on",
+                "OTEL_TRACES_SAMPLER": "xray",
                 "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
                 "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
                 "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
             },
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "outFiles": [
+                // "/Users/lukezha/github/otel-js/99bld/opentelemetry-js/experimental/packages/**/*.js",
+                // "${workspaceFolder}/packages/**/*.js",
+                // "${workspaceFolder}/packages/resource-detector-gcp/**/*.js",
+                "${workspaceFolder}/**/*.mjs"
+            ],
             "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/../../../otel-js/99bld/aws-otel-js-instrumentation/aws-distro-opentelemetry-node-autoinstrumentation/**",
+                "/Users/lukezha/github/otel-js/99bld/aws-otel-js-instrumentation/aws-distro-opentelemetry-node-autoinstrumentation/**",
+                "${workspaceFolder}/../opentelemetry-js/api/**",
+                "${workspaceFolder}/../opentelemetry-js/experimental/packages/**",
+                "${workspaceFolder}/../opentelemetry-js/experimental/packages/api-logs/**",
+                "${workspaceFolder}/../opentelemetry-js/experimental/packages/opentelemetry-sdk-node/**",
+                "${workspaceFolder}/../opentelemetry-js/experimental/packages/opentelemetry-instrumentation/**",
+                "${workspaceFolder}/../opentelemetry-js/experimental/packages/exporter-trace-otlp-http/**",
+                "${workspaceFolder}/../opentelemetry-js/experimental/packages/exporter-trace-otlp-proto/**",
+                "${workspaceFolder}/../opentelemetry-js/packages/opentelemetry-core/**",
+                "${workspaceFolder}/../opentelemetry-js/packages/opentelemetry-context-async-hooks/**",
+                "${workspaceFolder}/../opentelemetry-js/packages/opentelemetry-resources/**",
+                "${workspaceFolder}/../opentelemetry-js/packages/opentelemetry-sdk-trace-base/**",
+                "${workspaceFolder}/../opentelemetry-js/packages/opentelemetry-sdk-trace-node/**",
+                "!**/node_modules/**"
+            ],
             "console": "integratedTerminal"
         }
     ]
