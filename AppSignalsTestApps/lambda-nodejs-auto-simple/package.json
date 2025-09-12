@@ -11,6 +11,6 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.830.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.64.1"
+    "@aws/aws-distro-opentelemetry-node-autoinstrumentation": "^0.7.0"
   }
 }
