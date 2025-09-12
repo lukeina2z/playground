@@ -19,13 +19,13 @@
             "type": "node",
             "env": {
                 // npm i @opentelemetry/auto-instrumentations-node
-                "NODE_OPTIONS": "--require @opentelemetry/auto-instrumentations-node/register",
+                // "NODE_OPTIONS": "--require @opentelemetry/auto-instrumentations-node/register",
                 // npm i @aws/aws-distro-opentelemetry-node-autoinstrumentation
-                // "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
+                "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
                 "OTEL_LOG_LEVEL": "all",
                 // "OTEL_BSP_SCHEDULE_DELAY": "1",
                 // "OTEL_BSP_MAX_QUEUE_SIZE": "1",
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ESM-nodejs-quick-test",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ESM-Nodejs-Cognito-Test",
                 "OTEL_METRICS_EXPORTER": "none",
                 "OTEL_LOGS_EXPORTER": "none",
                 "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
