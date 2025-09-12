@@ -3,6 +3,36 @@
 const { context, trace, ROOT_CONTEXT } = require('@opentelemetry/api');
 const awsCalls = require('./awsS3Test');
 
+
+const http = require('http');
+
+
+
+function pingWebSite() {
+    console.log(`Ping web site.`);
+
+    return new Promise((resolve, reject) => {
+        const httpReq = http.get('http://aws.amazon.com', (httpResponse) => {
+            console.log('Response status code:', httpResponse.statusCode);
+            let data = `XRayTraceID: ${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}\r\n`;
+            httpResponse.on('data', (chunk) => {
+                data += chunk;  // Accumulate the chunks of data
+            });
+
+            httpResponse.on('end', () => {
+                console.log(`Response body: ${data}`);
+                resolve(data);
+            });
+        });
+
+        httpReq.on('error', (error) => {
+            console.error(`Error in outgoing-http-call:  ${err.message}`);
+            reject(error);
+        });
+    });
+};
+
+
 async function doWork(parent, tracer) {
     // Start another span. In this example, the main method already started a
     // span, so that'll be the parent span, and this will be a child span.
@@ -21,9 +51,9 @@ async function doWork(parent, tracer) {
     span.addEvent('invoking doWork');
     const newContext = trace.setSpan(context.active(), span);
     await context.with(newContext, async () => {
+        await pingWebSite();
         await awsCalls.s3Call();
     });
-
     span.end();
 }
 
