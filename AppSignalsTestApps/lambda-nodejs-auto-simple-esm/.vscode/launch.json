@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug this app",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "env": {
+                // npm i @opentelemetry/auto-instrumentations-node
+                "NODE_OPTIONS": "--require @opentelemetry/auto-instrumentations-node/register",
+                // npm i @aws/aws-distro-opentelemetry-node-autoinstrumentation
+                // "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
+                "OTEL_LOG_LEVEL": "all",
+                // "OTEL_BSP_SCHEDULE_DELAY": "1",
+                // "OTEL_BSP_MAX_QUEUE_SIZE": "1",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ESM-nodejs-quick-test",
+                "OTEL_METRICS_EXPORTER": "none",
+                "OTEL_LOGS_EXPORTER": "none",
+                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4316",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+                // "OTEL_METRIC_EXPORT_INTERVAL": "2000",
+                // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                "OTEL_TRACES_SAMPLER": "always_on",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+            },
+            "sourceMaps": true,
+            "console": "integratedTerminal"
+        }
+    ]
+}
+
