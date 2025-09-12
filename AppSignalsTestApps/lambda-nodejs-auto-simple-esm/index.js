@@ -4,6 +4,26 @@
 import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
 import http from "http";
 
+import { CognitoIdentityProviderClient, ListUserPoolsCommand } from "@aws-sdk/client-cognito-identity-provider";
+
+
+async function callAwsCognito() {
+    console.log(`Make AWS Cognito call.`);
+
+    const client = new CognitoIdentityProviderClient({ region: "us-west-2" }); // change region if needed
+    let result = "";
+    try {
+        const command = new ListUserPoolsCommand({ MaxResults: 5 });
+        result = await client.send(command);
+        console.log("User Pools:", result.UserPools);
+    } catch (err) {
+        console.error("Error listing user pools:", err);
+    }
+
+    return result;
+};
+
+
 async function callS3() {
     console.log(`Make S3 call.`);
     let response = "";
@@ -13,8 +33,9 @@ async function callS3() {
         const data = await s3Client.send(command);
 
         response = JSON.stringify({
-                XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
-                S3Buckets: data.Buckets});
+            XRayTraceID: `${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}`,
+            S3Buckets: data.Buckets
+        });
         console.log(`sdkv3: S3 call response: ${response}`);
     }
     catch (err) {
@@ -48,6 +69,7 @@ function pingWebSite() {
 };
 
 const myHandler = async (_event, _context) => {
+    await callAwsCognito();
     const rspS3 = await callS3();
     const rspHttp = await pingWebSite();
     const response = {
@@ -63,7 +85,8 @@ export { myHandler };
 // Remove this call when you deploy the function on Lambda
 const localTestRun = async () => {
     const rsp = await myHandler({}, {});
-    console.log("Done");}
+    console.log("Done");
+}
 
 localTestRun();
 // Remove this call.
