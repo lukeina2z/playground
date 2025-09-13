@@ -79,12 +79,28 @@ const myHandler = async (_event, _context) => {
     return response;
 };
 
+
+import middy from "@middy/core";
+import httpHeaderNormalizer from "@middy/http-header-normalizer";
+import httpJsonBodyParser from "@middy/http-json-body-parser";
+// import validator from "@middy/validator";
+// import { injectLambdaContext } from "@aws-lambda-powertools/logger";
+// import { Logger } from "@aws-lambda-powertools/logger";
+
+const handler = middy(myHandler)
+  // .use(envVariablesCheck(["CEP_USER_POOL_ID"]))
+  .use(httpHeaderNormalizer({ canonical: true }))
+  // .use(myHandler())
+  // .use(httpJsonBodyParser())
+  // .use(injectLambdaContext(Logger.jsonLogger, { clearState: true }));
+
+
 // module.exports = { myHandler };
-export { myHandler };
+export { handler };
 
 // Remove this call when you deploy the function on Lambda
 const localTestRun = async () => {
-    const rsp = await myHandler({}, {});
+    const rsp = await handler({}, {});
     console.log("Done");
 }
 
