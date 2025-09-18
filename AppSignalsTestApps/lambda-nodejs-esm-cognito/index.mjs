@@ -69,6 +69,8 @@ function pingWebSite() {
 };
 
 const myHandler = async (_event, _context) => {
+    console.log(`xyxyz! My Node process ID is ${process.pid}`);
+
     await callAwsCognito();
     const rspS3 = await callS3();
     const rspHttp = await pingWebSite();
