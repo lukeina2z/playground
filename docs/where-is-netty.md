@@ -3,8 +3,9 @@
 ```sh
 
 
-mac (25-09-18 18:24:31) <0> [~/github/otel-java/wk-adot-pr/adot-java-main]  
-7cf34de09d4c % ./gradlew :otelagent:dependencies
+
+mac (25-09-19 7:11:38) <0> [~/github/otel-java/wk-adot-pr/adot-java-main]  
+7cf34de09d4c % ./gradlew :otelagent:dependencies           
 
 > Task :otelagent:dependencies
 
@@ -74,11 +75,11 @@ javaagentLibs
 |    +--- com.amazonaws:aws-java-sdk-bom:1.12.599
 |    |    \--- com.amazonaws:aws-java-sdk-core:1.12.599 -> 1.12.773 (c)
 |    +--- com.fasterxml.jackson:jackson-bom:2.16.0 -> 2.19.2
+|    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.core:jackson-core:2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.19.2 (c)
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.2 (c)
-|    |    \--- com.fasterxml.jackson.core:jackson-annotations:2.19.2 (c)
+|    |    \--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.2 (c)
 |    +--- com.google.guava:guava-bom:33.0.0-jre
 |    +--- com.google.protobuf:protobuf-bom:3.25.1
 |    +--- com.linecorp.armeria:armeria-bom:1.26.4
@@ -96,22 +97,24 @@ javaagentLibs
 |    |    \--- io.netty:netty-transport-native-unix-common:4.1.126.Final (c)
 |    +--- io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:2.18.1-alpha
 |    |    +--- io.opentelemetry:opentelemetry-bom:1.52.0
+|    |    |    \--- io.opentelemetry:opentelemetry-sdk-trace:1.52.0 (c)
 |    |    +--- io.opentelemetry:opentelemetry-bom-alpha:1.52.0-alpha
-|    |    |    \--- io.opentelemetry:opentelemetry-bom:1.52.0
+|    |    |    \--- io.opentelemetry:opentelemetry-bom:1.52.0 (*)
 |    |    \--- io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.18.1
-|    |         \--- io.opentelemetry:opentelemetry-bom:1.52.0
+|    |         \--- io.opentelemetry:opentelemetry-bom:1.52.0 (*)
 |    +--- org.apache.logging.log4j:log4j-bom:2.21.1
 |    +--- org.junit:junit-bom:5.10.1
 |    +--- org.springframework.boot:spring-boot-dependencies:2.7.17
+|    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.5 -> 2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.core:jackson-core:2.13.5 -> 2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.13.5 -> 2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.5 -> 2.19.2 (c)
 |    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.5 -> 2.19.2 (c)
 |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 2.2.0 (c)
 |    |    +--- com.squareup.okhttp3:okhttp:4.9.3 -> 5.1.0 (c)
+|    |    +--- com.github.ben-manes.caffeine:caffeine:2.9.3 (c)
 |    |    +--- commons-codec:commons-codec:1.15 -> 1.17.1 (c)
 |    |    +--- org.apache.httpcomponents:httpclient:4.5.14 (c)
-|    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.13.5 -> 2.19.2 (c)
 |    |    +--- org.yaml:snakeyaml:1.30 -> 2.4 (c)
 |    |    +--- org.apache.httpcomponents:httpcore:4.4.16 (c)
 |    |    +--- org.reactivestreams:reactive-streams:1.0.4 (c)
@@ -156,26 +159,33 @@ javaagentLibs
 |    |    \--- software.amazon.awssdk:third-party-jackson-core:2.30.17 (c)
 |    +--- commons-logging:commons-logging:1.2 (c)
 |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.1.0 (c)
-|    +--- io.opentelemetry.contrib:opentelemetry-aws-xray:1.48.0-adot1 FAILED
+|    +--- io.opentelemetry.contrib:opentelemetry-aws-xray:1.48.0-adot1 (c)
 |    +--- io.opentelemetry.contrib:opentelemetry-aws-resources:1.48.0-alpha (c)
 |    \--- org.slf4j:slf4j-api:1.7.36 (c)
 +--- project :awsagentprovider
-|    +--- io.opentelemetry.contrib:opentelemetry-aws-xray -> 1.48.0-adot1 FAILED
-|    +--- io.opentelemetry.contrib:opentelemetry-aws-resources -> 1.48.0-alpha
+|    +--- io.opentelemetry.contrib:opentelemetry-aws-xray -> 1.48.0-adot1
+|    |    +--- com.squareup.okhttp3:okhttp:5.1.0
+|    |    |    \--- com.squareup.okhttp3:okhttp-jvm:5.1.0
+|    |    |         +--- com.squareup.okio:okio:3.15.0
+|    |    |         |    \--- com.squareup.okio:okio-jvm:3.15.0
+|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.0
+|    |    |         |              \--- org.jetbrains:annotations:13.0
+|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 (*)
 |    |    +--- com.fasterxml.jackson.core:jackson-core:2.19.2
 |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.19.2 (*)
-|    |    \--- com.squareup.okhttp3:okhttp:5.1.0
-|    |         \--- com.squareup.okhttp3:okhttp-jvm:5.1.0
-|    |              +--- com.squareup.okio:okio:3.15.0
-|    |              |    \--- com.squareup.okio:okio-jvm:3.15.0
-|    |              |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.0
-|    |              |              \--- org.jetbrains:annotations:13.0
-|    |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 (*)
-|    +--- com.fasterxml.jackson.core:jackson-databind:2.16.1 -> 2.19.2
-|    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.19.2
+|    |    +--- com.fasterxml.jackson.core:jackson-databind:2.19.2
+|    |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.19.2
+|    |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.19.2 (*)
+|    |    |    +--- com.fasterxml.jackson.core:jackson-core:2.19.2 (*)
 |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.19.2 (*)
+|    |    +--- com.github.ben-manes.caffeine:caffeine:2.9.3
+|    |    |    +--- org.checkerframework:checker-qual:3.19.0
+|    |    |    \--- com.google.errorprone:error_prone_annotations:2.10.0
+|    |    \--- io.opentelemetry:opentelemetry-sdk-trace:1.52.0
+|    +--- io.opentelemetry.contrib:opentelemetry-aws-resources -> 1.48.0-alpha
 |    |    +--- com.fasterxml.jackson.core:jackson-core:2.19.2 (*)
-|    |    \--- com.fasterxml.jackson:jackson-bom:2.19.2 (*)
+|    |    \--- com.squareup.okhttp3:okhttp:5.1.0 (*)
+|    +--- com.fasterxml.jackson.core:jackson-databind:2.16.1 -> 2.19.2 (*)
 |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1 -> 2.19.2
 |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.19.2 (*)
 |    |    +--- org.yaml:snakeyaml:2.4
@@ -593,6 +603,9 @@ For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/comma
 
 BUILD SUCCESSFUL in 1s
 4 actionable tasks: 1 executed, 3 up-to-date
+
+
+
 
 
 
