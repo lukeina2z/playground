@@ -4,9 +4,10 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        // PYDEVD_DISABLE_FILE_VALIDATION=1
         // set PYDEVD_DISABLE_FILE_VALIDATION=1
         // $env:PYDEVD_DISABLE_FILE_VALIDATION = "1"
-        // uv run -m debugpy --listen 5678 --wait-for-client  ./.venv/Scripts/mcp.exe dev main.py
+        // uv run -m debugpy --listen 5678 --wait-for-client  ./.venv/bin/mcp dev main.py
         {
             "name": "Attach to MCP (debugpy)",
             "type": "debugpy",
@@ -38,7 +39,7 @@
             "name": "Inspect MCP Server (main.py)",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/.venv/Scripts/mcp.exe",
+            "program": "${workspaceFolder}/.venv/bin/mcp",
             "args": [
                 "dev",
                 "${workspaceFolder}/main.py"
