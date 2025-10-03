@@ -4,7 +4,7 @@
       "commandName": "Project",
       "environmentVariables": {
         "OTEL_EXPORTER_OTLP_ENDPOINT-j": "http://xyz-jaeger-100",
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4316",
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:4318",
         "OTEL_LOG_LEVEL": "debug",
         "OTEL_SERVICE_NAME": "OTel-Net9--ConsoleApp-AwsSdkV3",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "OpenTelemetry.AutoInstrumentation.AspNetCoreBootstrapper",
