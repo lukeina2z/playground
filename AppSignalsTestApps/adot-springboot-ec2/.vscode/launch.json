@@ -45,6 +45,50 @@
         },
         {
             "type": "java",
+            "name": "sigv4",
+            "request": "launch",
+            "mainClass": "com.example.demo.DemoApplication",
+            "args": [],
+            "env": {
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=sigv4-ADOT-SB-EC2-fatjar",
+                "JAVA_TOOL_OPTIONS":   " -javaagent:/Users/lukezha/github/otel-java/wk-sigv4/aws-otel-java-instrumentation/otelagent/build/libs/aws-opentelemetry-agent-2.18.0-SNAPSHOT.jar",
+                // "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
+                "OTEL_INSTRUMENTATION_SERVLET_ENABLED": "true",
+                "OTEL_INSTRUMENTATION_TOMCAT_ENABLED": "FALSE",
+                "OTEL_INSTRUMENTATION_APACHE_HTTPCLIENT_ENABLED": "FalSE",
+                "OTEL_INSTRUMENTATION_JAVA_HTTP_CLIENT_ENABLED": "FalSE",
+                "OTEL_INSTRUMENTATION_AWS_SDK_ENABLED": "false",
+                "OTEL_JAVAAGENT_DEBUG": "false",
+                "OTEL_LOG_LEVEL": "warn",
+                "AWS_REGION": "us-west-2",
+
+                "OTEL_LOGS_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_LOGS_PROTOCOL": "http/protobuf",
+                "OTEL_EXPORTER_OTLP_LOGS_ENDPOINT": "https://logs.us-west-2.amazonaws.com/v1/logs",
+                "OTEL_EXPORTER_OTLP_LOGS_HEADERS": "x-aws-log-group=00-sigv4-log-group,x-aws-log-stream=default",
+
+                "OTEL_METRICS_EXPORTER": "none",
+                
+                // "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_PROTOCOL": "http/protobuf",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "https://xray.us-west-2.amazonaws.com/v1/traces",
+
+                "OTEL_TRACES_SAMPLER": "xray",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "false",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics"
+            },
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "vmArgs": [
+                "-cp",
+                "${workspaceFolder}/build/libs/adot-springboot-ec2-1.0.1-SNAPSHOT-all.jar"
+                // "-javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-foo/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar"
+            ]
+        },
+        {
+            "type": "java",
             "name": "ADOT-springboot-EC2-NoFatJar",
             "request": "launch",
             "mainClass": "com.example.demo.DemoApplication",
