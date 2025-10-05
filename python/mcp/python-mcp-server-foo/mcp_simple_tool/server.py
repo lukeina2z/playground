@@ -1,4 +1,4 @@
-print("Start running MCP Server Foo [Simple-Tool]...!")
+print("Start running MCP Server Foo...!")
 
 # import debugpy
 # debugpy.listen(5678)

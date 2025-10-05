@@ -1,5 +1,5 @@
 [project]
-name = "mcp-simple-tool"
+name = "mcp-server-foo"
 version = "0.1.0"
 description = "A simple MCP server exposing a tool"
 readme = "README.md"
@@ -26,7 +26,7 @@ dependencies = [
 ]
 
 [project.scripts]
-mcp-simple-tool = "mcp_simple_tool.server:main"
+mcp-server-foo = "mcp_simple_tool.server:main"
 
 [build-system]
 requires = ["hatchling"]
