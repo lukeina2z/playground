@@ -1,14 +1,4 @@
-# def main():
-#     print("Hello from python-mcp-server-foo!")
-
-
-# if __name__ == "__main__":
-#     main()
-
-
-
-# server.py
-
+print("Start running MCP Server Foo...!")
 
 # import debugpy
 # debugpy.listen(5678)
@@ -16,14 +6,11 @@
 # debugpy.wait_for_client()
 # print("Debugger attached!")
 
-
 from mcp.server.fastmcp import FastMCP
 
 # Create an MCP server
 mcp = FastMCP("PythonMcpDemoFoo")
 
-
-# Add an addition tool
 @mcp.tool()
 def add(a: int, b: int) -> int:
     """Add two numbers"""
@@ -41,5 +28,8 @@ def get_greeting(name: str) -> str:
     """Get a personalized greeting"""
     return f"Hello, {name}!"
 
+def main():
+    mcp.run()
 
-
+if __name__ == "__main__":
+    main()

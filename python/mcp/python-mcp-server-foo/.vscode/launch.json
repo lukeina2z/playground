@@ -4,6 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+      // To launch the mcp server
+      // uv sync
+      // uvx python-mcp-server-foo
+
+      // or
+
+      // uvx --from . python-mcp-server-foo
+
       {
         "name": "Debug MCP Server (UV)",
         "type": "debugpy",
