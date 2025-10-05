@@ -10,11 +10,11 @@
 # server.py
 
 
-import debugpy
-debugpy.listen(5678)
-print("Waiting for debugger attach on port 5678...")
-debugpy.wait_for_client()
-print("Debugger attached!")
+# import debugpy
+# debugpy.listen(5678)
+# print("Waiting for debugger attach on port 5678...")
+# debugpy.wait_for_client()
+# print("Debugger attached!")
 
 
 from mcp.server.fastmcp import FastMCP
