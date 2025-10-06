@@ -2,25 +2,26 @@ from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
-server_params = StdioServerParameters(
-    command="./.venv/bin/mcp",  # Executable
-    args=["run", "../python-mcp-server-foo/mcp_simple_tool/server.py"],  # Optional command line arguments
-    env={
-        # "MCP_LOG_LEVEL": "DEBUG",
-        "DEBUGPY_WAIT_FOR_CLIENT": "1"
-    },
-)
-
 # server_params = StdioServerParameters(
-#     command="uvx",  # Executable
-#     args=["--from",
-#           "../python-mcp-server-foo",
-#            "mcp-server-foo"],  # Optional command line arguments
+#     command="./.venv/bin/mcp",  # Executable
+#     args=["run", "../python-mcp-server-foo/mcp_simple_tool/server.py"],  # Optional command line arguments
 #     env={
-#         "MCP_LOG_LEVEL": "DEBUG",
+#         # "MCP_LOG_LEVEL": "DEBUG",
 #         "DEBUGPY_WAIT_FOR_CLIENT": "1"
 #     },
 # )
+
+server_params = StdioServerParameters(
+    command="uvx",  # Executable
+    args=[
+        "--force-reinstall",
+        "--from", "../python-mcp-server-foo",
+          "mcp-server-foo"],  # Optional command line arguments
+    env={
+        # "MCP_LOG_LEVEL": "DEBUG",
+        "DEBUGPY_WAIT_FOR_CLIENT": "0"
+    },
+)
 
 
 # server_params = StdioServerParameters(
