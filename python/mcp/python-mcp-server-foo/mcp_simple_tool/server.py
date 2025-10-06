@@ -10,7 +10,10 @@ if os.getenv("DEBUGPY_WAIT_FOR_CLIENT") == "1":
 
 print("Start running MCP Server Foo...!")
 
-from mcp_simple_tool.oteltest import otel_test_call
+try:
+    from mcp_simple_tool.oteltest import otel_test_call
+except ImportError:
+    from oteltest import otel_test_call
 
 print("Test ADOT auto instrumenation...!")
 otel_test_call(3)

@@ -16,10 +16,15 @@ server_params = StdioServerParameters(
     args=[
         "--force-reinstall",
         "--from", "../python-mcp-server-foo",
-          "mcp-server-foo"],  # Optional command line arguments
+        "--with", "opentelemetry-distro",
+        "--with", "opentelemetry-exporter-otlp",
+        "opentelemetry-instrument",
+        "mcp-server-foo"],  # Optional command line arguments
     env={
         # "MCP_LOG_LEVEL": "DEBUG",
-        "DEBUGPY_WAIT_FOR_CLIENT": "0"
+        "DEBUGPY_WAIT_FOR_CLIENT": "0",
+        "OTEL_SERVICE_NAME": "mcp-server-foo",
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318"
     },
 )
 
@@ -82,6 +87,11 @@ async def run():
             # Read a resource
             print("READING RESOURCE")
             content, mime_type = await session.read_resource("greeting://hello")
+
+            # Call pingweb tool
+            print("CALL PINGWEB TOOL")
+            result = await session.call_tool("pingweb", arguments={"url": "http://www.aws.com"})
+            print(result.content)
 
             # Call a tool
             print("CALL TOOL")
