@@ -25,6 +25,16 @@ def subtract(a: int, b: int) -> int:
     """Subtract two numbers"""
     return a - b
 
+@mcp.tool()
+def pingweb(url: str) -> str:
+    """Ping a web URL and return status"""
+    import requests
+    try:
+        response = requests.get(url, timeout=5)
+        return f"Status: {response.status_code}, Response time: {response.elapsed.total_seconds():.2f}s"
+    except Exception as e:
+        return f"!!! Error: {str(e)}"
+
 
 # Add a dynamic greeting resource
 @mcp.resource("greeting://{name}")
