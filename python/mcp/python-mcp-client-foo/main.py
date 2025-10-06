@@ -2,21 +2,25 @@ from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
-# server_params = StdioServerParameters(
-#     command="./.venv/bin/mcp",  # Executable
-#     args=["run", "../python-mcp-server-foo/main.py"],  # Optional command line arguments
-#     env=None,  # Optional environment variables
-# )
-
-
-
 server_params = StdioServerParameters(
-    command="uvx",  # Executable
-    args=["--from",
-          "../python-mcp-server-foo",
-           "python-mcp-server-foo"],  # Optional command line arguments
-    env=None,  # Optional environment variables
+    command="./.venv/bin/mcp",  # Executable
+    args=["run", "../python-mcp-server-foo/mcp_simple_tool/server.py"],  # Optional command line arguments
+    env={
+        # "MCP_LOG_LEVEL": "DEBUG",
+        "DEBUGPY_WAIT_FOR_CLIENT": "1"
+    },
 )
+
+# server_params = StdioServerParameters(
+#     command="uvx",  # Executable
+#     args=["--from",
+#           "../python-mcp-server-foo",
+#            "mcp-server-foo"],  # Optional command line arguments
+#     env={
+#         "MCP_LOG_LEVEL": "DEBUG",
+#         "DEBUGPY_WAIT_FOR_CLIENT": "1"
+#     },
+# )
 
 
 # server_params = StdioServerParameters(

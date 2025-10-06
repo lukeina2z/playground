@@ -19,7 +19,14 @@
             "connect": {
                 "host": "localhost",
                 "port": 5678
-            }
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/../python-mcp-server-foo",
+                    "remoteRoot": "."
+                }
+            ],
+            "justMyCode": false
         }
     ]
 }
