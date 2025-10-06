@@ -2,67 +2,52 @@ from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
-# server_params = StdioServerParameters(
-#     command="./.venv/bin/mcp",  # Executable
-#     args=["run", "../python-mcp-server-foo/mcp_simple_tool/server.py"],  # Optional command line arguments
-#     env={
-#         # "MCP_LOG_LEVEL": "DEBUG",
-#         "DEBUGPY_WAIT_FOR_CLIENT": "1"
-#     },
-# )
-
 server_params = StdioServerParameters(
-    command="uvx",  # Executable
-    args=[
-        "--force-reinstall",
-        "--from", "../python-mcp-server-foo",
-        "--with", "opentelemetry-distro",
-        "--with", "opentelemetry-exporter-otlp",
-        "opentelemetry-instrument",
-        "mcp-server-foo"],  # Optional command line arguments
+    command="opentelemetry-instrument",  # Executable
+    args=["./v2/bin/mcp", "run", "../python-mcp-server-foo/mcp_simple_tool/server.py"],  # Optional command line arguments
     env={
         # "MCP_LOG_LEVEL": "DEBUG",
         "DEBUGPY_WAIT_FOR_CLIENT": "0",
-        "OTEL_SERVICE_NAME": "mcp-server-foo",
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318"
+        "OTEL_SERVICE_NAME": "mcp-server-foo-fromClient-CLI",
+        "OTEL_LOG_LEVEL": "debug",
+        "OTEL_METRICS_EXPORTER": "none",
+        "OTEL_LOGS_EXPORTER": "none",
+        "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+        "OTEL_PYTHON_DISTRO": "aws_distro",
+        "OTEL_PYTHON_CONFIGURATOR": "aws_configurator",
+        "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+        "OTEL_TRACES_SAMPLER": "xray",
+        "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+        "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+        "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
     },
 )
 
-
 # server_params = StdioServerParameters(
-#     command="uvx",
+#     command="uvx",  # Executable
 #     args=[
-#         "--from", "/Users/lukezha/github/playground/python/mcp/python-mcp-server-foo",
-#         "python", "main.py"
-#     ],
-# )
-
-
-# server_params = StdioServerParameters(
-#     command="mcp",  # Executable
-#     args=["run", "server.py"],  # Optional command line arguments
-#     env=None,  # Optional environment variables
-# )
-
-# {
-#   "mcpServers": {
-#     "my-server": {
-#       "command": "uvx",
-#       "args": [
-#         "--from", "/path/to/your/local/git/clone",
-#         "--with", "opentelemetry-distro",
-#         "--with", "opentelemetry-exporter-otlp",
+#         "--force-reinstall",
+#         "--from", "../python-mcp-server-foo",
+#         "--with", "aws-opentelemetry-distro",
 #         "opentelemetry-instrument",
-#         "python", "server.py"
-#       ],
-#       "env": {
-#         "OTEL_SERVICE_NAME": "my-mcp-server",
-#         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318"
-#       }
-#     }
-#   }
-# }
-
+#         "mcp-server-foo"],  # Optional command line arguments
+#     env={
+#         # "MCP_LOG_LEVEL": "DEBUG",
+#         "DEBUGPY_WAIT_FOR_CLIENT": "0",
+#         "OTEL_SERVICE_NAME": "mcp-server-foo-fromClient-UV",
+#         "OTEL_LOG_LEVEL": "debug",
+#         "OTEL_METRICS_EXPORTER": "none",
+#         "OTEL_LOGS_EXPORTER": "none",
+#         "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+#         "OTEL_PYTHON_DISTRO": "aws_distro",
+#         "OTEL_PYTHON_CONFIGURATOR": "aws_configurator",
+#         "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+#         "OTEL_TRACES_SAMPLER": "xray",
+#         "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+#         "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+#         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+#     },
+# )
 
 async def run():
     async with stdio_client(server_params) as (read, write):
