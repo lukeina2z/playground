@@ -3,7 +3,7 @@
 ### Run the MCP Server
 
 ```sh
-uvx --from ../python-mcp-server-foo mcp-server-foo
+uvx --force-reinstall --from ../python-mcp-server-foo mcp-server-foo
 
 uv run mcp-server-foo
 

@@ -10,6 +10,21 @@ if os.getenv("DEBUGPY_WAIT_FOR_CLIENT") == "1":
 
 print("Start running MCP Server Foo...!")
 
+from mcp_simple_tool.oteltest import otel_test_call
+
+print("Test ADOT auto instrumenation...!")
+otel_test_call(3)
+print("Completed testing ADOT auto instrumenation...!")
+
+# import requests
+# try:
+#     response = requests.get("http://www.aws.com", timeout=5)
+#     print(f"Status: {response.status_code}, Response time: {response.elapsed.total_seconds():.2f}s")
+# except Exception as e:
+#     print( f"!!! Error: {str(e)}")
+
+
+
 from mcp.server.fastmcp import FastMCP
 
 # Create an MCP server
@@ -45,5 +60,5 @@ def get_greeting(name: str) -> str:
 def main():
     mcp.run()
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+     main()
