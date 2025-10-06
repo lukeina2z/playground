@@ -45,6 +45,22 @@
             "console": "integratedTerminal",
             "args": []
             // "args": "${command:pickArgs}"
+        },
+        {
+            "name": "OTel-Agent-Test",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/v-otel/bin/opentelemetry-instrument",
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/v-otel/bin/python",
+                "${workspaceFolder}/adot-test.py"
+            ],
+            "env": {
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=python-otel-launchjson",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces"
+            }
         }
     ]
 }
