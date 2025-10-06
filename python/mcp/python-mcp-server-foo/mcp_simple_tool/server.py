@@ -1,10 +1,14 @@
-print("Start running MCP Server Foo...!")
+print("MCP Server Foo, wait for debugger...!")
 
-# import debugpy
-# debugpy.listen(5678)
-# print("Waiting for debugger attach on port 5678...")
-# debugpy.wait_for_client()
-# print("Debugger attached!")
+import os
+if os.getenv("DEBUGPY_WAIT_FOR_CLIENT") == "1":
+    import debugpy
+    debugpy.listen(5678)
+    print("Waiting for debugger attach on port 5678...")
+    debugpy.wait_for_client()
+    print("Debugger attached!")
+
+print("Start running MCP Server Foo...!")
 
 from mcp.server.fastmcp import FastMCP
 
