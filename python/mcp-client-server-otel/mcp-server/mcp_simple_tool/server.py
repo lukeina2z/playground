@@ -10,22 +10,26 @@ if os.getenv("DEBUGPY_WAIT_FOR_CLIENT") == "1":
 
 print("Start running MCP Server Foo...!")
 
-try:
-    from mcp_simple_tool.oteltest import otel_test_call, call_aws_sdk, call_http
-except ImportError:
-    from oteltest import otel_test_call, call_aws_sdk, call_http
 
-print("Test ADOT auto instrumenation...!")
-# otel_test_call(3)
-print("Completed testing ADOT auto instrumenation...!")
+import boto3
+import requests
 
-# import requests
-# try:
-#     response = requests.get("http://www.aws.com", timeout=5)
-#     print(f"Status: {response.status_code}, Response time: {response.elapsed.total_seconds():.2f}s")
-# except Exception as e:
-#     print( f"!!! Error: {str(e)}")
+s3 = boto3.resource("s3")
 
+def call_aws_sdk():
+    bucket_names = [bucket.name for bucket in s3.buckets.all()]
+    return ",".join(bucket_names)
+
+def call_http() -> str:
+    try:
+        response = requests.get("http://www.aws.com", timeout=120)
+        return f"HTTP status code: {response.status_code}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+# call_aws_sdk()
+# call_http()
 
 
 from mcp.server.fastmcp import FastMCP
@@ -49,7 +53,7 @@ def callawssdk() -> str:
     return call_aws_sdk()
 
 @mcp.tool()
-def pingweb(url: str) -> str:
+def pingweb() -> str:
     """Ping a web URL and return status"""
     return call_http()
 
