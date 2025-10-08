@@ -5,12 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Launch MCP Client Foo",
+            "name": "Python: Launch MCP Client",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/main.py",
+            "program": "${workspaceFolder}/v-otel/bin/opentelemetry-instrument",
+            "args": ["${workspaceFolder}/v-otel/bin/python","${workspaceFolder}/main.py"],
             "console": "integratedTerminal",
             "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_TRACES_EXPORTER": "otlp,console",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
+            }
         },
         {
             "name": "Python: Attach to MCP Server Foo",

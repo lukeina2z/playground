@@ -1,26 +1,34 @@
+import boto3
+import requests
+import time
+
+s3 = boto3.resource("s3")
+
+def call_aws_sdk():
+    bucket_names = [bucket.name for bucket in s3.buckets.all()]
+    return ",".join(bucket_names)
+
+def call_http() -> str:
+    try:
+        response = requests.get("http://www.aws.com", timeout=120)
+        return f"HTTP status code: {response.status_code}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+call_aws_sdk()
+call_http()
+
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
 server_params = StdioServerParameters(
-    command="opentelemetry-instrument",  # Executable
-    args=["./v-adot/bin/mcp", "run", "../python-mcp-server-foo/mcp_simple_tool/server.py"],  # Optional command line arguments
+    command="./v-otel/bin/opentelemetry-instrument",  # Executable
+    args=["./v-otel/bin/mcp", "run", "../mcp-server/mcp_simple_tool/server.py"],  # Optional command line arguments
     env={
-        # "MCP_LOG_LEVEL": "DEBUG",
-        "DEBUGPY_WAIT_FOR_CLIENT": "0",
-        "OTEL_SERVICE_NAME": "MCP-Server-FOO",
-        "OTEL_LOG_LEVEL": "debug",
-        "OTEL_METRICS_EXPORTER": "none",
-        "OTEL_LOGS_EXPORTER": "none",
-        "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
-        "OTEL_PYTHON_DISTRO": "aws_distro",
-        "OTEL_PYTHON_CONFIGURATOR": "aws_configurator",
-        # "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
-        "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
-        "OTEL_TRACES_SAMPLER": "xray",
-        "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
-        "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
-        # "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+        # "OTEL_SERVICE_NAME": "Mcp-Server-PyLaunchJson",
+        "OTEL_RESOURCE_ATTRIBUTES": "service.name=Mcp-Server-ByClientCLI",
+        "OTEL_TRACES_EXPORTER": "otlp",
         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
     },
 )
@@ -89,11 +97,13 @@ async def run():
             print("CALL TOOL")
             result = await session.call_tool("add", arguments={"a": 1, "b": 7})
             print(result.content)
+            
+            # Sleep for 6 seconds
+            time.sleep(6)
 
 
 if __name__ == "__main__":
     import asyncio
-
     asyncio.run(run())
 
 
