@@ -3,7 +3,7 @@
     "mcp-adot-client": {
       "commandName": "Project",
       "environmentVariables": {
-        "OTEL_DOTNET_AUTO_TRACES_ADDITIONAL_SOURCES": "Experimental.ModelContextProtocol",
+        "OTEL_DOTNET_AUTO_TRACES_ADDITIONAL_SOURCES": "Experimental.ModelContextProtocol,mcp-adot-client",
         "OTEL_RESOURCE_ATTRIBUTES": "service.name=MCP-Client-DotNET",
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_LOGS_EXPORTER": "otlp",
