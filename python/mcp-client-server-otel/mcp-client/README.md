@@ -9,10 +9,13 @@
     pip install "mcp[cli]"
     pip install boto3
     pip install requests
+    pip install debugpy
 
     pip install opentelemetry-distro opentelemetry-exporter-otlp
 
     opentelemetry-bootstrap -a install
+
+    pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
 
 
     ```
