@@ -1,6 +1,7 @@
 import boto3
 import requests
 import time
+from opentelemetry import trace
 
 s3 = boto3.resource("s3")
 
@@ -15,8 +16,8 @@ def call_http() -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
-call_aws_sdk()
-call_http()
+# call_aws_sdk()
+# call_http()
 
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
@@ -60,51 +61,58 @@ server_params = StdioServerParameters(
 # )
 
 async def run():
-    async with stdio_client(server_params) as (read, write):
-        async with ClientSession(
-            read, write
-        ) as session:
-            # Initialize the connection
-            await session.initialize()
+    try:
+        async with stdio_client(server_params) as (read, write):
+            async with ClientSession(
+                read, write
+            ) as session:
+                # Initialize the connection
+                await session.initialize()
 
-            # List available resources
-            resources = await session.list_resources()
-            print("LISTING RESOURCES")
-            for resource in resources:
-                print("Resource: ", resource)
+                # List available resources
+                resources = await session.list_resources()
+                print("LISTING RESOURCES")
+                for resource in resources:
+                    print("Resource: ", resource)
 
-            # List available tools
-            tools = await session.list_tools()
-            print("LISTING TOOLS")
-            for tool in tools.tools:
-                print("Tool: ", tool.name)
+                # List available tools
+                tools = await session.list_tools()
+                print("LISTING TOOLS")
+                for tool in tools.tools:
+                    print("Tool: ", tool.name)
 
-            # Read a resource
-            print("READING RESOURCE")
-            content, mime_type = await session.read_resource("greeting://hello")
+                # Read a resource
+                print("READING RESOURCE")
+                content, mime_type = await session.read_resource("greeting://hello")
 
-            # Call pingweb tool
-            print("CALL PINGWEB TOOL")
-            result = await session.call_tool("pingweb", arguments={"url": "http://www.aws.com"})
-            print(result.content)
+                # Call pingweb tool
+                print("CALL PINGWEB TOOL")
+                result = await session.call_tool("pingweb", arguments={"url": "http://www.aws.com"})
+                print(result.content)
 
-            # Call callawssdk tool
-            print("CALL CALLAWSSDK TOOL")
-            result = await session.call_tool("callawssdk")
-            print(result.content)
+                # Call callawssdk tool
+                print("CALL CALLAWSSDK TOOL")
+                result = await session.call_tool("callawssdk")
+                print(result.content)
 
-            # Call a tool
-            print("CALL TOOL")
-            result = await session.call_tool("add", arguments={"a": 1, "b": 7})
-            print(result.content)
-            
-            # Sleep for 6 seconds
-            time.sleep(6)
+                # Call a tool
+                print("CALL TOOL")
+                result = await session.call_tool("add", arguments={"a": 1, "b": 7})
+                print(result.content)
+                    
+                # Give server time to flush traces before closing
+                print("Waiting for server to flush traces...")
+                time.sleep(3)
+    except Exception as e:
+        print(f"Client session ended: {e}")
 
 
 if __name__ == "__main__":
     import asyncio
-    asyncio.run(run())
+    
+    tracer = trace.get_tracer(__name__)
+    with tracer.start_as_current_span("mcp_client_main"):
+        asyncio.run(run())
 
 
 # def main():
