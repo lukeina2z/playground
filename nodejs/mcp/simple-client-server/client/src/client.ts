@@ -79,6 +79,13 @@ await context.with(trace.setSpan(context.active(), span), async () => {
   });
   console.log("Tool AWSSdkCall result: ", resultSdkCall);
 
+    const resultWebCall = await client.callTool({
+    name: "pingweb",
+    arguments: {
+    }
+  });
+  console.log("Tool PingWeb result: ", resultWebCall);
+
   // Call a tool
   const result = await client.callTool({
     name: "add",

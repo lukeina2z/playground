@@ -26,11 +26,17 @@ server.tool("add",
   })
 );
 
-// Add an AWS SDK Call tool
 server.tool("awssdkcall",
   { },
   async ({ }) => ({
     content: [{ type: "text", text: JSON.stringify(await makeS3Call()) }]
+  })
+);
+
+server.tool("pingweb",
+  { },
+  async ({ }) => ({
+    content: [{ type: "text", text: JSON.stringify(await makeHttpCall()) }]
   })
 );
 
