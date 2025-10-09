@@ -7,6 +7,8 @@
 npm install --save @opentelemetry/api
 npm install --save @opentelemetry/auto-instrumentations-node
 
+npm run build
+
 OTEL_SERVICE_NAME=Mcp-Client-zRun \
   OTEL_LOG_LEVEL=all \
   OTEL_TRACES_EXPORTER=otlp \
