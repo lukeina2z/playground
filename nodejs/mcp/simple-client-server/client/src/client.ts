@@ -23,6 +23,7 @@ await context.with(trace.setSpan(context.active(), span), async () => {
       "@opentelemetry/auto-instrumentations-node/register",
       "build/index.js"],
     env: {
+      ...process.env,
       "OTEL_SERVICE_NAME": "Mcp-SERVER",
       // "OTEL_LOG_LEVEL": "all",
       "OTEL_TRACES_EXPORTER": "otlp",
@@ -38,6 +39,13 @@ await context.with(trace.setSpan(context.active(), span), async () => {
   );
 
   await client.connect(transport);
+
+  // List tools
+  const tools = await client.listTools();
+  console.log("Available tools:");
+  for (let tool of tools.tools) {
+    console.log("Tool:", tool.name, "-", tool.description);
+  }
 
   // List prompts
   const prompts = await client.listPrompts();
@@ -63,6 +71,13 @@ await context.with(trace.setSpan(context.active(), span), async () => {
   for (let template of templates.resourceTemplates) {
     console.log("Resource template: ", template.name);
   }
+
+  const resultSdkCall = await client.callTool({
+    name: "awssdkcall",
+    arguments: {
+    }
+  });
+  console.log("Tool AWSSdkCall result: ", resultSdkCall);
 
   // Call a tool
   const result = await client.callTool({
