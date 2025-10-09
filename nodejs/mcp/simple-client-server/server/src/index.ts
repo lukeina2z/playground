@@ -4,8 +4,6 @@ import { z } from "zod";
 
 import { makeHttpCall, makeS3Call } from "./testcall.js";
 
-
-
 const fn = async ()=>{
   const retFoo = await makeHttpCall();
   const retBar = await makeS3Call();
@@ -64,4 +62,7 @@ server.prompt(
 
 // Start receiving messages on stdin and sending messages on stdout
 const transport = new StdioServerTransport();
-// await server.connect(transport);
+
+(async () => {
+  await server.connect(transport);
+})();
