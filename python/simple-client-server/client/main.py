@@ -5,8 +5,8 @@ from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
 server_params = StdioServerParameters(
-    command="./votel/bin/opentelemetry-instrument",
-    args=["./votel/bin/mcp", "run", "../server/mcp_simple_tool/server.py"],
+    command="./.venv/bin/opentelemetry-instrument",
+    args=["./.venv/bin/mcp", "run", "../server/mcp_simple_tool/server.py"],
     env={
         "OTEL_RESOURCE_ATTRIBUTES": "service.name=MCP-Server-Foo",
         "OTEL_TRACES_EXPORTER": "otlp",

@@ -2,16 +2,11 @@
 1. Setup virtual environment.
 
     ```sh
-    python -m venv votel
-    source ./votel/bin/activate
-    pip install "mcp[cli]"
-    pip install requests
+    uv sync
 
-    pip install opentelemetry-distro opentelemetry-exporter-otlp
+    uv run opentelemetry-bootstrap -a install
 
-    opentelemetry-bootstrap -a install
-
-    pip install -e  /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-prfoo/instrumentation-genai/opentelemetry-instrumentation-mcp
+    uv run pip install -e /<Local Path>/opentelemetry-python-contrib/instrumentation-genai/opentelemetry-instrumentation-mcp
 
     ```
 
@@ -19,10 +14,9 @@
 
     ```sh
 
-    OTEL_SERVICE_NAME=Mcp-Client \
+    OTEL_SERVICE_NAME=MCP-Client \
     OTEL_TRACES_EXPORTER=otlp \
     OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://xyz-jaeger-100:4317/v1/traces \
-    opentelemetry-instrument python ./main.py
-
+    uv run opentelemetry-instrument python ./main.py
 
     ```
