@@ -16,8 +16,18 @@ await context.with(trace.setSpan(context.active(), span), async () => {
   await fn();
 
   const transport = new StdioClientTransport({
-    command: "node",
-    args: ["../server/build/index.js"]
+        cwd: "../server",
+    command: process.execPath,
+    args: [
+      "--require",
+      "@opentelemetry/auto-instrumentations-node/register",
+      "build/index.js"],
+    env: {
+      "OTEL_SERVICE_NAME": "Mcp-SERVER",
+      // "OTEL_LOG_LEVEL": "all",
+      "OTEL_TRACES_EXPORTER": "otlp",
+      "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"
+    }
   });
 
   const client = new Client(
@@ -44,13 +54,13 @@ await context.with(trace.setSpan(context.active(), span), async () => {
 
   // List resources
   const resources = await client.listResources();
-  for(let resource in resources.resources) {
+  for (let resource in resources.resources) {
     console.log("Resource: ", resource);
   }
 
   // List resource templates
   const templates = await client.listResourceTemplates();
-  for(let template of templates.resourceTemplates) {
+  for (let template of templates.resourceTemplates) {
     console.log("Resource template: ", template.name);
   }
 

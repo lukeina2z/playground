@@ -10,7 +10,7 @@ const fn = async ()=>{
   console.log(retFoo , retBar);
 }
 
-fn();
+// fn();
 
 // Create an MCP server
 const server = new McpServer({
