@@ -2,6 +2,18 @@ import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mc
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
+import { makeHttpCall, makeS3Call } from "./testcall.js";
+
+
+
+const fn = async ()=>{
+  const retFoo = await makeHttpCall();
+  const retBar = await makeS3Call();
+  console.log(retFoo , retBar);
+}
+
+fn();
+
 // Create an MCP server
 const server = new McpServer({
   name: "Demo",
@@ -13,6 +25,14 @@ server.tool("add",
   { a: z.number(), b: z.number() },
   async ({ a, b }) => ({
     content: [{ type: "text", text: String(a + b) }]
+  })
+);
+
+// Add an AWS SDK Call tool
+server.tool("awssdkcall",
+  { },
+  async ({ }) => ({
+    content: [{ type: "text", text: JSON.stringify(await makeS3Call()) }]
   })
 );
 
@@ -44,4 +64,4 @@ server.prompt(
 
 // Start receiving messages on stdin and sending messages on stdout
 const transport = new StdioServerTransport();
-await server.connect(transport);
+// await server.connect(transport);

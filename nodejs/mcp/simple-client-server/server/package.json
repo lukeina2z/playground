@@ -1,16 +1,17 @@
 {
-    "type": "module",
     "bin": {
         "weather": "./build/index.js"
     },
     "scripts": {
-        "build": "tsc && node ./build/index.js",
+        "build": "tsc",
+        "build-and-Run": "tsc && node ./build/index.js",
         "inspector": "npx @modelcontextprotocol/inspector node build/index.js"
     },
     "files": [
         "build"
     ],
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.906.0",
         "@modelcontextprotocol/sdk": "^1.8.0",
         "type": "^2.7.3",
         "uuid": "^11.1.0",
