@@ -14,19 +14,23 @@
             "program": "${workspaceFolder}/build/client.js",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
-                "${workspaceFolder}/build/**/*.js"
+                "${workspaceFolder}/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/auto-instrumentations-node/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-aws-sdk/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-mcp/build/**/*.js"
             ],
             "env": {
                 "OTEL_SERVICE_NAME": "Mcp-Client-CJS-LaunchJson",
-                "OTEL_LOG_LEVEL": "all",
+                "OTEL_NODE_RESOURCE_DETECTORS": "aws,env,host,os",
+                "OTEL_LOG_LEVEL": "warn",
                 "OTEL_TRACES_EXPORTER": "otlp",
                 "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"
             },
             "runtimeArgs": [
-                "--import",
+                "--require",
                 "@opentelemetry/auto-instrumentations-node/register",
-                "--experimental-loader=@opentelemetry/instrumentation/hook.mjs"
-            ]
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }
