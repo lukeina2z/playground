@@ -17,7 +17,7 @@
                 "${workspaceFolder}/build/**/*.js"
             ],
             "env": {
-                "OTEL_SERVICE_NAME": "Mcp-Client-LaunchJson",
+                "OTEL_SERVICE_NAME": "Mcp-Client-CJS-LaunchJson",
                 "OTEL_LOG_LEVEL": "all",
                 "OTEL_TRACES_EXPORTER": "otlp",
                 "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"

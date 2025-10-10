@@ -12,11 +12,11 @@ npm install --save @opentelemetry/auto-instrumentations-node
 npm run build
 
   # OTEL_LOG_LEVEL=all \
+  #   --experimental-loader=@opentelemetry/instrumentation/hook.mjs   \
 
-OTEL_SERVICE_NAME=Mcp-Client-zRun \
+OTEL_SERVICE_NAME=Mcp-Client-CJS-zRun \
   OTEL_TRACES_EXPORTER=otlp \
   OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://xyz-jaeger-100:4318/v1/traces \
   node  --import @opentelemetry/auto-instrumentations-node/register  \
-  --experimental-loader=@opentelemetry/instrumentation/hook.mjs   \
   ./build/client.js
   
