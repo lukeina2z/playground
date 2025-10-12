@@ -1,5 +1,5 @@
 import { trace, context } from "@opentelemetry/api";
-import { makeHttpCall, makeS3Call } from "./testcall.js";
+import { makeHttpCall, makeS3Call, testOpenAIChat } from "./testcall.js";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
@@ -12,10 +12,11 @@ const myMain = async () => {
     const fn = async () => {
       const retFoo = await makeHttpCall();
       const retBar = await makeS3Call();
+      await testOpenAIChat();
       console.log(retFoo, retBar);
     }
 
-    // await fn();
+    await fn();
 
     const transport = new StdioClientTransport({
       cwd: "../server",
@@ -26,10 +27,10 @@ const myMain = async () => {
         "build/index.js"],
       env: {
         ...process.env,
-        "OTEL_SERVICE_NAME": "MCP-Server-JS",
+        "OTEL_SERVICE_NAME": "MCP-Server-CJS",
         // "DEBUG": "*",
         // "DEBUG_FD": "3",  // Write debug logs to file descriptor 3
-        "OTEL_INSTRUMENTATION_MCP_DEBUG_LOG_FILE": "/tmp/mcp-instrumentation-debug.log",
+        "OTEL_INSTRUMENTATION_MCP_DEBUG_LOG_FILE": "/tmp/mcp-server-instrumentation-debug.log",
         "OTEL_LOG_LEVEL": "debug",
         "OTEL_TRACES_EXPORTER": "otlp",
         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"

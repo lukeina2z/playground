@@ -22,7 +22,7 @@
                 "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/node_modules/@opentelemetry/instrumentation-http/build/**/*.js",
             ],
             "env": {
-                "OTEL_SERVICE_NAME": "Mcp-Client-CJS-LaunchJson",
+                "OTEL_SERVICE_NAME": "MCP-Client-ESM-LaunchJson",
                 "OTEL_NODE_RESOURCE_DETECTORS": "aws,env,host,os",
                 "OTEL_LOG_LEVEL": "warn",
                 "OTEL_TRACES_EXPORTER": "otlp",

@@ -1,5 +1,5 @@
 {
-    "type": "commonjs",
+    "type": "module",
     "scripts": {
         "build": "tsc",
         "start": "tsc && node ./build/client.js"
@@ -12,12 +12,15 @@
         "@modelcontextprotocol/sdk": "^1.20.0",
         "@opentelemetry/api": "^1.9.0",
         "@opentelemetry/auto-instrumentations-node": "file:/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/auto-instrumentations-node",
+        "@opentelemetry/instrumentation": "^0.206.0",
+        "dotenv": "^17.2.3",
         "openai": "^6.3.0",
         "type": "^2.7.3",
         "uuid": "^11.1.0",
         "zod": "^3.24.2"
     },
     "devDependencies": {
+        "@types/dotenv": "^6.1.1",
         "@types/node": "^20.11.24",
         "@types/uuid": "^10.0.0",
         "typescript": "^5.3.3"
