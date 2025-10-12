@@ -8,7 +8,7 @@ server_params = StdioServerParameters(
     command="./.venv/bin/opentelemetry-instrument",
     args=["./.venv/bin/mcp", "run", "../server/mcp_simple_tool/server.py"],
     env={
-        "OTEL_RESOURCE_ATTRIBUTES": "service.name=MCP-Server-Foo",
+        "OTEL_RESOURCE_ATTRIBUTES": "service.name=MCP-Server-Python",
         "OTEL_TRACES_EXPORTER": "otlp",
         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
     },

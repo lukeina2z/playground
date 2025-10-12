@@ -14,7 +14,7 @@
 
     ```sh
 
-    OTEL_SERVICE_NAME=MCP-Client \
+    OTEL_SERVICE_NAME=MCP-Client-Python \
     OTEL_TRACES_EXPORTER=otlp \
     OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://xyz-jaeger-100:4317/v1/traces \
     uv run opentelemetry-instrument python ./main.py
