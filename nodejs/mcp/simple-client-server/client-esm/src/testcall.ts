@@ -1,4 +1,4 @@
-import * as http from 'http';
+import http from 'http';
 import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
 
 interface S3Response {
