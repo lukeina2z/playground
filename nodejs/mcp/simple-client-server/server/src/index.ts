@@ -4,11 +4,11 @@ import { z } from "zod";
 
 import { makeHttpCall, makeS3Call } from "./testcall.js";
 
-const fn = async ()=>{
-  const retFoo = await makeHttpCall();
-  const retBar = await makeS3Call();
-  console.log(retFoo , retBar);
-}
+// const fn = async ()=>{
+//   const retFoo = await makeHttpCall();
+//   const retBar = await makeS3Call();
+//   console.log(retFoo , retBar);
+// }
 
 // fn();
 
@@ -34,9 +34,9 @@ server.tool("awssdkcall",
 );
 
 server.tool("pingweb",
-  { },
-  async ({ }) => ({
-    content: [{ type: "text", text: JSON.stringify(await makeHttpCall()) }]
+  { url: z.string()},
+  async ({ url }) => ({
+    content: [{ type: "text", text: JSON.stringify(await makeHttpCall(url)) }]
   })
 );
 

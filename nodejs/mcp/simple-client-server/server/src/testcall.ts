@@ -24,11 +24,11 @@ const pingS3 = async (): Promise<S3Response> => {
     };
 };
 
-function pingWebSite(): Promise<string> {
+function pingWebSite(url: string): Promise<string> {
     console.log(`Ping web site.`);
 
     return new Promise((resolve, reject) => {
-        const httpReq = http.get('http://aws.amazon.com', (httpResponse) => {
+        const httpReq = http.get(url, (httpResponse) => {
             console.log('Response status code:', httpResponse.statusCode);
             let data = `XRayTraceID: ${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}\r\n`;
             httpResponse.on('data', (chunk) => {
@@ -53,7 +53,7 @@ export async function makeS3Call(): Promise<String> {
     return `S3 Call Succeeded: ${ret.response}, Buckets: ${ret.allBuckets}`;
 }
 
-export async function makeHttpCall(): Promise<String> {
-    const ret = await pingWebSite();
+export async function makeHttpCall(url: string): Promise<String> {
+    const ret = await pingWebSite(url);
     return ret;
 }
