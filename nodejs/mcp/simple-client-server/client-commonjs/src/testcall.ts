@@ -59,26 +59,36 @@ export async function makeHttpCall(): Promise<String> {
 }
 
 
-// import OpenAI from "openai";
+import OpenAI from "openai";
+import * as dotenv from 'dotenv';
 
-// export async function testOpenAIChat(): Promise<void> {
-//     const openai = new OpenAI({
-//         apiKey: process.env.OPENAI_API_KEY,
-//     });
+dotenv.config();
 
-//     async function runChat() {
-//         const response = await openai.chat.completions.create({
-//             model: "gpt-3.5-turbo",
-//             messages: [
-//                 { role: "system", content: "You are a helpful assistant." },
-//                 { role: "user", content: "Tell me a joke." }
-//             ]
-//         });
 
-//         console.log(response.choices[0].message.content);
-//     }
+export async function testOpenAIChat(): Promise<void> {
 
-//     // runChat();
-// }
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
 
+    async function runChat() {
+        let response;
+        try {
+            response = await openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    { role: "system", content: "You are a helpful assistant." },
+                    { role: "user", content: "Tell me a joke." }
+                ]
+            });
+            runChat();
+        } catch (err) {
+            console.error("OpenAI Chat error: ", err);
+        }
+
+        console.log(response ? response.choices[0].message.content : "empty content");
+    }
+
+    runChat();
+}
 
