@@ -57,3 +57,28 @@ export async function makeHttpCall(): Promise<String> {
     const ret = await pingWebSite();
     return ret;
 }
+
+
+// import OpenAI from "openai";
+
+// export async function testOpenAIChat(): Promise<void> {
+//     const openai = new OpenAI({
+//         apiKey: process.env.OPENAI_API_KEY,
+//     });
+
+//     async function runChat() {
+//         const response = await openai.chat.completions.create({
+//             model: "gpt-3.5-turbo",
+//             messages: [
+//                 { role: "system", content: "You are a helpful assistant." },
+//                 { role: "user", content: "Tell me a joke." }
+//             ]
+//         });
+
+//         console.log(response.choices[0].message.content);
+//     }
+
+//     // runChat();
+// }
+
+

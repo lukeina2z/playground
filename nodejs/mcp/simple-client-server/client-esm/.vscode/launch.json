@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch with OTel",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/build/client.js",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "outFiles": [
+                "${workspaceFolder}/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/auto-instrumentations-node/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-aws-sdk/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-mcp/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/node_modules/@opentelemetry/instrumentation/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/node_modules/@opentelemetry/instrumentation-http/build/**/*.js",
+            ],
+            "env": {
+                "OTEL_SERVICE_NAME": "Mcp-Client-CJS-LaunchJson",
+                "OTEL_NODE_RESOURCE_DETECTORS": "aws,env,host,os",
+                "OTEL_LOG_LEVEL": "warn",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"
+            },
+            "runtimeArgs": [
+                "--require",
+                "@opentelemetry/auto-instrumentations-node/register",
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
