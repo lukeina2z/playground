@@ -17,7 +17,9 @@
                 "${workspaceFolder}/build/**/*.js",
                 "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/auto-instrumentations-node/build/**/*.js",
                 "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-aws-sdk/build/**/*.js",
-                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-mcp/build/**/*.js"
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/packages/instrumentation-mcp/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/node_modules/@opentelemetry/instrumentation/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-mcp-foo/node_modules/@opentelemetry/instrumentation-http/build/**/*.js",
             ],
             "env": {
                 "OTEL_SERVICE_NAME": "Mcp-Client-CJS-LaunchJson",

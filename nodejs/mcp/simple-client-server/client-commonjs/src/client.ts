@@ -15,7 +15,7 @@ const myMain = async () => {
       console.log(retFoo, retBar);
     }
 
-    await fn();
+    // await fn();
 
     const transport = new StdioClientTransport({
       cwd: "../server",
@@ -26,11 +26,15 @@ const myMain = async () => {
         "build/index.js"],
       env: {
         ...process.env,
-        "OTEL_SERVICE_NAME": "Mcp-SERVER",
-        // "OTEL_LOG_LEVEL": "all",
+        "OTEL_SERVICE_NAME": "MCP-Server-JS",
+        // "DEBUG": "*",
+        // "DEBUG_FD": "3",  // Write debug logs to file descriptor 3
+        "OTEL_INSTRUMENTATION_MCP_DEBUG_LOG_FILE": "/tmp/mcp-instrumentation-debug.log",
+        "OTEL_LOG_LEVEL": "debug",
         "OTEL_TRACES_EXPORTER": "otlp",
         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"
-      }
+      },
+      // stderr: "inherit"
     });
 
     const client = new Client(
@@ -84,6 +88,7 @@ const myMain = async () => {
     const resultWebCall = await client.callTool({
       name: "pingweb",
       arguments: {
+        url: "http://www.aws.com"
       }
     });
     console.log("Tool PingWeb result: ", resultWebCall);
