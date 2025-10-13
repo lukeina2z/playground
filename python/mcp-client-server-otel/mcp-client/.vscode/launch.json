@@ -8,14 +8,32 @@
             "name": "Python: Launch MCP Client",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/v-otel/bin/opentelemetry-instrument",
-            "args": ["${workspaceFolder}/v-otel/bin/python","${workspaceFolder}/main.py"],
+            "program": "${workspaceFolder}/.venv/bin/opentelemetry-instrument",
+            "args": [
+                "${workspaceFolder}/.venv/bin/python",
+                "${workspaceFolder}/main.py"
+            ],
             "console": "integratedTerminal",
             "justMyCode": false,
             "env": {
                 "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
-                "OTEL_TRACES_EXPORTER": "otlp,console",
+                "OTEL_TRACES_EXPORTER": "otlp",
                 "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
+            }
+        },
+        {
+            "name": "Debug Main.py with hooks",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/main.py",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces"
             }
         },
         {

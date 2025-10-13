@@ -1,3 +1,8 @@
+from opentelemetry.instrumentation.auto_instrumentation import initialize
+
+initialize()
+
+
 import boto3
 import requests
 import time
@@ -24,8 +29,8 @@ from mcp.client.stdio import stdio_client
 
 # Create server parameters for stdio connection
 server_params = StdioServerParameters(
-    command="./v-otel/bin/opentelemetry-instrument",  # Executable
-    args=["./v-otel/bin/mcp", "run", "../mcp-server/mcp_simple_tool/server.py"],  # Optional command line arguments
+    command="./.venv/bin/opentelemetry-instrument",  # Executable
+    args=["./.venv/bin/mcp", "run", "../mcp-server/mcp_simple_tool/server.py"],  # Optional command line arguments
     env={
         # "OTEL_SERVICE_NAME": "Mcp-Server-PyLaunchJson",
         "OTEL_RESOURCE_ATTRIBUTES": "service.name=Mcp-Server-ByClientCLI",
