@@ -12,7 +12,7 @@ uv sync
 uv run opentelemetry-bootstrap -a install
 
 # Install MCP instrumentation library
-uv run pip install -e ../../../../opentelemetry-instrumentation-mcp
+uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
 ```
 
 ### 2. Start the Server
@@ -20,7 +20,7 @@ uv run pip install -e ../../../../opentelemetry-instrumentation-mcp
 ```bash
 cd server
 
-OTEL_SERVICE_NAME=mcp-server-PyHttp \
+OTEL_SERVICE_NAME=mcp-server \
   OTEL_TRACES_EXPORTER=otlp \
   OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317/v1/traces \
   uv run opentelemetry-instrument python ./server.py
@@ -38,7 +38,7 @@ uv sync
 uv run opentelemetry-bootstrap -a install
 
 # Install MCP instrumentation library
-uv run pip install -e ../../../../opentelemetry-instrumentation-mcp
+uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
 ```
 
 ### 2. Run the Client
@@ -46,7 +46,7 @@ uv run pip install -e ../../../../opentelemetry-instrumentation-mcp
 ```bash
 cd client
 
-OTEL_SERVICE_NAME=mcp-client-PyHttp \
+OTEL_SERVICE_NAME=mcp-client \
   OTEL_TRACES_EXPORTER=otlp \
   OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317/v1/traces \
   uv run opentelemetry-instrument python ./client.py

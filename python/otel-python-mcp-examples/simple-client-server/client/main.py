@@ -1,3 +1,14 @@
+### Enable OTel logging
+import logging
+# logging.basicConfig(level=logging.DEBUG)
+
+
+### ### ### Enable hook debugging
+from opentelemetry.instrumentation.auto_instrumentation import initialize
+initialize()
+### ### ###
+
+
 import time
 
 from mcp import ClientSession, StdioServerParameters

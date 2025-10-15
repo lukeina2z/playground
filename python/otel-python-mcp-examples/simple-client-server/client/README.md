@@ -8,7 +8,10 @@
    uv run opentelemetry-bootstrap -a install
 
    # install MCP Instrumentation Library
-   uv run pip install -e ../../../../opentelemetry-instrumentation-mcp 
+   # uv run pip install -e ../../../../opentelemetry-instrumentation-mcp 
+
+   uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
+
    ```
 
 2. Run the client:
