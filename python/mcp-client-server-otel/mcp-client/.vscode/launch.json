@@ -31,9 +31,26 @@
             "console": "integratedTerminal",
             "justMyCode": false,
             "env": {
-                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_SERVICE_NAME": "mcp-client-PyLaunchJson",
                 "OTEL_TRACES_EXPORTER": "otlp",
                 "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces"
+            }
+        },
+        {
+            "name": "Dbg opentelemetry-bootstrap -a install",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/opentelemetry-bootstrap",
+            "args": [
+                "-a",
+                "install"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
             }
         },
         {

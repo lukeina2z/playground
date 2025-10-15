@@ -1,6 +1,12 @@
-from opentelemetry.instrumentation.auto_instrumentation import initialize
+### Enable OTel logging
+import logging
+# logging.basicConfig(level=logging.DEBUG)
 
+
+### ### ### Enable hook debugging
+from opentelemetry.instrumentation.auto_instrumentation import initialize
 initialize()
+### ### ###
 
 
 import boto3
@@ -33,7 +39,7 @@ server_params = StdioServerParameters(
     args=["./.venv/bin/mcp", "run", "../mcp-server/mcp_simple_tool/server.py"],  # Optional command line arguments
     env={
         # "OTEL_SERVICE_NAME": "Mcp-Server-PyLaunchJson",
-        "OTEL_RESOURCE_ATTRIBUTES": "service.name=Mcp-Server-ByClientCLI",
+        "OTEL_RESOURCE_ATTRIBUTES": "service.name=mcp-server-Py",
         "OTEL_TRACES_EXPORTER": "otlp",
         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
     },

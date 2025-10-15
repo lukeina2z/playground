@@ -4,19 +4,11 @@
     https://opentelemetry.io/docs/zero-code/python
 
     ```sh
-    python -m venv v-otel
-    source ./v-otel/bin/activate
-    pip install "mcp[cli]"
-    pip install boto3
-    pip install requests
-    pip install debugpy
+    uv sync
+    uv run opentelemetry-bootstrap -a install
+    uv pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
 
-    pip install opentelemetry-distro opentelemetry-exporter-otlp
-
-    opentelemetry-bootstrap -a install
-
-    pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
-
+    uv pip list
 
     ```
 
