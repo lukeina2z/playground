@@ -1,0 +1,59 @@
+import * as http from 'http';
+import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
+
+interface S3Response {
+    response: boolean;
+    allBuckets: string;
+}
+
+const pingS3 = async (): Promise<S3Response> => {
+    let s3CmdSucceeded = true;
+    let buckets = "";
+    try {
+        const s3Client = new S3Client();
+        const command = new ListBucketsCommand({});
+        const data = await s3Client.send(command);
+        s3CmdSucceeded = true;
+        buckets = data.Buckets?.map((bucket) => bucket.Name).join(", ") || "";
+    } catch (err: any) {
+        s3CmdSucceeded = false;
+    }
+    return {
+        response: s3CmdSucceeded,
+        allBuckets: buckets
+    };
+};
+
+function pingWebSite(url: string): Promise<string> {
+    console.log(`Ping web site.`);
+
+    return new Promise((resolve, reject) => {
+        const httpReq = http.get(url, (httpResponse) => {
+            console.log('Response status code:', httpResponse.statusCode);
+            let data = `XRayTraceID: ${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}\r\n`;
+            httpResponse.on('data', (chunk) => {
+                data += chunk;  // Accumulate the chunks of data
+            });
+
+            httpResponse.on('end', () => {
+                console.log(`Response body: ${data}`);
+                resolve(data);
+            });
+        });
+
+        httpReq.on('error', (error) => {
+            console.error(`Error in outgoing-http-call:  ${error.message}`);
+            reject(error);
+        });
+    });
+};
+
+export async function makeS3Call(): Promise<String> {
+    const ret = await pingS3();
+    return `S3 Call Succeeded: ${ret.response}, Buckets: ${ret.allBuckets}`;
+}
+
+export async function makeHttpCall(url: string): Promise<String> {
+    const ret = await pingWebSite(url);
+    return ret;
+}
