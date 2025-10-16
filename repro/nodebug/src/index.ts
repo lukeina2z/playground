@@ -1,74 +1,34 @@
-import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
+import http from 'http';
 
-import { makeHttpCall, makeS3Call } from "./testcall.js";
+function pingWebSite(url: string): Promise<string> {
+  console.log(`Ping web site.`);
 
-const fn = async ()=>{
-  const retFoo = await makeHttpCall("http://www.msn.com");
-  const retBar = await makeS3Call();
-  console.log(retFoo , retBar);
+  return new Promise((resolve, reject) => {
+    const httpReq = http.get(url, (httpResponse) => {
+      console.log('Response status code:', httpResponse.statusCode);
+      let data = `XRayTraceID: ${process.env["_X_AMZN_TRACE_ID"] || "Trace Id not available"}\r\n`;
+      httpResponse.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      httpResponse.on('end', () => {
+        console.log(`Response body: ${data}`);
+        resolve(data);
+      });
+    });
+
+    httpReq.on('error', (error) => {
+      console.error(`Error in outgoing-http-call:  ${error.message}`);
+      reject(error);
+    });
+  });
+};
+
+const fn = async () => {
+  await pingWebSite("http://www.msn.com");
+  const retFoo = await pingWebSite("http://www.msn.com");
+  console.log(retFoo);
 }
 
 fn();
 
-// Create an MCP server
-const server = new McpServer({
-  name: "Demo",
-  version: "1.0.0"
-});
-
-// Add an addition tool
-server.tool("add",
-  { a: z.number(), b: z.number() },
-  async ({ a, b }) => ({
-    content: [{ type: "text", text: String(a + b) }]
-  })
-);
-
-server.tool("awssdkcall",
-  { },
-  async ({ }) => ({
-    content: [{ type: "text", text: JSON.stringify(await makeS3Call()) }]
-  })
-);
-
-server.tool("pingweb",
-  { url: z.string()},
-  async ({ url }) => ({
-    content: [{ type: "text", text: JSON.stringify(await makeHttpCall(url)) }]
-  })
-);
-
-// Add a dynamic greeting resource
-server.resource(
-  "file",
-  new ResourceTemplate("file://{path}", { list: undefined }),
-  async (uri, { path }) => ({
-    contents: [{
-      uri: uri.href,
-      text: `File, ${path}!`
-    }]
-  })
-);
-
-server.prompt(
-  "review-code",
-  { code: z.string() },
-  ({ code }) => ({
-    messages: [{
-      role: "user",
-      content: {
-        type: "text",
-        text: `Please review this code:\n\n${code}`
-      }
-    }]
-  })
-);
-
-// Start receiving messages on stdin and sending messages on stdout
-const transport = new StdioServerTransport();
-
-(async () => {
-  await server.connect(transport);
-})();
