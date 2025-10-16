@@ -3,10 +3,7 @@
 const { context, trace, ROOT_CONTEXT } = require('@opentelemetry/api');
 const awsCalls = require('./awsS3Test');
 
-
 const http = require('http');
-
-
 
 function pingWebSite() {
     console.log(`Ping web site.`);
@@ -60,11 +57,18 @@ async function doWork(parent, tracer) {
 module.exports = async function main() {
     const tracer = trace.getTracer('example-basic-tracer-node');
     // Create a span. A span must be closed.
-    const parentSpan = tracer.startSpan('xy-top-root-span');
-    for (let i = 0; i < 1; i += 1) {
-        await doWork(parentSpan, tracer);
-    }
+    const rootSpan = tracer.startSpan('NodeJs-OTel-Root-Span');
+    // for (let i = 0; i < 1; i += 1) {
+    //     await doWork(parentSpan, tracer);
+    // }
+
+    const newContext = trace.setSpan(context.active(), rootSpan);
+    await context.with(newContext, async () => {
+        await pingWebSite();
+        await awsCalls.s3Call();
+    });
+
     // Be sure to end the span.
-    parentSpan.end();
+    rootSpan.end();
 }
 

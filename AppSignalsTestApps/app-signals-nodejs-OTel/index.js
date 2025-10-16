@@ -10,7 +10,7 @@ async function runForever() {
     await testingApp();
     // await awsCalls.s3Call();
     // await sleep(10000);  // Wait for 1 second
-    // keepRunning = false;
+    keepRunning = false;
   }
 }
 
