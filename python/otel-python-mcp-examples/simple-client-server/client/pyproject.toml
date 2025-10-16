@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "boto3>=1.40.52",
+    "boto3>=1.40.53",
     "mcp[cli]>=1.17.0",
     "opentelemetry-api>=1.37.0",
     "opentelemetry-distro>=0.58b0",

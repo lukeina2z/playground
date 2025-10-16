@@ -16,9 +16,10 @@
             "console": "integratedTerminal",
             "justMyCode": false,
             "env": {
-                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_SERVICE_NAME": "mcp-client-PyLaunchJson",
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS":"host,os,process",
                 "OTEL_TRACES_EXPORTER": "otlp",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4317/v1/traces",
             }
         },
         {
@@ -32,8 +33,9 @@
             "justMyCode": false,
             "env": {
                 "OTEL_SERVICE_NAME": "mcp-client-PyLaunchJson",
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS":"host,os,process",
                 "OTEL_TRACES_EXPORTER": "otlp",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces"
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4317/v1/traces"
             }
         },
         {
@@ -49,8 +51,9 @@
             "justMyCode": false,
             "env": {
                 "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS":"host,os,process",
                 "OTEL_TRACES_EXPORTER": "otlp",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4317/v1/traces",
             }
         },
         {

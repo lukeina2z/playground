@@ -4,8 +4,8 @@ import logging
 
 
 ### ### ### Enable hook debugging
-from opentelemetry.instrumentation.auto_instrumentation import initialize
-initialize()
+# from opentelemetry.instrumentation.auto_instrumentation import initialize
+# initialize()
 ### ### ###
 
 
@@ -23,6 +23,7 @@ server_params = StdioServerParameters(
     args=["./.venv/bin/mcp", "run", "../server/mcp_simple_tool/server.py"],
     env={
         "OTEL_RESOURCE_ATTRIBUTES": "service.name=mcp-server",
+        "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS":"host,os,process",
         "OTEL_TRACES_EXPORTER": "otlp",
         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4317/v1/traces",
     },
