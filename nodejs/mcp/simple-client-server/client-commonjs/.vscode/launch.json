@@ -23,10 +23,10 @@
             ],
             "env": {
                 "OTEL_SERVICE_NAME": "Mcp-Client-CJS-LaunchJson",
-                "OTEL_NODE_RESOURCE_DETECTORS": "aws,env,host,os",
+                "OTEL_NODE_RESOURCE_DETECTORS": "aws,env,host,os,process",
                 "OTEL_LOG_LEVEL": "warn",
                 "OTEL_TRACES_EXPORTER": "otlp",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces"
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4318/v1/traces"
             },
             "runtimeArgs": [
                 "--require",
