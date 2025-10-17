@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Adot-Java-EC2-Test",
+            "name": "ADOT-Java",
             "request": "launch",
             "mainClass": "org.example.App",
             "osx": {
@@ -17,7 +17,46 @@
                 "sourcePaths": [],
             },
             "env": {
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Java-EC2-main-PR1",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Java-EC2",
+                "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-contrib-patch/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar",
+                // "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
+                "OTEL_JAVAAGENT_DEBUG": "true",
+                "OTEL_LOG_LEVEL": "debug",
+                "OTEL_METRICS_EXPORTER": "none",
+                // "OTEL_LOGS_EXPORTER": "none",
+                // "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
+                // "OTEL_METRIC_EXPORT_INTERVAL": "2000",
+                // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                "OTEL_TRACES_SAMPLER": "always_on",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+            },
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            // "preLaunchTask": "Build with Gradle",
+            "projectName": "",
+            "modulePaths": [],
+            "classPaths": [
+                "${workspaceFolder}/app/build/libs/app-all.jar"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "OTel-Java",
+            "request": "launch",
+            "mainClass": "org.example.App",
+            "osx": {
+                "args": [],
+                "vmArgs": [
+                    // "-javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-foo/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar"
+                ],
+                "sourcePaths": [],
+            },
+            "env": {
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=OTel-Java-EC2",
                 "JAVA_TOOL_OPTIONS": " -javaagent:/Users/lukezha/github/otel-java/wk-adot-pr/adot-java-pr-contrib-patch/otelagent/build/libs/aws-opentelemetry-agent-2.11.0-SNAPSHOT.jar",
                 // "AWS_LAMBDA_FUNCTION_NAME": "Great-Lambda-Fn-XXX",
                 "OTEL_JAVAAGENT_DEBUG": "true",
@@ -25,7 +64,7 @@
                 "OTEL_METRICS_EXPORTER": "none",
                 // "OTEL_LOGS_EXPORTER": "none",
                 "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4318/v1/traces",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4318/v1/traces",
                 // "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
                 // "OTEL_METRIC_EXPORT_INTERVAL": "2000",
                 // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/json",
