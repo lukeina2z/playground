@@ -11,7 +11,6 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.830.0",
-    "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.65.0"
+    "@opentelemetry/auto-instrumentations-node": "file:/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-lkMain/packages/auto-instrumentations-node"
   }
 }
