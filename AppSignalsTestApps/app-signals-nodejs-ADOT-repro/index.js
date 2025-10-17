@@ -13,15 +13,14 @@ async function callWithOTelApi() {
   rootSpan.end();
 }
 
-
-async function callWithoutOTelApi() {
-  for (let i = 0; i < 60; i += 1) {
-    await awsCalls.s3Call();
-  }
-}
-
-
 callWithOTelApi();
+
+
+// async function callWithoutOTelApi() {
+//   for (let i = 0; i < 40; i += 1) {
+//     await awsCalls.s3Call();
+//   }
+// }
 
 // callWithoutOTelApi()
 
