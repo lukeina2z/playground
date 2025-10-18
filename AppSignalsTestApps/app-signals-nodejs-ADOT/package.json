@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "debug": "node index.js",
+    "debug": "node --require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,7 +11,7 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.830.0",
-    "@aws/aws-distro-opentelemetry-node-autoinstrumentation": "^0.7.0",
+    "@aws/aws-distro-opentelemetry-node-autoinstrumentation": "file:/Users/lukezha/github/otel-js/working/aws-otel-js-instrumentation-lkmain/aws-distro-opentelemetry-node-autoinstrumentation",
     "@opentelemetry/api": "^1.9.0"
   }
 }

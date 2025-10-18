@@ -5,7 +5,41 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ADOT Debug",
+            "name": "ADOT-Launch-Node",
+            "program": "${workspaceFolder}/index.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "env": {
+                "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
+                "OTEL_LOG_LEVEL": "all",
+                //"OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Nodejs",
+                "OTEL_SERVICE_NAME": "ADOT-Nodejs-Launch-Node",
+                "OTEL_NODE_RESOURCE_DETECTORS": "env,host,os,process",
+                "OTEL_EXPORTER_OTLP_TRACES_TIMEOUT": "3",
+                "OTEL_METRICS_EXPORTER": "none",
+                "OTEL_LOGS_EXPORTER": "none",
+                // "OTEL_TRACES_EXPORTER": "otlp,console",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                "OTEL_TRACES_SAMPLER": "always_on", // "xray",
+                // "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://127.0.0.1:4316/v1/metrics",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4318/v1/traces"
+            },
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "/Users/lukezha/github/playground/AppSignalsTestApps/app-signals-nodejs-ADOT/node_modules/@aws/aws-distro-opentelemetry-node-autoinstrumentation/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/aws-otel-js-instrumentation-lkmain/aws-distro-opentelemetry-node-autoinstrumentation/build/**/*.js",
+                "!**/node_modules/**"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "ADOT-NPM-Run-Script",
             "request": "launch",
             "runtimeArgs": [
                 "run-script",
@@ -18,37 +52,29 @@
             ],
             "type": "node",
             "env": {
-                "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
+                // "OTEL_LOG_LEVEL": "all",
+                //"OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Nodejs",
+                "OTEL_SERVICE_NAME": "ADOT-Nodejs-Launch-Npm",
+                "OTEL_NODE_RESOURCE_DETECTORS": "env,host,os,process",
+                // "NODE_OPTIONS": "--require @aws/aws-distro-opentelemetry-node-autoinstrumentation/register",
                 "OTEL_EXPORTER_OTLP_TRACES_TIMEOUT": "3",
-                // "OTEL_BSP_SCHEDULE_DELAY": "1",
-                // "OTEL_BSP_MAX_QUEUE_SIZE": "1",
                 "OTEL_METRICS_EXPORTER": "none",
                 "OTEL_LOGS_EXPORTER": "none",
                 // "OTEL_TRACES_EXPORTER": "otlp,console",
                 "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
                 "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
                 "OTEL_TRACES_SAMPLER": "always_on", // "xray",
-                // "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
-                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
-                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
-                // "OTEL_RESOURCE_ATTRIBUTES": "service.name=nodejs-ADOT-withAPI",
-                "OTEL_RESOURCE_ATTRIBUTES": "service.name=nodejs-ADOT-withoutAPI-butImport",
-                // "OTEL_SERVICE_NAME": "nodejs-ADOT",
-                // "OTEL_NODE_RESOURCE_DETECTORS": "env,host,os,process",
-                // // "NODE_OPTIONS": "--require @opentelemetry/auto-instrumentations-node/register",
-                // // "OTEL_LOG_LEVEL": "all",
-                // // "OTEL_RESOURCE_ATTRIBUTES": "service.name=xy-nodejs-svc-BAR",
-                // "OTEL_METRICS_EXPORTER": "none",
-                // "OTEL_LOGS_EXPORTER": "none",
-                // // "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318",
-                // "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4316/v1/traces",
-                // "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
-                // "OTEL_TRACES_SAMPLER": "always_on",
-                // "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://localhost:2000",
-                // "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
-                // "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
+                // "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://127.0.0.1:4316/v1/metrics",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4318/v1/traces"
             },
             "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "/Users/lukezha/github/playground/AppSignalsTestApps/app-signals-nodejs-ADOT/node_modules/@aws/aws-distro-opentelemetry-node-autoinstrumentation/build/**/*.js",
+                "/Users/lukezha/github/otel-js/working/aws-otel-js-instrumentation-lkmain/aws-distro-opentelemetry-node-autoinstrumentation/build/**/*.js",
+                "!**/node_modules/**"
+            ],
             "console": "integratedTerminal"
         }
     ]

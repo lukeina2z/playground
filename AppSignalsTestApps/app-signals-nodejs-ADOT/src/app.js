@@ -55,6 +55,10 @@ async function doWork(parent, tracer) {
 }
 
 module.exports = async function main() {
+
+    await pingWebSite();
+    await awsCalls.s3Call();
+
     const tracer = trace.getTracer('example-basic-tracer-node');
     // Create a span. A span must be closed.
     const rootSpan = tracer.startSpan('NodeJs-ADOT-Root-Span');
@@ -64,7 +68,7 @@ module.exports = async function main() {
 
     const newContext = trace.setSpan(context.active(), rootSpan);
     await context.with(newContext, async () => {
-        for(let i = 0; i < 3; i += 1) {
+        for (let i = 0; i < 10; i += 1) {
             await pingWebSite();
             await awsCalls.s3Call();
         }
