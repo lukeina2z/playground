@@ -1,5 +1,6 @@
 const awsCalls = require('./awsS3Test');
 
+
 async function callWithOTelApi() {
   const { context, trace, ROOT_CONTEXT } = require('@opentelemetry/api');
   const tracer = trace.getTracer('great-tracer');
