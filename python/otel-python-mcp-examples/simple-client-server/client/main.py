@@ -4,8 +4,8 @@ import logging
 
 
 ### ### ### Enable hook debugging
-# from opentelemetry.instrumentation.auto_instrumentation import initialize
-# initialize()
+from opentelemetry.instrumentation.auto_instrumentation import initialize
+initialize()
 ### ### ###
 
 
