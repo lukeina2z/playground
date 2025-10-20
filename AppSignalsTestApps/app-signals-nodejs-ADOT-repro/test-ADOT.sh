@@ -15,7 +15,8 @@ npm install
 # following https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Signals-Enable-EC2Main.html#CloudWatch-Application-Signals-Enable-Other-instrument
 
 
-OTEL_EXPORTER_OTLP_TRACES_TIMEOUT=3 \
+# OTEL_EXPORTER_OTLP_TRACES_TIMEOUT=3 \
+
 OTEL_TRACES_EXPORTER="otlp,console" \
 OTEL_METRICS_EXPORTER=none \
      OTEL_LOGS_EXPORTER=none \
