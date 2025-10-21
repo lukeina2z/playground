@@ -25,7 +25,7 @@ The example showcases how MCP requests and responses are automatically traced ac
 
 ```bash
 cd server
-npm install
+npm ci
 npm run build
 ```
 
@@ -33,7 +33,7 @@ npm run build
 
 ```bash
 cd client
-npm install
+npm ci
 npm run build
 ```
 
@@ -46,7 +46,7 @@ Execute the client (OpenTelemetry is automatically configured for the server via
 ```bash
 OTEL_SERVICE_NAME=mcp-client \
   OTEL_TRACES_EXPORTER=otlp \
-  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4318/v1/traces \
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4318/v1/traces \
   node --require @opentelemetry/auto-instrumentations-node/register ./build/client.js
 ```
 
