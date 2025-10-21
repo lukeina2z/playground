@@ -21,5 +21,5 @@ npm run build
 echo "Starting MCP server with OpenTelemetry..."
 OTEL_SERVICE_NAME=mcp-server \
   OTEL_TRACES_EXPORTER=otlp \
-  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4318/v1/traces \
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4318/v1/traces \
   node --require @opentelemetry/auto-instrumentations-node/register ./build/index.js
