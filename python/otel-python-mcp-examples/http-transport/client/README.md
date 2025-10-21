@@ -2,43 +2,20 @@
 
 This example demonstrates OpenTelemetry instrumentation for MCP using HTTP transport with Server-Sent Events (SSE).
 
-## Running the Server
+## Start the Server First
 
-### 1. Install Dependencies
-
-```bash
-cd server
-uv sync
-uv run opentelemetry-bootstrap -a install
-
-# Install MCP instrumentation library
-uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
-```
-
-### 2. Start the Server
-
-```bash
-cd server
-
-OTEL_SERVICE_NAME=mcp-server \
-  OTEL_TRACES_EXPORTER=otlp \
-  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317/v1/traces \
-  uv run opentelemetry-instrument python ./server.py
-```
-
-The server will start on `http://localhost:8000`.
 
 ## Running the Client
 
 ### 1. Install Dependencies
 
 ```bash
-cd client
+
 uv sync
 uv run opentelemetry-bootstrap -a install
 
 # Install MCP instrumentation library
-uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-pa/instrumentation-genai/opentelemetry-instrumentation-mcp
+uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-python-contrib-mcp-working/instrumentation-genai/opentelemetry-instrumentation-mcp
 ```
 
 ### 2. Run the Client
@@ -46,7 +23,8 @@ uv run pip install -e /Users/lukezha/github/otel-python/pr-work/opentelemetry-py
 ```bash
 cd client
 
-OTEL_SERVICE_NAME=mcp-client \
+OTEL_SERVICE_NAME=mcp-http-client \
+  OTEL_EXPERIMENTAL_RESOURCE_DETECTORS="host,os,process" \
   OTEL_TRACES_EXPORTER=otlp \
   OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317/v1/traces \
   uv run opentelemetry-instrument python ./client.py
