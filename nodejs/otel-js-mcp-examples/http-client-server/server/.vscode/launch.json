@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/build/client.js",
+            "program": "${workspaceFolder}/build/index.js",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/build/**/*.js",
@@ -22,7 +22,7 @@
                 "/Users/lukezha/github/otel-js/working/opentelemetry-js-contrib-lkmcp/node_modules/@opentelemetry/instrumentation-http/build/**/*.js",
             ],
             "env": {
-                "OTEL_SERVICE_NAME": "mcp-client-LaunchJson",
+                "OTEL_SERVICE_NAME": "mcp-http-server-LaunchJson",
                 "OTEL_NODE_RESOURCE_DETECTORS": "aws,env,host,os,process",
                 // "OTEL_LOG_LEVEL": "warn",
                 "OTEL_TRACES_EXPORTER": "otlp",
