@@ -1,0 +1,76 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Launch MCP Client",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/opentelemetry-instrument",
+            "args": [
+                "${workspaceFolder}/.venv/bin/python",
+                "${workspaceFolder}/client.py"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "mcp-http-client-PyLaunchJson",
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS": "host,os,process",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4317/v1/traces",
+            }
+        },
+        {
+            "name": "Debug Main.py with hooks",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/client.py",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "mcp-http-client-PyLaunchJson",
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS": "host,os,process",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4317/v1/traces"
+            }
+        },
+        {
+            "name": "Dbg opentelemetry-bootstrap -a install",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/opentelemetry-bootstrap",
+            "args": [
+                "-a",
+                "install"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS": "host,os,process",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4317/v1/traces",
+            }
+        },
+        {
+            "name": "Python: Attach to MCP Server Foo",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/../python-mcp-server-foo",
+                    "remoteRoot": "."
+                }
+            ],
+            "justMyCode": false
+        }
+    ]
+}

@@ -1,6 +1,19 @@
 #!/usr/bin/env python3
 """MCP client with HTTP transport using SSE."""
 
+
+### Enable OTel logging
+import logging
+# logging.basicConfig(level=logging.DEBUG)
+
+
+### ### ### Enable hook debugging
+from opentelemetry.instrumentation.auto_instrumentation import initialize
+initialize()
+### ### ###
+
+
+
 import asyncio
 
 from mcp import ClientSession
