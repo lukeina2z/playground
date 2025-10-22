@@ -1,3 +1,16 @@
+### Enable OTel logging
+import logging
+# logging.basicConfig(level=logging.DEBUG)
+
+
+### ### ### Enable hook debugging
+# https://opentelemetry.io/docs/zero-code/python/
+from opentelemetry.instrumentation.auto_instrumentation import initialize
+initialize()
+### ### ###
+
+
+
 import boto3  # type: ignore[import-untyped]
 import requests
 from mcp.server.fastmcp import FastMCP

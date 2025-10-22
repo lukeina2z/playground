@@ -5,8 +5,8 @@ import logging
 
 ### ### ### Enable hook debugging
 # https://opentelemetry.io/docs/zero-code/python/
-from opentelemetry.instrumentation.auto_instrumentation import initialize
-initialize()
+# from opentelemetry.instrumentation.auto_instrumentation import initialize
+# initialize()
 ### ### ###
 
 
@@ -19,9 +19,24 @@ from pydantic import AnyUrl
 from opentelemetry import trace
 
 # Create server parameters for stdio connection
+# server_params = StdioServerParameters(
+#     command="./.venv/bin/opentelemetry-instrument",
+#     args=["./.venv/bin/mcp", "run", "../server/mcp_simple_tool/server.py"],
+#     env={
+#         "OTEL_RESOURCE_ATTRIBUTES": "service.name=mcp-server",
+#         "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS":"host,os,process",
+#         "OTEL_TRACES_EXPORTER": "otlp",
+#         "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4317/v1/traces",
+#     },
+# )
+
+
 server_params = StdioServerParameters(
-    command="./.venv/bin/opentelemetry-instrument",
-    args=["./.venv/bin/mcp", "run", "../server/mcp_simple_tool/server.py"],
+    command="./.venv/bin/python",
+    args=[
+        # "-m", "debugpy", "--listen", "5678", "--wait-for-client",
+        "./.venv/bin/mcp", "run", "../server/mcp_simple_tool/server.py"
+    ],
     env={
         "OTEL_RESOURCE_ATTRIBUTES": "service.name=mcp-server",
         "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS":"host,os,process",
@@ -37,6 +52,22 @@ async def run():
             async with ClientSession(read, write) as session:
                 # Initialize the connection
                 await session.initialize()
+
+                # Send notifications to the server
+                print("SENDING NOTIFICATIONS")
+                
+                # Option 1: Log message notification
+                # await session.send_log_message(level="info", data="Client connected and ready")
+                
+                # Option 2: Progress notification
+                await session.send_progress_notification(
+                    progress_token="client-init",
+                    progress=50,
+                    total=100
+                )
+                
+                # Option 3: Resource list changed notification
+                # await session.send_resource_list_changed()
 
                 # List available resources
                 resources = await session.list_resources()
@@ -78,7 +109,8 @@ async def run():
                 time.sleep(3)
     except (OSError, ValueError) as exc:
         print(f"Client session ended: {exc}")
-
+    except (Exception) as exc:
+        print(f"Client session ended: {exc}")
 
 if __name__ == "__main__":
     import asyncio

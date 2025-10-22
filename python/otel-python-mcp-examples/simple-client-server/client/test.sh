@@ -10,7 +10,7 @@ uv run pip install -e \
 
 
 OTEL_SERVICE_NAME=mcp-client \
-    OTEL_EXPERIMENTAL_RESOURCE_DETECTORS="env,host,os,process" \
+    OTEL_EXPERIMENTAL_RESOURCE_DETECTORS="host,os,process" \
     OTEL_TRACES_EXPORTER=otlp \
     OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317/v1/traces \
     uv run opentelemetry-instrument python ./main.py
