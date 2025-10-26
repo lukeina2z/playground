@@ -84,12 +84,16 @@ public class App {
     }
 
     public static void main(String[] args) {
+        int count = 0;
+        while (count < 3000) {
+            MyLambda myLambda = new MyLambda();
+            com.amazonaws.services.lambda.runtime.Context context = new TestContext();
+            APIGatewayProxyRequestEvent request = new APIGatewayProxyRequestEvent();
 
-        MyLambda myLambda = new MyLambda();
-        com.amazonaws.services.lambda.runtime.Context context = new TestContext();
-        APIGatewayProxyRequestEvent request = new APIGatewayProxyRequestEvent();
-
-        myLambda.handleRequest(request, context);
+            myLambda.handleRequest(request, context);
+            ++count;
+            // break;
+        }
 
         System.out.println(new App().getGreeting());
     }
