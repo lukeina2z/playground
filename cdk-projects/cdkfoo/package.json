@@ -1,5 +1,5 @@
 {
-  "name": "cdk-projects",
+  "name": "foo-cdk-projects",
   "version": "0.1.0",
   "bin": {
     "cdk-projects": "bin/cdk-projects.js"
