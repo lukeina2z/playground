@@ -6,14 +6,15 @@ ENV UV_SYSTEM_PYTHON=1 UV_COMPILE_BYTECODE=1
 
 
 
+# Copy local wheel file
+COPY /Users/lukezha/github/otel-python/adot-python-v0.13-foo/aws-otel-python-instrumentation/dist/aws_opentelemetry_distro-0.13.0-py3-none-any.whl /tmp/
+
 COPY requirements.txt requirements.txt
 # Install from requirements file
 RUN uv pip install -r requirements.txt
 
-
-
-
-RUN uv pip install aws-opentelemetry-distro>=0.10.1
+# Install local aws-opentelemetry-distro wheel
+RUN uv pip install /tmp/aws_opentelemetry_distro-0.13.0-py3-none-any.whl
 
 
 # Set AWS region environment variable
