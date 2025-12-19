@@ -1,26 +1,28 @@
-Microsoft Visual Studio Solution File, Format Version 7.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PiSvr", "PiSvr.vcproj", "{95716DAB-BAC3-4E88-A106-F742C13E88CB}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PiSvr", "PiSvr.vcxproj", "{95716DAB-BAC3-4E88-A106-F742C13E88CB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PiSvrPS", "PiSvrPS.vcproj", "{CF2DD602-2E6F-4FC7-9719-7B3187F08660}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PiSvrPS", "PiSvrPS.vcxproj", "{CF2DD602-2E6F-4FC7-9719-7B3187F08660}"
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		ConfigName.0 = Debug
-		ConfigName.1 = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(ProjectDependencies) = postSolution
-		{CF2DD602-2E6F-4FC7-9719-7B3187F08660}.0 = {95716DAB-BAC3-4E88-A106-F742C13E88CB}
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Debug|x86.ActiveCfg = Debug|Win32
+		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Debug|x86.Build.0 = Debug|Win32
+		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Release|x86.ActiveCfg = Release|Win32
+		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Release|x86.Build.0 = Release|Win32
+		{CF2DD602-2E6F-4FC7-9719-7B3187F08660}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF2DD602-2E6F-4FC7-9719-7B3187F08660}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Debug.ActiveCfg = Debug|Win32
-		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Debug.Build.0 = Debug|Win32
-		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Release.ActiveCfg = Release|Win32
-		{95716DAB-BAC3-4E88-A106-F742C13E88CB}.Release.Build.0 = Release|Win32
-		{CF2DD602-2E6F-4FC7-9719-7B3187F08660}.Debug.ActiveCfg = Debug|Win32
-		{CF2DD602-2E6F-4FC7-9719-7B3187F08660}.Release.ActiveCfg = Release|Win32
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {C783D06F-1F1D-47DC-9EF2-86105D05A8AD}
 	EndGlobalSection
 EndGlobal

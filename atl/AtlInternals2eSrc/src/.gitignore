@@ -1,0 +1,12 @@
+**/Backup/**
+**/Debug/**
+
+
+*.vcxproj.user
+*_i.c
+*_p.c
+
+Chapter 01/PiSvr/Non-Attributed/DebugPS/*
+
+
+
