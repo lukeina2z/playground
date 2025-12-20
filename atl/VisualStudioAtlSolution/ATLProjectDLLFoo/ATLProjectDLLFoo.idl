@@ -1,0 +1,18 @@
+// ATLProjectDLLFoo.idl : IDL source for ATLProjectDLLFoo
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ATLProjectDLLFoo.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(99ca2513-6901-43c3-88d7-cba9b4d17a8f),
+	version(1.0),
+]
+library ATLProjectDLLFooLib
+{
+	importlib("stdole2.tlb");
+};
+
