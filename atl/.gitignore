@@ -1,0 +1,13 @@
+**/Backup/**
+**/Debug/**
+
+*.aps
+*.vcxproj.user
+# *_i.c
+# *_i.h
+# *_p.c
+
+AtlInternals2eSrc/src/Chapter 01/PiSvr/Non-Attributed/DebugPS/*
+
+
+

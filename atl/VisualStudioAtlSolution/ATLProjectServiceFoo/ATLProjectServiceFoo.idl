@@ -1,0 +1,36 @@
+// ATLProjectServiceFoo.idl : IDL source for ATLProjectServiceFoo
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ATLProjectServiceFoo.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(16b42ef3-867f-4e49-a267-3436acf5e00e),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IATLSimpleObjectFoo : IDispatch
+{
+};
+[
+	uuid(09677ce9-f0b1-48d4-8f45-558a437582f7),
+	version(1.0),
+]
+library ATLProjectServiceFooLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(d29dc9d0-612f-46e1-aada-34de4a35c8b6)
+	]
+	coclass ATLSimpleObjectFoo
+	{
+		[default] interface IATLSimpleObjectFoo;
+	};
+};
+
+import "shobjidl.idl";
