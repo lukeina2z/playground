@@ -54,9 +54,7 @@ END_COM_MAP()
 	}
 
 public:
-
-
-
+    STDMETHOD(Add)(LONG a, LONG b, LONG* ret);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(Calculator), CCalculator)

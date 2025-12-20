@@ -96,6 +96,11 @@ EXTERN_C const IID IID_ICalculator;
     ICalculator : public IDispatch
     {
     public:
+        virtual /* [id] */ HRESULT STDMETHODCALLTYPE Add( 
+            /* [in] */ LONG a,
+            /* [in] */ LONG b,
+            /* [retval][out] */ LONG *ret) = 0;
+        
     };
     
     
@@ -161,6 +166,13 @@ EXTERN_C const IID IID_ICalculator;
             /* [annotation][out] */ 
             _Out_opt_  UINT *puArgErr);
         
+        DECLSPEC_XFGVIRT(ICalculator, Add)
+        /* [id] */ HRESULT ( STDMETHODCALLTYPE *Add )( 
+            ICalculator * This,
+            /* [in] */ LONG a,
+            /* [in] */ LONG b,
+            /* [retval][out] */ LONG *ret);
+        
         END_INTERFACE
     } ICalculatorVtbl;
 
@@ -196,6 +208,9 @@ EXTERN_C const IID IID_ICalculator;
 #define ICalculator_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
     ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
 
+
+#define ICalculator_Add(This,a,b,ret)	\
+    ( (This)->lpVtbl -> Add(This,a,b,ret) ) 
 
 #endif /* COBJMACROS */
 

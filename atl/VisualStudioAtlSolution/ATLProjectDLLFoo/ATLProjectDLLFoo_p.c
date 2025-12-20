@@ -46,8 +46,8 @@
 
 #include "ATLProjectDLLFoo_i.h"
 
-#define TYPE_FORMAT_STRING_SIZE   3                                 
-#define PROC_FORMAT_STRING_SIZE   1                                 
+#define TYPE_FORMAT_STRING_SIZE   7                                 
+#define PROC_FORMAT_STRING_SIZE   51                                
 #define EXPR_FORMAT_STRING_SIZE   1                                 
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   0            
@@ -161,6 +161,52 @@ static const ATLProjectDLLFoo_MIDL_PROC_FORMAT_STRING ATLProjectDLLFoo__MIDL_Pro
         0,
         {
 
+	/* Procedure Add */
+
+			0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/*  2 */	NdrFcLong( 0x0 ),	/* 0 */
+/*  6 */	NdrFcShort( 0x7 ),	/* 7 */
+/*  8 */	NdrFcShort( 0x28 ),	/* X64 Stack size/offset = 40 */
+/* 10 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 12 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 14 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x4,		/* 4 */
+/* 16 */	0xa,		/* 10 */
+			0x41,		/* Ext Flags:  new corr desc, has range on conformance */
+/* 18 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 20 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 22 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 24 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter a */
+
+/* 26 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 28 */	NdrFcShort( 0x8 ),	/* X64 Stack size/offset = 8 */
+/* 30 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter b */
+
+/* 32 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 34 */	NdrFcShort( 0x10 ),	/* X64 Stack size/offset = 16 */
+/* 36 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter ret */
+
+/* 38 */	NdrFcShort( 0x2150 ),	/* Flags:  out, base type, simple ref, srv alloc size=8 */
+/* 40 */	NdrFcShort( 0x18 ),	/* X64 Stack size/offset = 24 */
+/* 42 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 44 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 46 */	NdrFcShort( 0x20 ),	/* X64 Stack size/offset = 32 */
+/* 48 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
 			0x0
         }
     };
@@ -170,6 +216,10 @@ static const ATLProjectDLLFoo_MIDL_TYPE_FORMAT_STRING ATLProjectDLLFoo__MIDL_Typ
         0,
         {
 			NdrFcShort( 0x0 ),	/* 0 */
+/*  2 */	
+			0x11, 0xc,	/* FC_RP [alloced_on_stack] [simple_pointer] */
+/*  4 */	0x8,		/* FC_LONG */
+			0x5c,		/* FC_PAD */
 
 			0x0
         }
@@ -237,9 +287,155 @@ namespace {
 
 
 typedef 
+NDR64_FORMAT_CHAR
+__midl_frag7_t;
+extern const __midl_frag7_t __midl_frag7;
+
+typedef 
+struct _NDR64_POINTER_FORMAT
+__midl_frag5_t;
+extern const __midl_frag5_t __midl_frag5;
+
+typedef 
+struct 
+{
+    struct _NDR64_PROC_FORMAT frag1;
+    struct _NDR64_PARAM_FORMAT frag2;
+    struct _NDR64_PARAM_FORMAT frag3;
+    struct _NDR64_PARAM_FORMAT frag4;
+    struct _NDR64_PARAM_FORMAT frag5;
+}
+__midl_frag2_t;
+extern const __midl_frag2_t __midl_frag2;
+
+typedef 
 NDR64_FORMAT_UINT32
 __midl_frag1_t;
 extern const __midl_frag1_t __midl_frag1;
+
+static const __midl_frag7_t __midl_frag7 =
+0x5    /* FC64_INT32 */;
+
+static const __midl_frag5_t __midl_frag5 =
+{ 
+/* *LONG */
+    0x20,    /* FC64_RP */
+    (NDR64_UINT8) 12 /* 0xc */,
+    (NDR64_UINT16) 0 /* 0x0 */,
+    &__midl_frag7
+};
+
+static const __midl_frag2_t __midl_frag2 =
+{ 
+/* Add */
+    { 
+    /* Add */      /* procedure Add */
+        (NDR64_UINT32) 524611 /* 0x80143 */,    /* auto handle */ /* IsIntrepreted, [object], HasReturn */
+        (NDR64_UINT32) 40 /* 0x28 */ ,  /* Stack size */
+        (NDR64_UINT32) 16 /* 0x10 */,
+        (NDR64_UINT32) 40 /* 0x28 */,
+        (NDR64_UINT16) 0 /* 0x0 */,
+        (NDR64_UINT16) 0 /* 0x0 */,
+        (NDR64_UINT16) 4 /* 0x4 */,
+        (NDR64_UINT16) 0 /* 0x0 */
+    },
+    { 
+    /* a */      /* parameter a */
+        &__midl_frag7,
+        { 
+        /* a */
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            (NDR64_UINT16) 0 /* 0x0 */,
+            0
+        },    /* [in], Basetype, ByValue */
+        (NDR64_UINT16) 0 /* 0x0 */,
+        8 /* 0x8 */,   /* Stack offset */
+    },
+    { 
+    /* b */      /* parameter b */
+        &__midl_frag7,
+        { 
+        /* b */
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            (NDR64_UINT16) 0 /* 0x0 */,
+            0
+        },    /* [in], Basetype, ByValue */
+        (NDR64_UINT16) 0 /* 0x0 */,
+        16 /* 0x10 */,   /* Stack offset */
+    },
+    { 
+    /* ret */      /* parameter ret */
+        &__midl_frag7,
+        { 
+        /* ret */
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            (NDR64_UINT16) 0 /* 0x0 */,
+            1
+        },    /* [out], Basetype, SimpleRef, UseCache */
+        (NDR64_UINT16) 0 /* 0x0 */,
+        24 /* 0x18 */,   /* Stack offset */
+    },
+    { 
+    /* HRESULT */      /* parameter HRESULT */
+        &__midl_frag7,
+        { 
+        /* HRESULT */
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            (NDR64_UINT16) 0 /* 0x0 */,
+            0
+        },    /* [out], IsReturn, Basetype, ByValue */
+        (NDR64_UINT16) 0 /* 0x0 */,
+        32 /* 0x20 */,   /* Stack offset */
+    }
+};
 
 static const __midl_frag1_t __midl_frag1 =
 (NDR64_UINT32) 0 /* 0x0 */;
@@ -270,7 +466,7 @@ static const FormatInfoRef ICalculator_Ndr64ProcTable[] =
     (FormatInfoRef)(LONG_PTR) -1,
     (FormatInfoRef)(LONG_PTR) -1,
     (FormatInfoRef)(LONG_PTR) -1,
-    0
+    &__midl_frag2
     };
 
 
@@ -321,9 +517,9 @@ static const MIDL_SERVER_INFO ICalculator_ServerInfo =
     2,
     (MIDL_SYNTAX_INFO*)ICalculator_SyntaxInfo
     };
-CINTERFACE_PROXY_VTABLE(7) _ICalculatorProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(8) _ICalculatorProxyVtbl = 
 {
-    0,
+    &ICalculator_ProxyInfo,
     &IID_ICalculator,
     IUnknown_QueryInterface_Proxy,
     IUnknown_AddRef_Proxy,
@@ -331,7 +527,8 @@ CINTERFACE_PROXY_VTABLE(7) _ICalculatorProxyVtbl =
     0 /* IDispatch::GetTypeInfoCount */ ,
     0 /* IDispatch::GetTypeInfo */ ,
     0 /* IDispatch::GetIDsOfNames */ ,
-    0 /* IDispatch_Invoke_Proxy */
+    0 /* IDispatch_Invoke_Proxy */ ,
+    (void *) (INT_PTR) -1 /* ICalculator::Add */
 };
 
 
@@ -340,14 +537,15 @@ EXTERN_C DECLSPEC_SELECTANY const PRPC_STUB_FUNCTION ICalculator_table[] =
     STUB_FORWARDING_FUNCTION,
     STUB_FORWARDING_FUNCTION,
     STUB_FORWARDING_FUNCTION,
-    STUB_FORWARDING_FUNCTION
+    STUB_FORWARDING_FUNCTION,
+    NdrStubCall3
 };
 
 CInterfaceStubVtbl _ICalculatorStubVtbl =
 {
     &IID_ICalculator,
     &ICalculator_ServerInfo,
-    7,
+    8,
     &ICalculator_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };

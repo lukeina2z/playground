@@ -20,3 +20,17 @@ STDMETHODIMP CCalculator::InterfaceSupportsErrorInfo(REFIID riid)
 	}
 	return S_FALSE;
 }
+
+STDMETHODIMP CCalculator::Add(LONG a, LONG b, LONG* ret)
+{
+    // TODO: Add your implementation code here
+    LONG result = a + b;
+    if ((a > 0 && b > 0 && result <= 0) ||
+        (a < 0 && b < 0 && result >= 0))
+    {
+        return E_FAIL;
+    }
+
+    *ret = result;
+    return S_OK;
+}
