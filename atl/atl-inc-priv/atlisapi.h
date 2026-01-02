@@ -6374,7 +6374,8 @@ public:
         return pRetStream;
     }
 
-protected:
+// Make ATL Internals sample code build.
+// protected:
 
 
     // Call this function to write data to the IWriteStream interface managed by this object.
