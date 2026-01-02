@@ -32,10 +32,10 @@ DWORD WINAPI HttpExtensionProc(EXTENSION_CONTROL_BLOCK *pECB) {
   char *header =
     "<html>\r\n"
       "<head>\r\n"
-        "<title>Hello from ISAPI</title>\r\n"
+        "<title>Hello from ISAPI - ONE</title>\r\n"
       "</head>\r\n"
       "<body>\r\n"
-        "<h1>Hello from an ISAPI Extension</h1>\r\n";
+        "<h1>Hello from an ISAPI Extension - ONE</h1>\r\n";
 
   DWORD size = static_cast< DWORD >( strlen( header ) );
   pECB->WriteClient( pECB->ConnID, header, &size, 0 );

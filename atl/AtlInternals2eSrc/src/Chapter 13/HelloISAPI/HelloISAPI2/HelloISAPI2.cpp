@@ -46,10 +46,10 @@ DWORD WINAPI HttpExtensionProc(EXTENSION_CONTROL_BLOCK *pECB) {
 
   response << "<html>" <<
     "<head>" <<
-      "<title>Hello from ISAPI</title>" <<
+      "<title>Hello from ISAPI - TWO</title>" <<
     "</head>" <<
     "<body>" <<
-      "<h1>Hello from an ISAPI Extension</h1>";
+      "<h1>Hello from an ISAPI Extension - TWO </h1>";
 
 
   CStringA name;
