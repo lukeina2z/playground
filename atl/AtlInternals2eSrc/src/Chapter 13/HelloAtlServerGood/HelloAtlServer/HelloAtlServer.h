@@ -3,37 +3,35 @@
 #pragma once
 
 class CHelloAtlServerHandler
-	: public CRequestHandlerT<CHelloAtlServerHandler>
-{
-private:
-	// Put private members here
-
-protected:
-	// Put protected members here
+  : public CRequestHandlerT<CHelloAtlServerHandler> {
 
 public:
-	// Put public members here
+  BEGIN_REPLACEMENT_METHOD_MAP(CHelloAtlServerHandler)
+    REPLACEMENT_METHOD_ENTRY("NameGiven", OnNameGiven)
+    REPLACEMENT_METHOD_ENTRY("Name", OnName)
+  END_REPLACEMENT_METHOD_MAP()
 
-	// TODO: Add additional tags to the replacement method map
-	BEGIN_REPLACEMENT_METHOD_MAP(CHelloAtlServerHandler)
-		REPLACEMENT_METHOD_ENTRY("Hello", OnHello)
-	END_REPLACEMENT_METHOD_MAP()
-
-	HTTP_CODE ValidateAndExchange()
-	{
-		// TODO: Put all initialization and validation code here
-		
-		// Set the content-type
-		m_HttpResponse.SetContentType("text/html");
-		
-		return HTTP_SUCCESS;
-	}
+  HTTP_CODE ValidateAndExchange() {
+    m_name = m_HttpRequest.GetQueryParams( ).Lookup( "name" );
+    return HTTP_SUCCESS;
+  }
  
 protected:
-	// Here is an example of how to use a replacement tag with the stencil processor
-	HTTP_CODE OnHello(void)
-	{
-		m_HttpResponse << "Hello World!";
-		return HTTP_SUCCESS;
-	}
-}; // class CHelloAtlServerHandler
+  HTTP_CODE OnNameGiven( ) {
+    if( m_name.IsEmpty( ) )
+    {
+      return HTTP_S_FALSE;
+    }
+    return HTTP_SUCCESS;
+  }
+
+  HTTP_CODE OnName( ) {
+    m_HttpResponse << m_name;
+    return HTTP_SUCCESS;
+  }
+
+private:
+  // Storage for the name in the query string
+  CStringA m_name;
+};
+
