@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloAtlServerEverything", "HelloAtlServerEverything\HelloAtlServerEverything.vcproj", "{08209D57-5338-4C56-9496-07753EEA885B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloAtlServerEverythingIsapi", "HelloAtlServerEverythingIsapi\HelloAtlServerEverythingIsapi.vcproj", "{5CF0245A-FDA5-42FF-9C42-63B100DA227C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08209D57-5338-4C56-9496-07753EEA885B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08209D57-5338-4C56-9496-07753EEA885B}.Debug|Win32.Build.0 = Debug|Win32
+		{08209D57-5338-4C56-9496-07753EEA885B}.Release|Win32.ActiveCfg = Release|Win32
+		{08209D57-5338-4C56-9496-07753EEA885B}.Release|Win32.Build.0 = Release|Win32
+		{5CF0245A-FDA5-42FF-9C42-63B100DA227C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5CF0245A-FDA5-42FF-9C42-63B100DA227C}.Debug|Win32.Build.0 = Debug|Win32
+		{5CF0245A-FDA5-42FF-9C42-63B100DA227C}.Release|Win32.ActiveCfg = Release|Win32
+		{5CF0245A-FDA5-42FF-9C42-63B100DA227C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

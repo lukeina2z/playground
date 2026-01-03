@@ -1,6 +1,10 @@
 **/Backup/**
 **/Debug/**
 
+*.ncb
+*.suo
+*.user
+
 *.aps
 *.vcxproj.user
 # *_i.c

@@ -1,0 +1,8 @@
+; HelloAtlServerIsapi.def : declares the module parameters for the DLL.
+
+LIBRARY	     "HelloAtlServerIsapi"
+
+EXPORTS
+	HttpExtensionProc
+	GetExtensionVersion
+	TerminateExtension

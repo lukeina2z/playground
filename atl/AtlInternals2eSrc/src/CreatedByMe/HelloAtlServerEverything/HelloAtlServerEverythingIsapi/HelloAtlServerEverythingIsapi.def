@@ -1,0 +1,10 @@
+; HelloAtlServerEverythingIsapi.def : declares the module parameters for the DLL.
+
+LIBRARY	     "HelloAtlServerEverythingIsapi"
+
+EXPORTS
+	HttpExtensionProc
+	GetExtensionVersion
+	TerminateExtension
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE
