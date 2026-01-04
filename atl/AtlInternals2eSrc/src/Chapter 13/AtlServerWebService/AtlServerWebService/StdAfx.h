@@ -18,7 +18,7 @@
 #define _ATL_APARTMENT_THREADED
 
 #ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x0403
+#define _WIN32_WINNT 0x0501
 #endif
 
 // TODO: this disables support for registering COM objects
