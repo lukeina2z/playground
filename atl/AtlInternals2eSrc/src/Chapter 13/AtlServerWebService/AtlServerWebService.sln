@@ -1,9 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AtlServerWebService", "AtlServerWebService\AtlServerWebService.vcproj", "{18E1058F-991E-4F87-AB1F-A70CB616D1FF}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36811.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AtlServerWebService", "AtlServerWebService\AtlServerWebService.vcxproj", "{18E1058F-991E-4F87-AB1F-A70CB616D1FF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AtlServerWebServiceIsapi", "AtlServerWebServiceIsapi\AtlServerWebServiceIsapi.vcproj", "{BBB829A9-753D-4EEA-B500-3472E8D56763}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AtlServerWebServiceIsapi", "AtlServerWebServiceIsapi\AtlServerWebServiceIsapi.vcxproj", "{BBB829A9-753D-4EEA-B500-3472E8D56763}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5406037E-9B56-4BAC-B67F-3A41F0B07D30}
 	EndGlobalSection
 EndGlobal
