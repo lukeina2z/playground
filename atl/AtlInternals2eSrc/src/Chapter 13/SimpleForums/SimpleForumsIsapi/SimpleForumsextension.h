@@ -25,7 +25,7 @@ public:
     }
     
 
-    virtual BOOL GetWorkerData(DWORD dwParam, void **ppvData)
+    virtual BOOL GetWorkerData(DWORD dwParam, void **ppvData) noexcept override
     {
         if (dwParam == _DATASOURCE_CACHE && ppvData)
         {

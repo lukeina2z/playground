@@ -7102,7 +7102,7 @@ public:
     // the user to the resource even if they don't understand the redirect header.
     //
     // See RFC 2616 section 10.3 for more information on redirection.
-protected:
+// protected:
     BOOL Redirect(__in LPCSTR szUrl, __in HTTP_REDIRECT statusCode=HTTP_REDIRECT_MOVED, __in BOOL bSendBody=TRUE, __in BOOL bKeepAlive=FALSE)
     {
         CStringA strBody;
