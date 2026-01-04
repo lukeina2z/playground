@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<discovery xmlns="http://schemas.xmlsoap.org/disco/">
+	<contractRef xmlns="http://schemas.xmlsoap.org/disco/scl/" ref="http://WIN-NJ4MH37QF02/AtlServerWebService/AtlServerWebService.dll?Handler=GenAtlServerWebServiceWSDL" docRef="http://WIN-NJ4MH37QF02/AtlServerWebService/AtlServerWebService.htm"/>
+</discovery>
