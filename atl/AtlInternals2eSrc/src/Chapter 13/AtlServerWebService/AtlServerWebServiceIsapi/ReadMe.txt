@@ -1,3 +1,38 @@
+One more step to run the SOAP serve:
+====================================
+After Visual Studio run web deployment, we have to manually add one more handler mapping in IIS:
+
+1. Find the ATLServer app in IIS. Open "Handler Mappings".
+
+2. Add Module Mapping...
+
+Request Path:
+AtlServerWebService.dll
+
+Module:
+ISAPI Module
+
+Executable (Optional):
+AtlServerWebServiceIsapi.dll
+
+Name:
+ATL App or others.
+
+Request Restrictions...
+Mapping, File
+Access, Execute
+
+Click "Allow" on the pop-up message box.
+
+
+3. IisReset
+
+4. Visit http://localhost/AtlServerWebService/AtlServerWebService.htm
+Then click "Service Description".
+http://localhost/AtlServerWebService/AtlServerWebService.dll?Handler=GenAtlServerWebServiceWSDL
+
+
+
 ========================================================================
        ATL SERVER : AtlServerWebServiceIsapi Project Overview
 ========================================================================
