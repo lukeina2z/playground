@@ -1,9 +1,14 @@
+
+*.vcxproj.user
+
 debug/*
 x64/Debug/*
 
 myprojectfoo/Debug/*
 myprojectfoo/x64/Debug/*
 
-*.vcxproj.user
+vcpkg_installed/
+
+
 
 

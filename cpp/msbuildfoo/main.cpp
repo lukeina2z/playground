@@ -1,10 +1,21 @@
 // main.cpp : the application source code.
 #include <iostream>
 #include "main.h"
+
+
+
+#include <fmt/core.h>
+
 int main()
 {
-   std::cout << "Hello, from MSBuild!\n";
-   return 0;
+  fmt::print("Hello World!\n");
+
+  std::cout << "Hello, from MSBuild!\n";
+  return 0;
 }
+
+
+
+
 
 

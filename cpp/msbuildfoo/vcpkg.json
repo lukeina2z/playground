@@ -1,6 +1,6 @@
 {
   "dependencies": [
     "fmt",
-    "opentelemetry"
+    "opentelemetry-cpp"
   ]
 }
