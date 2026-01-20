@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "fmt",
+    {
+      "name": "opentelemetry-cpp",
+      "features": [
+        "otlp-http",
+        "geneva"
+      ]
+    }
+  ]
+}
