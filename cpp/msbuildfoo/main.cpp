@@ -9,9 +9,7 @@
 
 int main_simple()
 {
-  fmt::print("Hello World!\n");
 
-  std::cout << "Hello, from MSBuild!\n";
   return 0;
 }
 
@@ -218,11 +216,11 @@ void TestEtwExporter()
 void TestOtlpExporter()
 {
 
-  auto traceProvider = LkLab::CreateOtlpTraceProvider("LkLab-OTLP");
+  auto traceProvider = LkLab::CreateOtlpTraceProvider("MsBuild-Foo-OTLP");
   // Set the global trace provider
   opentelemetry::sdk::trace::Provider::SetTracerProvider(traceProvider);
   opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> tracer =
-    LkLab::GetTracer("InstrScope-Main-Otlp");
+    LkLab::GetTracer("InstrScope-msbuildfoo-Otlp");
 
   // auto logger = InitLogger();
 
@@ -260,11 +258,16 @@ void TestOtlpExporter()
   // logger->Info("Hello World!");
 }
 
-int main()
+int mainOne()
 {
   // TestEtwExporter();
 
   TestOtlpExporter();
+
+  fmt::print("Hello World!\n");
+
+  std::cout << "Hello, from MSBuild!\n";
+
   return 0;
 }
 
