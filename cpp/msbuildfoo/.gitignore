@@ -4,8 +4,8 @@
 debug/*
 x64/Debug/*
 
-myprojectfoo/Debug/*
-myprojectfoo/x64/Debug/*
+msbuildfoo/Debug/*
+msbuildfoo/x64/Debug/*
 
 vcpkg_installed/
 
