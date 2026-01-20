@@ -3,8 +3,16 @@
 
 #include <iostream>
 
+#include <fmt/core.h>
+
+
+
 int main()
 {
+
+  fmt::print("Hello World!\n");
+  
+  
     std::cout << "Hello World!\n";
 }
 
