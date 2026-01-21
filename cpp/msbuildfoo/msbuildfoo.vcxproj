@@ -136,6 +136,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainTwo.cpp" />
+    <ClCompile Include="otelruntime.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="otelruntime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

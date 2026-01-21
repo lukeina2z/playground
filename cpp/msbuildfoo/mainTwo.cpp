@@ -31,11 +31,10 @@ namespace {
     std::shared_ptr<opentelemetry::trace::TracerProvider> none;
     trace_api::Provider::SetTracerProvider(none);
   }
-
 }
 
 
-int main()
+int maintwo()
 {
 
   InitTracer();
