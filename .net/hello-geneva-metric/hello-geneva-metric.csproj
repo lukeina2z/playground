@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry.Exporter.Geneva" Version="1.14.0" />
+  </ItemGroup>
+
 </Project>
