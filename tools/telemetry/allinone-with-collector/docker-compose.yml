@@ -30,7 +30,7 @@ services:
       - "14250:14250"   # gRPC ingest
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.95.0
+    image: otel/opentelemetry-collector-contrib:latest
     container_name: otel-collector
     command: ["--config=/etc/otelcol/config.yml"]
     volumes:
