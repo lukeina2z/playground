@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.49.1
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  tempo:
+    image: grafana/tempo:2.3.1
+    container_name: tempo
+    command: ["-config.file=/etc/tempo.yml"]
+    volumes:
+      - ./tempo.yml:/etc/tempo.yml
+    ports:
+      - "3200:3200"     # Tempo query
+      - "4317:4317"     # OTLP gRPC
+      - "4318:4318"     # OTLP HTTP
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.53
+    container_name: jaeger
+    ports:
+      - "16686:16686"   # Jaeger UI
+      - "14250:14250"   # gRPC ingest
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.95.0
+    container_name: otel-collector
+    command: ["--config=/etc/otelcol/config.yml"]
+    volumes:
+      - ./otel-collector/config.yml:/etc/otelcol/config.yml
+    ports:
+      - "4318:4318"     # OTLP HTTP (apps send here)
+    depends_on:
+      - prometheus
+      - tempo
+      - jaeger
+
+  grafana:
+    image: grafana/grafana:10.2.3
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+      - tempo
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+
+
