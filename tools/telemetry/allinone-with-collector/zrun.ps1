@@ -28,3 +28,6 @@ try {
 finally {
     Pop-Location
 }
+
+docker compose -f 
+
