@@ -1,6 +1,8 @@
 receivers:
   otlp:
     protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
 
@@ -23,15 +25,14 @@ processors:
 exporters:
   prometheusremotewrite:
     endpoint: http://prometheus:9090/api/v1/write
-    send_exemplars: true   # 👈 REQUIRED
 
   otlp/tempo:
     endpoint: tempo:4317
     tls:
       insecure: true
 
-  jaeger:
-    endpoint: jaeger:14250
+  otlp/jaeger:
+    endpoint: jaeger:4317
     tls:
       insecure: true
 
@@ -51,7 +52,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [memory_limiter, resource, batch]
-      exporters: [otlp/tempo, jaeger, spanmetrics]
+      exporters: [otlp/tempo, otlp/jaeger, spanmetrics]
 
     metrics:
       receivers: [otlp, spanmetrics]

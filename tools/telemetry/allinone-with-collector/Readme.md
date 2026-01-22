@@ -1,4 +1,35 @@
 
+## Docker commands
+
+
+Start everything in the background
+
+```sh
+docker compose up -d
+```
+This pulls images (first run), creates containers, and starts the full stack:
+Prometheus, OTEL Collector, Tempo, Jaeger, Grafana.
+
+Check container status
+docker compose ps
+
+View logs (very useful on first run)  
+docker compose logs -f
+
+Just the collector  
+docker compose logs -f otel-collector   
+
+Stop the stack  
+docker compose down
+
+Stop + remove volumes (clean slate)  
+docker compose down -v
+
+Rebuild after config changes  
+docker compose up -d --force-recreate  
+
+Restart a single service  
+docker compose restart otel-collector  
 
 ## Application configuration (single endpoint)
 
