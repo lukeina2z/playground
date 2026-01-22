@@ -119,7 +119,7 @@ int main()
 {
   fmt::print("Hello World!\n");
 
-  // TestWithOtlpExporter();
+  TestWithOtlpExporter();
 
   TestWithEtwExporter();
 
