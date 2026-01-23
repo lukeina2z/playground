@@ -1,5 +1,5 @@
 
-#include "../common/OTelPipeline.h"
+#include "../common/common.h"
 
 #include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
 #include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"

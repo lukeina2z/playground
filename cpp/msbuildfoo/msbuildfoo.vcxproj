@@ -144,7 +144,7 @@
     <ClCompile Include="test\OtlpTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\OTelPipeline.h" />
+    <ClInclude Include="common\common.h" />
     <ClInclude Include="geneva\InitializerGeneva.h" />
     <ClInclude Include="geneva\otelgeneva.h" />
     <ClInclude Include="IOTelPipeline.h" />

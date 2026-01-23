@@ -1,4 +1,5 @@
 #pragma once
+#include "../IOTelPipeline.h"
 
 #include <memory>
 #include <string>
@@ -29,10 +30,26 @@
 #include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
 #include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
 
-#include "../IOTelPipeline.h"
+#include "opentelemetry/exporters/ostream/log_record_exporter.h"
+#include "opentelemetry/exporters/ostream/span_exporter_factory.h"
+#include "opentelemetry/logs/logger_provider.h"
+#include "opentelemetry/sdk/logs/exporter.h"
+#include "opentelemetry/sdk/logs/logger_provider_factory.h"
+#include "opentelemetry/sdk/logs/processor.h"
+#include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
+#include "opentelemetry/sdk/trace/exporter.h"
+#include "opentelemetry/sdk/trace/processor.h"
+#include "opentelemetry/sdk/trace/provider.h"
+#include "opentelemetry/sdk/trace/simple_processor_factory.h"
+#include "opentelemetry/sdk/trace/tracer_provider.h"
+#include "opentelemetry/sdk/trace/tracer_provider_factory.h"
+#include "opentelemetry/trace/tracer_provider.h"
+
+
 
 namespace logs_api = opentelemetry::logs;
 namespace logs_sdk = opentelemetry::sdk::logs;
+namespace logs_exporter = opentelemetry::exporter::logs;
 
 namespace trace_api = opentelemetry::trace;
 namespace trace_sdk = opentelemetry::sdk::trace;

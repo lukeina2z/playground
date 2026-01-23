@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOTelPipeline.h" />
-    <ClInclude Include="common\OTelPipeline.h">
+    <ClInclude Include="common\common.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="geneva\InitializerGeneva.h">

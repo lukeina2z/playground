@@ -17,6 +17,13 @@
 #include "opentelemetry/sdk/logs/processor.h"
 #include "opentelemetry/sdk/logs/provider.h"
 #include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
+#include "opentelemetry/logs/logger_provider.h"
+#include "opentelemetry/sdk/logs/exporter.h"
+#include "opentelemetry/sdk/logs/logger_provider.h"
+#include "opentelemetry/sdk/logs/logger_provider_factory.h"
+#include "opentelemetry/sdk/logs/processor.h"
+#include "opentelemetry/sdk/logs/provider.h"
+#include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
 
 
 #include "opentelemetry/sdk/trace/tracer_context.h"
@@ -36,7 +43,6 @@
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_factory.h"
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
 
-#include "../geneva/InitializerGeneva.h"
 #include "../otlp/InitializerOtlp.h"
 
 namespace MsaLab { namespace Details
@@ -61,7 +67,22 @@ namespace MsaLab { namespace Details
 
   void OTelPipelineOtlp::Start()
   {
-      m_tracerProvider = CreateOtlpTraceProvider(m_serviceName);
+    InitLogger();
+    InitTracer();
+  }
+
+  void OTelPipelineOtlp::InitLogger()
+  {
+    m_loggerProvider = CreateOtlpLoggerProvider();
+
+    // Set the global logger provider
+    const std::shared_ptr<logs_api::LoggerProvider>& api_provider = m_loggerProvider;
+    logs_sdk::Provider::SetLoggerProvider(api_provider);
+  }
+
+  void OTelPipelineOtlp::InitTracer()
+  {
+    m_tracerProvider = CreateOtlpTracerProvider(m_serviceName);
 
     // Set the global trace provider
     std::shared_ptr<trace_api::TracerProvider> api_provider = m_tracerProvider;
@@ -73,13 +94,6 @@ namespace MsaLab { namespace Details
       opentelemetry::nostd::shared_ptr<opentelemetry::context::propagation::TextMapPropagator>(
         pHttpTraceContext));
   }
-
-  void CleanupLogger()
-  {
-    std::shared_ptr<opentelemetry::logs::LoggerProvider> noop;
-    opentelemetry::sdk::logs::Provider::SetLoggerProvider(noop);
-  }
-
 
   void OTelPipelineOtlp::CleanupLogger()
   {

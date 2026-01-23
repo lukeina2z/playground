@@ -1,4 +1,4 @@
-#include "OTelPipeline.h"
+#include "common.h"
 
 #include <memory>
 #include <string>
