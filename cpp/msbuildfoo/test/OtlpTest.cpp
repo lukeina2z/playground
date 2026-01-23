@@ -10,7 +10,7 @@
 #include "test.h"
 
 namespace {
-  const std::string serviceName = "LkLab-Foo-Otlp";
+  const std::string serviceName = "MsaLab-Foo-Otlp";
   const std::string tracerName = "Otlp-Tracer-Foo";
   const std::string loggerName = "Otlp-Logger-Foo";
 }
@@ -24,11 +24,9 @@ namespace MsaLab { namespace Details
 
   void TestTraceWithOtlp()
   {
-    const std::string serviceName = "MsaLab-Foo-OTLP";
     auto otel = MsaLab::Api::CreateOTelPipelineWithOtlpExporter(serviceName);
     otel->Start();
 
-    const std::string tracerName = "InstrScope-msalabfoo-Otlp";
     auto tracer = MsaLab::Api::GetTracer(tracerName);
     auto logger = MsaLab::Api::GetLogger(loggerName);
     TestTrace(logger, tracer);
