@@ -7,9 +7,8 @@
 #include <vector>
 #include <fmt/core.h>
 
-#include "IOTelPipeline.h"
-#include "test/GenevaTest.h"
-#include "test/OtlpTest.h"
+#include "GenevaTest.h"
+#include "OtlpTest.h"
 
 int main()
 {
@@ -17,18 +16,11 @@ int main()
 
   MsaLab::Details::TestTraceWithGeneva();
 
+  MsaLab::Details::TestLogWithOtlp();
   MsaLab::Details::TestTraceWithOtlp();
   
-  // TestWithOtlpExporter();
-  // TestWithEtwExporter();
-
   std::cout << "Hello, from MSBuild!\n";
 
   return 0;
 }
-
-
-
-
-
 

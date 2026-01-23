@@ -15,18 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="common\OTelPipeline.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="geneva\InitializerGeneva.cpp">
-      <Filter>geneva</Filter>
-    </ClCompile>
     <ClCompile Include="geneva\otelgeneva.cpp">
       <Filter>geneva</Filter>
-    </ClCompile>
-    <ClCompile Include="otlp\InitializerOtlp.cpp">
-      <Filter>otlp</Filter>
     </ClCompile>
     <ClCompile Include="otlp\otelotlp.cpp">
       <Filter>otlp</Filter>
@@ -37,20 +30,17 @@
     <ClCompile Include="test\OtlpTest.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="test\main.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOTelPipeline.h" />
     <ClInclude Include="common\common.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="geneva\InitializerGeneva.h">
-      <Filter>geneva</Filter>
-    </ClInclude>
     <ClInclude Include="geneva\otelgeneva.h">
       <Filter>geneva</Filter>
-    </ClInclude>
-    <ClInclude Include="otlp\InitializerOtlp.h">
-      <Filter>otlp</Filter>
     </ClInclude>
     <ClInclude Include="otlp\otelotlp.h">
       <Filter>otlp</Filter>

@@ -31,6 +31,12 @@
 #include "../IOtelPipeline.h"
 #include "OtlpTest.h"
 
+namespace {
+  const std::string serviceName = "LkLab-Foo-Otlp";
+  const std::string tracerName = "Otlp-Tracer-Foo";
+  const std::string loggerName = "Otlp-Logger-Foo";
+}
+
 namespace MsaLab { namespace Details
 {
   const char* kGlobalProviderName = "OpenTelemetry-ETW-TLD-Geneva-Example";
@@ -47,7 +53,7 @@ namespace MsaLab { namespace Details
     const std::string tracerName = "InstrScope-msbuildfoo-Otlp";
     auto tracer = MsaLab::Api::GetTracer(tracerName);
 
-    // auto logger = InitLogger();
+    auto logger = MsaLab::Api::GetLogger(loggerName);
 
     auto s1 = tracer->StartSpan("main");
     auto scopeFoo = tracer->WithActiveSpan(s1);
@@ -80,8 +86,39 @@ namespace MsaLab { namespace Details
 
     s1->End();
 
-    // logger->Info("Hello World!");
+    logger->Info("Inside <TestTraceWithOtlp> : Hello World!");
+
+    // tracer->CloseWithMicroseconds(3000);
+    // otel->Shutdown();
+
+    auto endOne = tracer->StartSpan("after-end-one");
+    auto scopeEnd = tracer->WithActiveSpan(endOne);
+    endOne->End();
+    logger->Info("Inside <TestTraceWithOtlp> : The End!");
   }
+
+  void TestLogWithOtlp()
+  {
+    auto otel = MsaLab::Api::CreateOTelPipelineWithOtlpExporter(serviceName);
+    otel->Start();
+
+    auto tracer = MsaLab::Api::GetTracer(tracerName);
+    auto logger = MsaLab::Api::GetLogger(loggerName);
+
+    logger->Fatal("Hello <Fatal> Otlp!");
+    logger->Error("Hello <Error> Otlp!");
+    logger->Info("Hello <Info> Otlp!");
+    logger->Debug("Hello <Debug> Otlp!");
+
+    auto ctx = tracer->GetCurrentSpan()->GetContext();
+    // logger->Log(opentelemetry::logs::Severity::kError, "Hello <Current Span Context> Otlp!", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
+
+    otel->Shutdown();
+
+    logger->Debug("xyz-body", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
+    logger->Debug("The end.");
+  }
+
 } // namespace Details
 } // namespace MsaLab
 

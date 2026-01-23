@@ -135,20 +135,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="common\OTelPipeline.cpp" />
-    <ClCompile Include="geneva\InitializerGeneva.cpp" />
     <ClCompile Include="geneva\otelgeneva.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="otlp\InitializerOtlp.cpp" />
     <ClCompile Include="otlp\otelotlp.cpp" />
     <ClCompile Include="test\GenevaTest.cpp" />
+    <ClCompile Include="test\main.cpp" />
     <ClCompile Include="test\OtlpTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\common.h" />
-    <ClInclude Include="geneva\InitializerGeneva.h" />
     <ClInclude Include="geneva\otelgeneva.h" />
     <ClInclude Include="IOTelPipeline.h" />
-    <ClInclude Include="otlp\InitializerOtlp.h" />
     <ClInclude Include="otlp\otelotlp.h" />
     <ClInclude Include="test\GenevaTest.h" />
     <ClInclude Include="test\OtlpTest.h" />

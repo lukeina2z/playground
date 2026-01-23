@@ -36,19 +36,19 @@
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_factory.h"
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
 
-#include "../geneva/InitializerGeneva.h"
-#include "../otlp/InitializerOtlp.h"
-
-//namespace logs_api = opentelemetry::logs;
-//namespace logs_sdk = opentelemetry::sdk::logs;
-// namespace logs_exporter = opentelemetry::exporter::logs;
-
-namespace trace_api = opentelemetry::trace;
-namespace trace_sdk = opentelemetry::sdk::trace;
-namespace trace_exporter = opentelemetry::exporter::trace;
 
 namespace MsaLab { namespace Details
 {
+
+  std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider()
+  {
+    return std::make_unique<opentelemetry::exporter::etw::LoggerProvider>();
+  }
+
+  std::unique_ptr<opentelemetry::exporter::etw::TracerProvider> CreateGenevaTracerProvider()
+  {
+    return std::make_unique<opentelemetry::exporter::etw::TracerProvider>();
+  }
 
   OTelPipelineGeneva::OTelPipelineGeneva(const std::string& serviceName) : m_serviceName(serviceName)
   {

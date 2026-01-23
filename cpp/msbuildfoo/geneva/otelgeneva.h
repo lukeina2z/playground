@@ -38,6 +38,10 @@ namespace trace_exporter = opentelemetry::exporter::trace;
 
 namespace MsaLab { namespace Details
 {
+  std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider();
+
+  std::unique_ptr<opentelemetry::exporter::etw::TracerProvider> CreateGenevaTracerProvider();
+
   class OTelPipelineGeneva : public MsaLab::Api::IOTelPipeline
   {
   public:

@@ -54,6 +54,11 @@
 
 namespace MsaLab { namespace Details
 {
+  std::unique_ptr<logs_sdk::LoggerProvider> CreateOtlpLoggerProvider();
+
+  std::unique_ptr<trace_sdk::TracerProvider> CreateOtlpTracerProvider(
+    const std::string& serviceName);
+
   class OTelPipelineOtlp : public MsaLab::Api::IOTelPipeline
   {
   public:

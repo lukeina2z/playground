@@ -30,18 +30,22 @@
 #include "../IOtelPipeline.h"
 #include "GenevaTest.h"
 
+namespace {
+  const std::string serviceName = "LkLab-Foo-ETW";
+  const std::string tracerName = "Geneva-Tracer-Foo";
+  const std::string loggerName = "Geneva-Logger-Foo";
+}
+
 namespace MsaLab { namespace Details
 {
+
 void TestTraceWithGeneva()
 {
-  const std::string serviceName = "LkLab-Foo-ETW";
   auto otelPipeline = MsaLab::Api::CreateOTelPipeline("OTel-Pipe-With-ETW");
   otelPipeline->Start();
 
-  const std::string tracerName = "Geneva-Tracer-Foo";
   auto tracer = MsaLab::Api::GetTracer(tracerName);
 
-  const std::string loggerName = "Geneva-Logger-Foo";
   auto logger = MsaLab::Api::GetLogger(loggerName);
 
   auto fooEtw = tracer->StartSpan("main");

@@ -43,17 +43,62 @@
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_factory.h"
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
 
-#include "../otlp/InitializerOtlp.h"
-
 namespace MsaLab { namespace Details
 {
-  //namespace logs_api = opentelemetry::logs;
-  //namespace logs_sdk = opentelemetry::sdk::logs;
-  // namespace logs_exporter = opentelemetry::exporter::logs;
+  std::unique_ptr<logs_sdk::LoggerProvider> CreateOtlpLoggerProvider()
+  {
+    // Create ostream log exporter instance
+    auto exporter =
+      std::unique_ptr<logs_sdk::LogRecordExporter>(new logs_exporter::OStreamLogRecordExporter);
+    auto processor = logs_sdk::SimpleLogRecordProcessorFactory::Create(std::move(exporter));
 
-  namespace trace_api = opentelemetry::trace;
-  namespace trace_sdk = opentelemetry::sdk::trace;
-  namespace trace_exporter = opentelemetry::exporter::trace;
+    return logs_sdk::LoggerProviderFactory::Create(std::move(processor));
+  }
+
+  std::unique_ptr<trace_sdk::TracerProvider> CreateOtlpTracerProvider(
+    const std::string& serviceName)
+  {
+    const std::string ingestionSvc = "http://127.0.0.1:4318";
+
+    opentelemetry::exporter::otlp::OtlpHttpExporterOptions opts;
+    opts.url = ingestionSvc + "/v1/traces";
+    opts.console_debug = true;
+
+    opts.content_type = opentelemetry::exporter::otlp::HttpRequestContentType::kJson;
+    // opts.content_type  = opentelemetry::exporter::otlp::HttpRequestContentType::kBinary;
+
+    auto otlp_http_exporter = std::make_unique<opentelemetry::exporter::otlp::OtlpHttpExporter>(opts);
+    auto otlp_http_processor = std::make_unique<opentelemetry::sdk::trace::SimpleSpanProcessor>(
+      std::move(otlp_http_exporter));
+
+    auto ostream_exporter = opentelemetry::exporter::trace::OStreamSpanExporterFactory::Create();
+
+    opentelemetry::sdk::trace::BatchSpanProcessorOptions options;
+    options.max_queue_size = 10;
+    options.schedule_delay_millis = std::chrono::milliseconds(3000);
+    options.max_export_batch_size = 3;
+
+    auto ostream_processor = std::make_unique<opentelemetry::sdk::trace::BatchSpanProcessor>(
+      std::move(ostream_exporter), options);
+    // auto ostream_processor =
+    // opentelemetry::sdk::trace::SimpleSpanProcessorFactory::Create(std::move(ostream_exporter));
+
+    std::vector<std::unique_ptr<opentelemetry::sdk::trace::SpanProcessor>> processors;
+    processors.push_back(std::move(ostream_processor));
+    processors.push_back(std::move(otlp_http_processor));
+
+    auto resource_attributes =
+      opentelemetry::sdk::resource::ResourceAttributes{ {"service.name", serviceName} };
+    auto resource_ptr = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
+
+    // Default is an always-on sampler.
+    std::unique_ptr<opentelemetry::sdk::trace::TracerContext> context =
+      opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors), resource_ptr);
+
+    auto sdk_provider = opentelemetry::sdk::trace::TracerProviderFactory::Create(std::move(context));
+
+    return sdk_provider;
+  }
 
   OTelPipelineOtlp::OTelPipelineOtlp(const std::string& serviceName, bool useGenevaExporter)
     : m_serviceName(serviceName)
@@ -69,6 +114,12 @@ namespace MsaLab { namespace Details
   {
     InitLogger();
     InitTracer();
+  }
+
+  void OTelPipelineOtlp::Shutdown()
+  {
+    CleanupLogger();
+    CleanupTracer();
   }
 
   void OTelPipelineOtlp::InitLogger()
@@ -98,18 +149,15 @@ namespace MsaLab { namespace Details
   void OTelPipelineOtlp::CleanupLogger()
   {
     // We call ForceFlush to prevent to cancel running exportings, It's optional.
-    if (m_tracerProvider)
+    if (m_loggerProvider)
     {
-      m_tracerProvider->ForceFlush();
+      m_loggerProvider->ForceFlush();
     }
 
-    m_tracerProvider.reset();
-    std::shared_ptr<opentelemetry::trace::TracerProvider> none;
-    trace_sdk::Provider::SetTracerProvider(none);
-    std::shared_ptr<trace_api::TracerProvider> noop;
-    trace_sdk::Provider::SetTracerProvider(noop);
+    m_loggerProvider.reset();
+    std::shared_ptr<logs_api::LoggerProvider> noop;
+    logs_sdk::Provider::SetLoggerProvider(noop);
   }
-
 
   void OTelPipelineOtlp::CleanupTracer()
   {
@@ -120,18 +168,8 @@ namespace MsaLab { namespace Details
     }
 
     m_tracerProvider.reset();
-    std::shared_ptr<opentelemetry::trace::TracerProvider> none;
-    trace_sdk::Provider::SetTracerProvider(none);
     std::shared_ptr<trace_api::TracerProvider> noop;
     trace_sdk::Provider::SetTracerProvider(noop);
-  }
-
-
-
-  void OTelPipelineOtlp::Shutdown()
-  {
-    std::shared_ptr<opentelemetry::trace::TracerProvider> nullPtr;
-    trace_api::Provider::SetTracerProvider(std::move(nullPtr));
   }
 
 } // namespace Details
