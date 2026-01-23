@@ -33,6 +33,9 @@
     <ClCompile Include="test\main.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="test\test.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOTelPipeline.h" />
@@ -49,6 +52,9 @@
       <Filter>test</Filter>
     </ClInclude>
     <ClInclude Include="test\OtlpTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\test.h">
       <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>

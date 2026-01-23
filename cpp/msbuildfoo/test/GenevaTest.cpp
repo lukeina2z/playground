@@ -39,6 +39,34 @@ namespace {
 namespace MsaLab { namespace Details
 {
 
+  void TestLogWithGeneva()
+  {
+    auto otel = MsaLab::Api::CreateOTelPipeline(serviceName);
+    otel->Start();
+
+    auto tracer = MsaLab::Api::GetTracer(tracerName);
+    auto logger = MsaLab::Api::GetLogger(loggerName);
+
+    auto span = tracer->StartSpan("Test-Log-Main");
+    auto scopeFoo = tracer->WithActiveSpan(span);
+
+    logger->Fatal("Hello <Fatal> Otlp!");
+    logger->Error("Hello <Error> Otlp!");
+    logger->Info("Hello <Info> Otlp!");
+    logger->Debug("Hello <Debug> Otlp!");
+
+    auto ctx = tracer->GetCurrentSpan()->GetContext();
+    // logger->Log(opentelemetry::logs::Severity::kError, "Hello <Current Span Context> Otlp!", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
+
+    // otel->Shutdown();
+
+    logger->Debug("xyz-body", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
+
+    span->End();
+
+    logger->Debug("xyzxyz - The end. No trace context expected.");
+  }
+
 void TestTraceWithGeneva()
 {
   auto otelPipeline = MsaLab::Api::CreateOTelPipeline("OTel-Pipe-With-ETW");

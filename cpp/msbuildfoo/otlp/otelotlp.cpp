@@ -17,6 +17,7 @@
 #include "opentelemetry/sdk/logs/processor.h"
 #include "opentelemetry/sdk/logs/provider.h"
 #include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
+#include "opentelemetry/sdk/logs/batch_log_record_processor.h"
 #include "opentelemetry/logs/logger_provider.h"
 #include "opentelemetry/sdk/logs/exporter.h"
 #include "opentelemetry/sdk/logs/logger_provider.h"
@@ -43,45 +44,73 @@
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_factory.h"
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
 
+#include "opentelemetry/exporters/otlp/otlp_environment.h"
+#include "opentelemetry/exporters/otlp/otlp_http.h"
+#include "opentelemetry/exporters/otlp/otlp_http_exporter_factory.h"
+#include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
+#include "opentelemetry/exporters/otlp/otlp_http_log_record_exporter_factory.h"
+#include "opentelemetry/exporters/otlp/otlp_http_log_record_exporter_options.h"
+
+#include "opentelemetry/exporters/ostream/log_record_exporter.h"
+
 namespace MsaLab { namespace Details
 {
-  std::unique_ptr<logs_sdk::LoggerProvider> CreateOtlpLoggerProvider()
-  {
-    // Create ostream log exporter instance
-    auto exporter =
-      std::unique_ptr<logs_sdk::LogRecordExporter>(new logs_exporter::OStreamLogRecordExporter);
-    auto processor = logs_sdk::SimpleLogRecordProcessorFactory::Create(std::move(exporter));
+  const std::string kOtlpGrpcServer = "http://127.0.0.1:4317";
+  const std::string kOtlpHttpServer = "http://127.0.0.1:4318";
+  const std::string kOtlpHttpLogsEndpoint = kOtlpHttpServer + "/v1/logs";
+  const std::string kOtlpHttpTracesEndpoint = kOtlpHttpServer + "/v1/traces";
 
-    return logs_sdk::LoggerProviderFactory::Create(std::move(processor));
+  std::unique_ptr<logs_sdk::LoggerProvider> CreateOtlpLoggerProvider(const std::string& serviceName)
+  {
+    opentelemetry::exporter::otlp::OtlpHttpLogRecordExporterOptions logger_opts;
+    logger_opts.url = kOtlpHttpLogsEndpoint;
+    logger_opts.console_debug = false;
+
+    std::vector<std::unique_ptr<logs_sdk::LogRecordProcessor>> processors;
+
+    auto otlp_exporter = otlp::OtlpHttpLogRecordExporterFactory::Create(logger_opts);
+    logs_sdk::BatchLogRecordProcessorOptions batch_opts;
+    //processors.push_back(std::unique_ptr<logs_sdk::LogRecordProcessor>(
+    //  new logs_sdk::BatchLogRecordProcessor(std::move(otlp_exporter), batch_opts)));
+
+    auto ostream_exporter = std::unique_ptr<logs_sdk::LogRecordExporter>(
+      new logs_exporter::OStreamLogRecordExporter);
+    processors.push_back(
+      logs_sdk::SimpleLogRecordProcessorFactory::Create(std::move(ostream_exporter)));
+
+    auto resource_attributes = opentelemetry::sdk::resource::ResourceAttributes{ {"service.name", serviceName} };
+    auto resource = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
+
+    return logs_sdk::LoggerProviderFactory::Create(std::move(processors), resource);
   }
 
   std::unique_ptr<trace_sdk::TracerProvider> CreateOtlpTracerProvider(
     const std::string& serviceName)
   {
-    const std::string ingestionSvc = "http://127.0.0.1:4318";
-
     opentelemetry::exporter::otlp::OtlpHttpExporterOptions opts;
-    opts.url = ingestionSvc + "/v1/traces";
-    opts.console_debug = true;
+    opts.url = kOtlpHttpTracesEndpoint;
+    opts.console_debug = false;
 
     opts.content_type = opentelemetry::exporter::otlp::HttpRequestContentType::kJson;
     // opts.content_type  = opentelemetry::exporter::otlp::HttpRequestContentType::kBinary;
 
+    opentelemetry::sdk::trace::BatchSpanProcessorOptions batchOption;
+    batchOption.max_queue_size = 10;
+    batchOption.schedule_delay_millis = std::chrono::milliseconds(3000);
+    batchOption.max_export_batch_size = 3;
+
     auto otlp_http_exporter = std::make_unique<opentelemetry::exporter::otlp::OtlpHttpExporter>(opts);
-    auto otlp_http_processor = std::make_unique<opentelemetry::sdk::trace::SimpleSpanProcessor>(
-      std::move(otlp_http_exporter));
+    //auto otlp_http_processor = std::make_unique<opentelemetry::sdk::trace::SimpleSpanProcessorFactory>(
+    //  std::move(otlp_http_exporter));
+    auto otlp_http_processor = std::make_unique<opentelemetry::sdk::trace::BatchSpanProcessor>(
+      std::move(otlp_http_exporter), batchOption);
 
     auto ostream_exporter = opentelemetry::exporter::trace::OStreamSpanExporterFactory::Create();
 
-    opentelemetry::sdk::trace::BatchSpanProcessorOptions options;
-    options.max_queue_size = 10;
-    options.schedule_delay_millis = std::chrono::milliseconds(3000);
-    options.max_export_batch_size = 3;
-
-    auto ostream_processor = std::make_unique<opentelemetry::sdk::trace::BatchSpanProcessor>(
-      std::move(ostream_exporter), options);
-    // auto ostream_processor =
-    // opentelemetry::sdk::trace::SimpleSpanProcessorFactory::Create(std::move(ostream_exporter));
+    //auto ostream_processor = std::make_unique<opentelemetry::sdk::trace::BatchSpanProcessor>(
+    //  std::move(ostream_exporter), batchOption);
+    auto ostream_processor =
+      opentelemetry::sdk::trace::SimpleSpanProcessorFactory::Create(std::move(ostream_exporter));
 
     std::vector<std::unique_ptr<opentelemetry::sdk::trace::SpanProcessor>> processors;
     processors.push_back(std::move(ostream_processor));
@@ -124,7 +153,7 @@ namespace MsaLab { namespace Details
 
   void OTelPipelineOtlp::InitLogger()
   {
-    m_loggerProvider = CreateOtlpLoggerProvider();
+    m_loggerProvider = CreateOtlpLoggerProvider(m_serviceName);
 
     // Set the global logger provider
     const std::shared_ptr<logs_api::LoggerProvider>& api_provider = m_loggerProvider;
