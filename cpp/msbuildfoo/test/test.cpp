@@ -18,7 +18,7 @@ namespace MsaLab { namespace Details
   using L = std::vector<std::pair<opentelemetry::trace::SpanContext, std::map<std::string, std::string>>>;
 
   void TestLog(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> tracer)
+    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {
     auto span = tracer->StartSpan("Test-Log-Main-Span");
     {
@@ -42,7 +42,7 @@ namespace MsaLab { namespace Details
   }
 
   void TestTrace(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> tracer)
+    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {
     logger->Info("Inside <TestTraceWithOtlp>, Before span creation : Hello World!");
     auto s1 = tracer->StartSpan("Test-Trace-Main-Span");
