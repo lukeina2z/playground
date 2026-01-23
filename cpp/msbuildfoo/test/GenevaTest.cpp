@@ -29,6 +29,7 @@
 
 #include "../IOtelPipeline.h"
 #include "GenevaTest.h"
+#include "test.h"
 
 namespace {
   const std::string serviceName = "LkLab-Foo-ETW";
@@ -46,25 +47,8 @@ namespace MsaLab { namespace Details
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
     auto logger = MsaLab::Api::GetLogger(loggerName);
-
-    auto span = tracer->StartSpan("Test-Log-Main");
-    auto scopeFoo = tracer->WithActiveSpan(span);
-
-    logger->Fatal("Hello <Fatal> Otlp!");
-    logger->Error("Hello <Error> Otlp!");
-    logger->Info("Hello <Info> Otlp!");
-    logger->Debug("Hello <Debug> Otlp!");
-
-    auto ctx = tracer->GetCurrentSpan()->GetContext();
-    // logger->Log(opentelemetry::logs::Severity::kError, "Hello <Current Span Context> Otlp!", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
-
-    // otel->Shutdown();
-
-    logger->Debug("xyz-body", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
-
-    span->End();
-
-    logger->Debug("xyzxyz - The end. No trace context expected.");
+    TestLog(logger, tracer);
+    otel->Shutdown();
   }
 
 void TestTraceWithGeneva()
@@ -73,35 +57,10 @@ void TestTraceWithGeneva()
   otelPipeline->Start();
 
   auto tracer = MsaLab::Api::GetTracer(tracerName);
-
   auto logger = MsaLab::Api::GetLogger(loggerName);
 
-  auto fooEtw = tracer->StartSpan("main");
-  auto scopefooEtw = tracer->WithActiveSpan(fooEtw);
-
-  {
-    // Create Span with 1 SpanLink
-    auto barEtw = tracer->StartSpan(
-      "child", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }));
-
-    barEtw->SetAttribute("attr_key1", 123);
-
-    auto scopeBar = tracer->WithActiveSpan(barEtw);
-    {
-      // Create Span with 2 SpanLinks
-      auto bazEtw = tracer->StartSpan(
-        "grandchild", opentelemetry::common::MakeAttributes({ {"key3", "value 3"}, {"key4", 2} }));
-
-      bazEtw->SetAttribute("attr_key2", 456);
-      bazEtw->End();
-    }
-
-    barEtw->End();
-  }
-
-  fooEtw->End();
-
-  logger->Info("Hello World Geneva!");
+  TestLog(logger, tracer);
+  otelPipeline->Shutdown();
 }
 
 } // namespace Details
