@@ -55,6 +55,7 @@ namespace MsaLab { namespace Details
     void CleanupTracer();
 
   private:
+    std::shared_ptr<opentelemetry::exporter::etw::LoggerProvider> m_loggerProvider;
     std::shared_ptr<opentelemetry::exporter::etw::TracerProvider> m_tracerProvider;
     std::string m_serviceName = "";
   };

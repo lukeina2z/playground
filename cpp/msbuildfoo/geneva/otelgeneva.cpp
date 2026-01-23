@@ -61,7 +61,22 @@ namespace MsaLab { namespace Details
 
   void OTelPipelineGeneva::Start()
   {
-      m_tracerProvider = CreateGenevaTracerProvider();
+    InitLogger();
+    InitTracer();
+  }
+
+  void OTelPipelineGeneva::InitLogger()
+  {
+    m_loggerProvider = CreateGenevaLoggerProvider();
+
+    // Set the global Logger provider
+    std::shared_ptr<logs_api::LoggerProvider> api_provider = m_loggerProvider;
+    opentelemetry::sdk::logs::Provider::SetLoggerProvider(std::move(api_provider));
+  }
+
+  void OTelPipelineGeneva::InitTracer()
+  {
+    m_tracerProvider = CreateGenevaTracerProvider();
 
     // Set the global trace provider
     std::shared_ptr<trace_api::TracerProvider> api_provider = m_tracerProvider;
@@ -74,22 +89,18 @@ namespace MsaLab { namespace Details
         pHttpTraceContext));
   }
 
-
   void OTelPipelineGeneva::CleanupLogger()
   {
     // We call ForceFlush to prevent to cancel running exportings, It's optional.
-    if (m_tracerProvider)
+    if (m_loggerProvider)
     {
-      // m_tracerProvider->ForceFlush();
+      // m_loggerProvider->ForceFlush();
     }
 
-    m_tracerProvider.reset();
-    std::shared_ptr<opentelemetry::trace::TracerProvider> none;
-    trace_sdk::Provider::SetTracerProvider(none);
-    std::shared_ptr<trace_api::TracerProvider> noop;
-    trace_sdk::Provider::SetTracerProvider(noop);
+    m_loggerProvider.reset();
+    std::shared_ptr<logs_api::LoggerProvider> noop;
+    logs_sdk::Provider::SetLoggerProvider(noop);
   }
-
 
   void OTelPipelineGeneva::CleanupTracer()
   {
@@ -106,12 +117,10 @@ namespace MsaLab { namespace Details
     trace_sdk::Provider::SetTracerProvider(noop);
   }
 
-
-
   void OTelPipelineGeneva::Shutdown()
   {
-    std::shared_ptr<opentelemetry::trace::TracerProvider> nullPtr;
-    trace_api::Provider::SetTracerProvider(std::move(nullPtr));
+    CleanupLogger();
+    CleanupTracer();
   }
 
 } // namespace Details

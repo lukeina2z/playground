@@ -38,25 +38,3 @@ namespace trace_api = opentelemetry::trace;
 namespace trace_sdk = opentelemetry::sdk::trace;
 namespace trace_exporter = opentelemetry::exporter::trace;
 
-namespace MsaLab { namespace Details
-{
-  class OTelPipeline : public MsaLab::Api::IOTelPipeline
-  {
-  public:
-    OTelPipeline(const std::string& serviceName, bool useGenevaExporter = false);
-    virtual ~OTelPipeline();
-
-    virtual void Start() override;
-    virtual void Shutdown() override;
-
-  protected:
-    virtual void InitLogger();
-    virtual void InitTracer();
-
-    virtual void CleanupLogger();
-    virtual void CleanupTracer();
-  };
-
-} // namespace Details
-} // namespace MsaLab
-

@@ -38,10 +38,11 @@ void TestTraceWithGeneva()
   auto otelPipeline = MsaLab::Api::CreateOTelPipeline("OTel-Pipe-With-ETW");
   otelPipeline->Start();
 
-  const std::string tracerName = "InstrScope-Main-ETW";
+  const std::string tracerName = "Geneva-Tracer-Foo";
   auto tracer = MsaLab::Api::GetTracer(tracerName);
 
-  // auto logger = InitLogger();
+  const std::string loggerName = "Geneva-Logger-Foo";
+  auto logger = MsaLab::Api::GetLogger(loggerName);
 
   auto fooEtw = tracer->StartSpan("main");
   auto scopefooEtw = tracer->WithActiveSpan(fooEtw);
@@ -68,7 +69,7 @@ void TestTraceWithGeneva()
 
   fooEtw->End();
 
-  // logger->Info("Hello World ETW!");
+  logger->Info("Hello World Geneva!");
 }
 
 } // namespace Details

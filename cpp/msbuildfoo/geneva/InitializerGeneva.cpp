@@ -30,5 +30,10 @@ namespace MsaLab { namespace Details {
     return std::make_unique<opentelemetry::exporter::etw::TracerProvider>();
   }
 
+  std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider()
+  {
+    return std::make_unique<opentelemetry::exporter::etw::LoggerProvider>();
+  }
+
 } // namespace Details
 } // namespace LkLab

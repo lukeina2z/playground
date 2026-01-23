@@ -6,6 +6,7 @@
 
 namespace MsaLab { namespace Details {
 
+  std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider();
   std::unique_ptr<opentelemetry::exporter::etw::TracerProvider> CreateGenevaTracerProvider();
 
 } // namespace Details
