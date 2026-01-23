@@ -1,12 +1,10 @@
 // msbuildfoo.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-#include <cstring>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <vector>
 #include <chrono>
+#include <cstdint>
+#include <iostream>
 #include <thread>
+
 #include <fmt/core.h>
 
 #include "GenevaTest.h"

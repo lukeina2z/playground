@@ -17,17 +17,9 @@
 #include "opentelemetry/logs/logger.h"
 #include "opentelemetry/logs/logger_provider.h"
 #include "opentelemetry/nostd/shared_ptr.h"
-#include "opentelemetry/nostd/string_view.h"
-
 #include "opentelemetry/trace/provider.h"
-#include "opentelemetry/trace/scope.h"
-#include "opentelemetry/trace/span.h"
-#include "opentelemetry/trace/span_context.h"
 #include "opentelemetry/trace/tracer.h"
 #include "opentelemetry/trace/tracer_provider.h"
-#include "opentelemetry/trace/span_id.h"
-#include "opentelemetry/trace/trace_id.h"
-#include "opentelemetry/trace/propagation/http_trace_context.h"
 
 namespace MsaLab { namespace Api
 {
