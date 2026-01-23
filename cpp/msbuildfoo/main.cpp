@@ -7,7 +7,7 @@
 #include <vector>
 #include <fmt/core.h>
 
-#include "public/IOTelPipeline.h"
+#include "IOTelPipeline.h"
 #include "test/GenevaTest.h"
 #include "test/OtlpTest.h"
 

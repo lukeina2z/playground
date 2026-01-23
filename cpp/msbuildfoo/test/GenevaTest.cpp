@@ -27,7 +27,7 @@
 #include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
 #include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
 
-#include "../public/IOtelPipeline.h"
+#include "../IOtelPipeline.h"
 #include "GenevaTest.h"
 
 namespace MsaLab { namespace Details

@@ -134,20 +134,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="initializer_geneva\InitializerGeneva.cpp" />
-    <ClCompile Include="initializer_otlp\InitializerOtlp.cpp" />
+    <ClCompile Include="common\OTelPipeline.cpp" />
+    <ClCompile Include="geneva\InitializerGeneva.cpp" />
+    <ClCompile Include="geneva\otelgeneva.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OTelPipeline.cpp" />
+    <ClCompile Include="otlp\InitializerOtlp.cpp" />
+    <ClCompile Include="otlp\otelotlp.cpp" />
     <ClCompile Include="test\GenevaTest.cpp" />
     <ClCompile Include="test\OtlpTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="initializer_geneva\InitializerGeneva.h" />
-    <ClInclude Include="initializer_otlp\InitializerOtlp.h" />
-    <ClInclude Include="OTelPipeline.h" />
-    <ClInclude Include="public\IOTelPipeline.h" />
+    <ClInclude Include="common\OTelPipeline.h" />
+    <ClInclude Include="geneva\InitializerGeneva.h" />
+    <ClInclude Include="geneva\otelgeneva.h" />
+    <ClInclude Include="IOTelPipeline.h" />
+    <ClInclude Include="otlp\InitializerOtlp.h" />
+    <ClInclude Include="otlp\otelotlp.h" />
     <ClInclude Include="test\GenevaTest.h" />
     <ClInclude Include="test\OtlpTest.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="vcpkg-configuration.json" />
+    <None Include="vcpkg.json" />
+    <None Include="zrun.bat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

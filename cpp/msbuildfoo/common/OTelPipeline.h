@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 #include <string>
 
@@ -27,14 +29,17 @@
 #include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
 #include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
 
-#include "public/IOTelPipeline.h"
+#include "../IOTelPipeline.h"
+
+namespace logs_api = opentelemetry::logs;
+namespace logs_sdk = opentelemetry::sdk::logs;
+
+namespace trace_api = opentelemetry::trace;
+namespace trace_sdk = opentelemetry::sdk::trace;
+namespace trace_exporter = opentelemetry::exporter::trace;
 
 namespace MsaLab { namespace Details
 {
-  namespace trace_api = opentelemetry::trace;
-  namespace trace_sdk = opentelemetry::sdk::trace;
-  namespace trace_exporter = opentelemetry::exporter::trace;
-
   class OTelPipeline : public MsaLab::Api::IOTelPipeline
   {
   public:
@@ -44,10 +49,12 @@ namespace MsaLab { namespace Details
     virtual void Start() override;
     virtual void Shutdown() override;
 
-  private:
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> m_traceProvider;
-    std::string m_serviceName = "";
-    bool m_useGenevaExporter = false;
+  protected:
+    virtual void InitLogger();
+    virtual void InitTracer();
+
+    virtual void CleanupLogger();
+    virtual void CleanupTracer();
   };
 
 } // namespace Details

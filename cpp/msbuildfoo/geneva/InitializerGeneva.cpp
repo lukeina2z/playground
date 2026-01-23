@@ -4,8 +4,6 @@
 #include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
 #include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
 
-
-
 namespace
 {
 
@@ -25,20 +23,11 @@ namespace
 }
 
 
-
-
-
 namespace MsaLab { namespace Details {
 
-  opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateGenevaTraceProvider(const std::string& serviceName)
+  std::unique_ptr<opentelemetry::exporter::etw::TracerProvider> CreateGenevaTracerProvider()
   {
-    auto etw_provider = std::make_shared<opentelemetry::exporter::etw::TracerProvider>();
-    std::shared_ptr<opentelemetry::trace::TracerProvider> shared_provider =
-      std::static_pointer_cast<opentelemetry::trace::TracerProvider>(etw_provider);
-
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> spProvider{ shared_provider };
-
-    return spProvider;
+    return std::make_unique<opentelemetry::exporter::etw::TracerProvider>();
   }
 
 } // namespace Details

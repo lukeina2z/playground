@@ -1,3 +1,5 @@
+#include "InitializerOtlp.h"
+
 #include <memory>
 #include <string>
 
@@ -31,7 +33,7 @@
 
 namespace MsaLab { namespace Details {
 
-  opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateOtlpTraceProvider(
+  std::unique_ptr<trace_sdk::TracerProvider> CreateOtlpTraceProvider(
     const std::string& serviceName)
   {
     const std::string ingestionSvc = "http://127.0.0.1:4318";
@@ -72,12 +74,8 @@ namespace MsaLab { namespace Details {
       opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors), resource_ptr);
 
     auto sdk_provider = opentelemetry::sdk::trace::TracerProviderFactory::Create(std::move(context));
-    std::shared_ptr<opentelemetry::trace::TracerProvider> shared_provider =
-      std::move(sdk_provider);
 
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> provider{ shared_provider };
-
-    return provider;
+    return sdk_provider;
   }
 } // namespace Details
 } // namespace LkLab
