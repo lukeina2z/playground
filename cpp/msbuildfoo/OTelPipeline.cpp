@@ -26,8 +26,8 @@
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_factory.h"
 #include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
 
-#include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
-#include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
+#include "initializer_geneva/InitializerGeneva.h"
+#include "initializer_otlp/InitializerOtlp.h"
 
 namespace MsaLab { namespace Details
 {
@@ -35,25 +35,17 @@ namespace MsaLab { namespace Details
   namespace trace_sdk = opentelemetry::sdk::trace;
   namespace trace_exporter = opentelemetry::exporter::trace;
 
-
-  OTelPipelineOld::OTelPipelineOld(const std::string& serviceName, bool useGenevaExporter)
+  OTelPipeline::OTelPipeline(const std::string& serviceName, bool useGenevaExporter)
     : m_serviceName(serviceName), m_useGenevaExporter(useGenevaExporter)
   {
-    Initialize();
   }
 
-  OTelPipelineOld::~OTelPipelineOld()
+  OTelPipeline::~OTelPipeline()
   {
     Shutdown();
   }
 
-  opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> OTelPipelineOld::GetTracer(const std::string& tracerName)
-  {
-    auto provider = opentelemetry::trace::Provider::GetTracerProvider();
-    return provider->GetTracer(tracerName);
-  }
-
-  void OTelPipelineOld::Initialize()
+  void OTelPipeline::Start()
   {
     if (m_useGenevaExporter)
     {
@@ -74,71 +66,26 @@ namespace MsaLab { namespace Details
         pHttpTraceContext));
   }
 
-  void OTelPipelineOld::Shutdown()
+  void OTelPipeline::Shutdown()
   {
     std::shared_ptr<opentelemetry::trace::TracerProvider> nullPtr;
     trace_api::Provider::SetTracerProvider(std::move(nullPtr));
   }
 
-  opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> OTelPipelineOld::CreateOtlpTraceProvider(
-    const std::string& serviceName)
-  {
-    const std::string ingestionSvc = "http://127.0.0.1:4318";
-
-    opentelemetry::exporter::otlp::OtlpHttpExporterOptions opts;
-    opts.url = ingestionSvc + "/v1/traces";
-    opts.console_debug = true;
-
-    opts.content_type = opentelemetry::exporter::otlp::HttpRequestContentType::kJson;
-    // opts.content_type  = opentelemetry::exporter::otlp::HttpRequestContentType::kBinary;
-
-    auto otlp_http_exporter = std::make_unique<opentelemetry::exporter::otlp::OtlpHttpExporter>(opts);
-    auto otlp_http_processor = std::make_unique<opentelemetry::sdk::trace::SimpleSpanProcessor>(
-      std::move(otlp_http_exporter));
-
-    auto ostream_exporter = opentelemetry::exporter::trace::OStreamSpanExporterFactory::Create();
-
-    opentelemetry::sdk::trace::BatchSpanProcessorOptions options;
-    options.max_queue_size = 10;
-    options.schedule_delay_millis = std::chrono::milliseconds(3000);
-    options.max_export_batch_size = 3;
-
-    auto ostream_processor = std::make_unique<opentelemetry::sdk::trace::BatchSpanProcessor>(
-      std::move(ostream_exporter), options);
-    // auto ostream_processor =
-    // opentelemetry::sdk::trace::SimpleSpanProcessorFactory::Create(std::move(ostream_exporter));
-
-    std::vector<std::unique_ptr<opentelemetry::sdk::trace::SpanProcessor>> processors;
-    processors.push_back(std::move(ostream_processor));
-    processors.push_back(std::move(otlp_http_processor));
-
-    auto resource_attributes =
-      opentelemetry::sdk::resource::ResourceAttributes{ {"service.name", serviceName} };
-    auto resource_ptr = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
-
-    // Default is an always-on sampler.
-    std::unique_ptr<opentelemetry::sdk::trace::TracerContext> context =
-      opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors), resource_ptr);
-
-    auto sdk_provider = opentelemetry::sdk::trace::TracerProviderFactory::Create(std::move(context));
-    std::shared_ptr<opentelemetry::trace::TracerProvider> shared_provider =
-      std::move(sdk_provider);
-
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> provider{ shared_provider };
-
-    return provider;
-  }
-
-  opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> OTelPipelineOld::CreateGenevaTraceProvider(const std::string& serviceName)
-  {
-    auto etw_provider = std::make_shared<opentelemetry::exporter::etw::TracerProvider>();
-    std::shared_ptr<opentelemetry::trace::TracerProvider> shared_provider =
-      std::static_pointer_cast<opentelemetry::trace::TracerProvider>(etw_provider);
-
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> spProvider{ shared_provider };
-
-    return spProvider;
-  }
-
 } // namespace Details
-} // namespace LkLab
+} // namespace MsaLab
+
+namespace MsaLab { namespace Api
+{
+  std::unique_ptr<IOTelPipeline> CreateOTelPipeline(const std::string& name)
+  {
+    return std::make_unique<MsaLab::Details::OTelPipeline>(name, true);
+  }
+
+  std::unique_ptr<IOTelPipeline> CreateOTelPipelineWithOtlpExporter(const std::string& name)
+  {
+    return std::make_unique<MsaLab::Details::OTelPipeline>(name, false);
+  }
+
+} // namespace Api
+} // namespace MsaLab

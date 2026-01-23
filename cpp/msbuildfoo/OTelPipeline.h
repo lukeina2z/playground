@@ -1,6 +1,9 @@
 #include <memory>
 #include <string>
 
+#include "opentelemetry/trace/propagation/http_trace_context.h"
+#include "opentelemetry/trace/provider.h"
+
 #include "opentelemetry/context/propagation/global_propagator.h"
 #include "opentelemetry/context/propagation/text_map_propagator.h"
 
@@ -14,9 +17,6 @@
 #include <opentelemetry/sdk/trace/simple_processor.h>
 #include "opentelemetry/sdk/trace/simple_processor_factory.h"
 
-#include "opentelemetry/trace/propagation/http_trace_context.h"
-#include "opentelemetry/trace/provider.h"
-
 #include "opentelemetry/exporters/ostream/span_exporter_factory.h"
 #include "opentelemetry/exporters/otlp/otlp_http.h"
 #include "opentelemetry/exporters/otlp/otlp_http_client.h"
@@ -29,29 +29,20 @@
 
 #include "public/IOTelPipeline.h"
 
-namespace MsaLab { namespace Details 
+namespace MsaLab { namespace Details
 {
   namespace trace_api = opentelemetry::trace;
   namespace trace_sdk = opentelemetry::sdk::trace;
   namespace trace_exporter = opentelemetry::exporter::trace;
 
-  class OTelPipelineOld
+  class OTelPipeline : public MsaLab::Api::IOTelPipeline
   {
   public:
-    OTelPipelineOld(const std::string& serviceName, bool useGenevaExporter = false);
-    virtual ~OTelPipelineOld();
+    OTelPipeline(const std::string& serviceName, bool useGenevaExporter = false);
+    virtual ~OTelPipeline();
 
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer(const std::string& tracerName);
-
-  protected:
-    void Initialize();
-
-    void Shutdown();
-
-    static opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateOtlpTraceProvider(
-      const std::string& serviceName);
-
-    static opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateGenevaTraceProvider(const std::string& serviceName);
+    virtual void Start() override;
+    virtual void Shutdown() override;
 
   private:
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> m_traceProvider;
@@ -60,4 +51,5 @@ namespace MsaLab { namespace Details
   };
 
 } // namespace Details
-} // namespace LkLab
+} // namespace MsaLab
+
