@@ -8,7 +8,7 @@
 
 #include <fmt/core.h>
 
-#include "otelruntime.h"
+#include "OTelPipeline.h"
 
 const char* kGlobalProviderName = "OpenTelemetry-ETW-TLD-Geneva-Example";
 std::string providerName = kGlobalProviderName;
@@ -36,7 +36,7 @@ namespace
 void TestWithEtwExporter()
 {
   const std::string serviceName = "LkLab-Foo-ETW";
-  MsaLab::OTelRuntime otel(serviceName, true);
+  MsaLab::Details::OTelPipelineOld otel(serviceName, true);
 
 	const std::string tracerName = "InstrScope-Main-ETW";
   auto tracer = otel.GetTracer(tracerName);
@@ -74,7 +74,7 @@ void TestWithEtwExporter()
 void TestWithOtlpExporter()
 {
   const std::string serviceName = "MsBuild-Foo-OTLP";
-  MsaLab::OTelRuntime otel(serviceName);
+  MsaLab::Details::OTelPipelineOld otel(serviceName);
 
   const std::string tracerName = "InstrScope-msbuildfoo-Otlp";
   auto tracer = otel.GetTracer(tracerName);

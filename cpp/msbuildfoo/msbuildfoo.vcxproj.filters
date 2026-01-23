@@ -1,33 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{f4da92db-3e67-46c7-bb84-7f652a11947f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="initializer_otlp">
+      <UniqueIdentifier>{e94fd49c-8127-47f4-a4ca-0bad8fc6916f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="initializer_geneva">
+      <UniqueIdentifier>{f1085d6c-7150-4b84-ac76-13de8c3609d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{9897baa8-fa29-4772-b017-278cbb4b9ce5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="initializer_geneva\InitializerGeneva.cpp">
+      <Filter>initializer_geneva</Filter>
     </ClCompile>
-    <ClCompile Include="mainTwo.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="initializer_otlp\InitializerOtlp.cpp">
+      <Filter>initializer_otlp</Filter>
     </ClCompile>
-    <ClCompile Include="otelruntime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainTwo.cpp" />
+    <ClCompile Include="OTelPipeline.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="otelruntime.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="public\IOTelPipeline.h">
+      <Filter>public</Filter>
     </ClInclude>
+    <ClInclude Include="initializer_geneva\InitializerGeneva.h">
+      <Filter>initializer_geneva</Filter>
+    </ClInclude>
+    <ClInclude Include="initializer_otlp\InitializerOtlp.h">
+      <Filter>initializer_otlp</Filter>
+    </ClInclude>
+    <ClInclude Include="OTelPipeline.h" />
   </ItemGroup>
 </Project>

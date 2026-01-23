@@ -27,17 +27,19 @@
 #include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
 #include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
 
-namespace MsaLab
+#include "public/IOTelPipeline.h"
+
+namespace MsaLab { namespace Details 
 {
   namespace trace_api = opentelemetry::trace;
   namespace trace_sdk = opentelemetry::sdk::trace;
   namespace trace_exporter = opentelemetry::exporter::trace;
 
-  class OTelRuntime
+  class OTelPipelineOld
   {
   public:
-    OTelRuntime(const std::string& serviceName, bool useGenevaExporter = false);
-    virtual ~OTelRuntime();
+    OTelPipelineOld(const std::string& serviceName, bool useGenevaExporter = false);
+    virtual ~OTelPipelineOld();
 
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer(const std::string& tracerName);
 
@@ -46,10 +48,10 @@ namespace MsaLab
 
     void Shutdown();
 
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateOtlpTraceProvider(
+    static opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateOtlpTraceProvider(
       const std::string& serviceName);
 
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateGenevaTraceProvider(const std::string& serviceName);
+    static opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> CreateGenevaTraceProvider(const std::string& serviceName);
 
   private:
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::TracerProvider> m_traceProvider;
@@ -57,4 +59,5 @@ namespace MsaLab
     bool m_useGenevaExporter = false;
   };
 
+} // namespace Details
 } // namespace LkLab

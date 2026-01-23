@@ -134,12 +134,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="initializer_geneva\InitializerGeneva.cpp" />
+    <ClCompile Include="initializer_otlp\InitializerOtlp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainTwo.cpp" />
-    <ClCompile Include="otelruntime.cpp" />
+    <ClCompile Include="OTelPipeline.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="otelruntime.h" />
+    <ClInclude Include="initializer_geneva\InitializerGeneva.h" />
+    <ClInclude Include="initializer_otlp\InitializerOtlp.h" />
+    <ClInclude Include="OTelPipeline.h" />
+    <ClInclude Include="public\IOTelPipeline.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
