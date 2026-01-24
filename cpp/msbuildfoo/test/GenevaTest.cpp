@@ -20,7 +20,9 @@ namespace MsaLab { namespace Details
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
     auto logger = MsaLab::Api::GetLogger(loggerName);
+
     TestLog(logger, tracer);
+
     otel->Shutdown();
   }
 
@@ -32,7 +34,7 @@ void TestTraceWithGeneva()
   auto tracer = MsaLab::Api::GetTracer(tracerName);
   auto logger = MsaLab::Api::GetLogger(loggerName);
 
-  TestLog(logger, tracer);
+  TestTrace(logger, tracer);
   otelPipeline->Shutdown();
 }
 

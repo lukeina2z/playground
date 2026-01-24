@@ -10,6 +10,7 @@
 #include "opentelemetry/trace/tracer.h"
 
 #include "../IOtelPipeline.h"
+#include "../common/common.h"
 #include "OtlpTest.h"
 
 
@@ -26,6 +27,13 @@ namespace MsaLab { namespace Details
 
       logger->Fatal("Hello <Fatal> Otlp!");
       logger->Error("Hello <Error> Otlp!");
+
+      const logs_api::EventId process_request_event_id{ 0x12345678 /* event ID value */, "Company.Component.SubComponent.FunctionName" /* event name */ };
+
+      logger->Info(process_request_event_id, "Info message from {pid}", opentelemetry::common::MakeAttributes({ {"pid", 12347} }));
+      logger->Error(process_request_event_id, "Error message from {pid}", opentelemetry::common::MakeAttributes({ {"pid", 12347} }));
+
+
       logger->Info("Hello <Info> Otlp!");
       logger->Debug("Hello <Debug> Otlp!");
 
