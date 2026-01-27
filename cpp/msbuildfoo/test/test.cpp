@@ -49,10 +49,12 @@ namespace MsaLab { namespace Details
     logger->Debug("xyzxyz - The end. No trace context expected.");
   }
 
+
+
   void TestTrace(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {
-    logger->Info("Inside <TestTraceWithOtlp>, Before span creation : Hello World!");
+    logger->Info("Inside TestTrace, Before span creation.");
     auto s1 = tracer->StartSpan("Test-Trace-Main-Span");
     auto scopeFoo = tracer->WithActiveSpan(s1);
 
