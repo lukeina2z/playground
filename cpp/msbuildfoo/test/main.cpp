@@ -16,9 +16,9 @@ void run_all_tests()
  
   MsaLab::Details::TestTraceWithGeneva();
 
-  MsaLab::Details::TestLogWithOtlp();
-  
-  MsaLab::Details::TestTraceWithOtlp();
+  //MsaLab::Details::TestLogWithOtlp();
+  //
+  //MsaLab::Details::TestTraceWithOtlp();
 
 }
 
@@ -27,11 +27,11 @@ int main()
   fmt::print("\n\n Start of Main() \n\n");
 
   // Run periodically instead of looping forever.
-  for (std::uint64_t i = 0; i < 1'000ULL; ++i)
+  for (std::uint64_t i = 0; i < 1'000'000ULL; ++i)
   {
     run_all_tests();
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    break;
+    std::this_thread::sleep_for(std::chrono::seconds(56));
+    // break;
   }
   
   std::cout << "\n\n End of Main() \n\n";

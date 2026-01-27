@@ -6,8 +6,10 @@
 
 namespace {
   const std::string serviceName = "LkLab-Foo-ETW";
-  const std::string tracerName = "Geneva-Test-Library";
-  const std::string loggerName = tracerName;
+  //const std::string tracerName = "Geneva-Test-Library";
+  //const std::string loggerName = tracerName;
+  const std::string tracerName = "Geneva-Tracer-Foo";
+  const std::string loggerName = "Geneva-Logger-Foo";
 }
 
 namespace MsaLab { namespace Details
