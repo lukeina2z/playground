@@ -1,0 +1,14 @@
+
+*.vcxproj.user
+
+debug/*
+x64/Debug/*
+
+msvcpkg/Debug/*
+msvcpkg/x64/Debug/*
+
+vcpkg_installed/
+
+
+
+
