@@ -60,39 +60,44 @@ namespace MsaLab { namespace Details
 
     {
       L link1 = { {s1->GetContext(), {}} };
-
-      // Create Span with 1 SpanLink
-      auto s2 = tracer->StartSpan(
-        "child", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }), link1);
-
-      s2->SetAttribute("attr_key1", 123);
-
-      auto scopeBar = tracer->WithActiveSpan(s2);
       {
-        L link2 = { {s1->GetContext(), {}}, {s2->GetContext(), {}} };
+        // Create Span with 1 SpanLink
+        auto s2 = tracer->StartSpan(
+          "Child-Span", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }), link1);
 
-        // Create Span with 2 SpanLinks
-        auto s3 = tracer->StartSpan(
-          "grandchild", opentelemetry::common::MakeAttributes({ {"key3", "value 3"}, {"key4", 2} }),
-          link2);
+        s2->SetAttribute("attr_key1", 123);
 
-        s3->SetAttribute("attr_key2", 456);
+        auto scopeBar = tracer->WithActiveSpan(s2);
+        {
+          L link2 = { {s1->GetContext(), {}}, {s2->GetContext(), {}} };
 
-        s3->End();
+          // Create Span with 2 SpanLinks
+          auto s3 = tracer->StartSpan(
+            "Grandchild-Span", opentelemetry::common::MakeAttributes({ {"key3", "value 3"}, {"key4", 2} }),
+            link2);
+
+          s3->SetAttribute("attr_key2", 456);
+
+          logger->Info("Inside Child-Span Scope : Test Log API!");
+
+          s3->End();
+        }
+
+        s2->AddEvent("An event in Child-Span", opentelemetry::common::SystemTimestamp(std::chrono::system_clock::now()),
+          opentelemetry::common::MakeAttributes({ {"event_attr1", "event value 1"} }));
+
+        s2->End();
       }
-
-      s2->End();
     }
-
     s1->End();
 
     // tracer->CloseWithMicroseconds(3000);
     // otel->Shutdown();
 
-    auto endOne = tracer->StartSpan("after-end-one");
-    auto scopeEnd = tracer->WithActiveSpan(endOne);
-    endOne->End();
-    logger->Info("Inside <TestTraceWithOtlp> : The End!");
+    //auto endOne = tracer->StartSpan("after-end-one");
+    //auto scopeEnd = tracer->WithActiveSpan(endOne);
+    //endOne->End();
+    //logger->Info("Inside <TestTraceWithOtlp> : The End!");
   }
 
 } // namespace Details

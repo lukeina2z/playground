@@ -12,7 +12,7 @@
 
 void run_all_tests()
 {
-  MsaLab::Details::TestLogWithGeneva();
+  // MsaLab::Details::TestLogWithGeneva();
  
   MsaLab::Details::TestTraceWithGeneva();
 
