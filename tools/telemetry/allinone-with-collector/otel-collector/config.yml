@@ -23,6 +23,9 @@ processors:
         action: upsert
 
 exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+
   prometheusremotewrite:
     endpoint: http://prometheus:9090/api/v1/write
 
@@ -47,7 +50,12 @@ connectors:
     exemplars:
       enabled: true        # 👈 EXEMPLARS ENABLED
 
+extensions:
+  health_check:
+    endpoint: "0.0.0.0:13133"
+
 service:
+  extensions: [health_check]
   pipelines:
     traces:
       receivers: [otlp]
@@ -57,6 +65,5 @@ service:
     metrics:
       receivers: [otlp, spanmetrics]
       processors: [memory_limiter, resource, batch]
-      exporters: [prometheusremotewrite]
-
+      exporters: [prometheusremotewrite, prometheus]
 

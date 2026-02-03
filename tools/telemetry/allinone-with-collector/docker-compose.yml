@@ -34,6 +34,8 @@ services:
     volumes:
       - ./otel-collector/config.yml:/etc/otelcol/config.yml
     ports:
+      - "8889:8889"   # Prometheus exporter metrics
+      - "13133:13133" # health_check extension
       - "4317:4317"     # OTLP gRPC (apps send here)
       - "4318:4318"     # OTLP HTTP (apps send here)
     depends_on:
