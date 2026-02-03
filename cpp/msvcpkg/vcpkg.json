@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "ad-msa-login-dependencies",
+  "version-string": "0.7.0",
+  "dependencies": [
+    "boost-date-time",
+    "boost-chrono",
+    "boost-format",
+    "boost-interprocess",
+    "boost-locale",
+    "boost-move",
+    "boost-optional",
+    "boost-range",
+    "boost-scope-exit",
+    "boost-system",
+    "boost-thread",
+    "boost-test",
+    "gtest",
+    {
+      "name": "opentelemetry-cpp",
+      "features": [
+        "geneva"
+      ]
+    },
+    "fakeit"
+  ],
+  "builtin-baseline": "9c80b3f5e65e87cea08eb1d2d7b6e4454b012d59"
+}
+
