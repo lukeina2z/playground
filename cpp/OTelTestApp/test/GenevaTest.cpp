@@ -21,7 +21,7 @@ namespace MsaLab { namespace Details
     otel->Start();
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
-    auto logger = MsaLab::Api::GetLogger(loggerName);
+    auto logger = MsaLab::Api::GetLogger(loggerName, "libBar");
 
     TestLog(logger, tracer);
 
@@ -34,7 +34,7 @@ void TestTraceWithGeneva()
   otelPipeline->Start();
 
   auto tracer = MsaLab::Api::GetTracer(tracerName);
-  auto logger = MsaLab::Api::GetLogger(loggerName);
+  auto logger = MsaLab::Api::GetLogger(loggerName, "libBar");
 
   TestTrace(logger, tracer);
   otelPipeline->Shutdown();

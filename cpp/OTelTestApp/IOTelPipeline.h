@@ -44,10 +44,11 @@ namespace MsaLab { namespace Api
   }
 
   inline opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLogger(const std::string& loggerName,
+    const std::string& libraryName = "",
     const std::string& version = "")
   {
     auto provider = opentelemetry::logs::Provider::GetLoggerProvider();
-    return provider->GetLogger(loggerName, version);
+    return provider->GetLogger(loggerName, libraryName, version);
   }
 
 } // namespace Api

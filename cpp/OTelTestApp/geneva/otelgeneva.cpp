@@ -19,7 +19,12 @@ namespace MsaLab { namespace Details
 
   std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider()
   {
-    return std::make_unique<opentelemetry::exporter::etw::LoggerProvider>();
+
+    static std::map<std::string, std::string> tableNameMappings = { {"libFoo", "logTableFoo"}, {"libBar", "logTableBar"} };
+    opentelemetry::exporter::etw::TelemetryProviderOptions options = { {"enableTableNameMappings", true},
+                                                            {"tableNameMappings", tableNameMappings} };
+
+    return std::make_unique<opentelemetry::exporter::etw::LoggerProvider>(options);
   }
 
   std::unique_ptr<opentelemetry::exporter::etw::TracerProvider> CreateGenevaTracerProvider()
