@@ -41,10 +41,35 @@ namespace MsaLab { namespace Details
     Shutdown();
   }
 
+  //void TestEtwTracer()
+  //{
+  //  auto traceProvider = std::make_unique<opentelemetry::exporter::etw::TracerProvider>();
+  //  auto tracer = traceProvider->GetTracer("Geneva-Tracer-Foo");
+
+  //  {
+  //    auto spanFoo = tracer->StartSpan("Span-Foo");
+  //    spanFoo->AddEvent("FooEvent", opentelemetry::common::MakeAttributes({{"foo_key", "foo_value"}}));
+  //  }
+  //}
+
+
+  void TestEtwTracer()
+  {
+    auto traceProvider = std::make_unique<opentelemetry::exporter::etw::TracerProvider>();
+    auto tracer = traceProvider->GetTracer("Geneva-Tracer-Foo");
+    auto spanFoo = tracer->StartSpan("Span-Foo");
+    tracer = traceProvider->GetTracer("Geneva-Tracer-Bar");
+    auto spanBar = tracer->StartSpan("Span-Bar");
+    spanFoo->End();
+    spanBar->End();
+  }
+
   void OTelPipelineGeneva::Start()
   {
     InitLogger();
     InitTracer();
+
+    TestEtwTracer();
   }
 
   void OTelPipelineGeneva::InitLogger()

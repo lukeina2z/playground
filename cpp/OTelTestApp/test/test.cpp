@@ -49,8 +49,6 @@ namespace MsaLab { namespace Details
     logger->Debug("xyzxyz - The end. No trace context expected.");
   }
 
-
-
   void TestTrace(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {

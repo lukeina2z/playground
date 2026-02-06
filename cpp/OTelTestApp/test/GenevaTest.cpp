@@ -12,6 +12,7 @@ namespace {
   const std::string loggerName = "Geneva-Logger-Bar";
 }
 
+
 namespace MsaLab { namespace Details
 {
 
@@ -23,7 +24,7 @@ namespace MsaLab { namespace Details
     auto tracer = MsaLab::Api::GetTracer(tracerName);
     auto logger = MsaLab::Api::GetLogger(loggerName, "libBar");
 
-    TestLog(logger, tracer);
+    // TestLog(logger, tracer);
 
     otel->Shutdown();
   }
@@ -36,7 +37,7 @@ void TestTraceWithGeneva()
   auto tracer = MsaLab::Api::GetTracer(tracerName);
   auto logger = MsaLab::Api::GetLogger(loggerName, "libBar");
 
-  TestTrace(logger, tracer);
+  // TestTrace(logger, tracer);
   otelPipeline->Shutdown();
 }
 

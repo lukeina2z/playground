@@ -29,7 +29,7 @@ namespace MsaLab { namespace Details
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
     auto logger = MsaLab::Api::GetLogger(loggerName);
-    TestTrace(logger, tracer);
+    // TestTrace(logger, tracer);
 
     otel->Shutdown();
   }

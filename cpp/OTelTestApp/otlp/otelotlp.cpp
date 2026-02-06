@@ -124,10 +124,72 @@ namespace MsaLab { namespace Details
     Shutdown();
   }
 
+
+  //void TestOTelTracer()
+  //{
+  //  auto ostream_exporter = opentelemetry::exporter::trace::OStreamSpanExporterFactory::Create();
+  //  auto ostream_processor = opentelemetry::sdk::trace::SimpleSpanProcessorFactory::Create(std::move(ostream_exporter));
+
+  //  std::vector<std::unique_ptr<opentelemetry::sdk::trace::SpanProcessor>> processors;
+  //  processors.push_back(std::move(ostream_processor));
+
+  //  auto resource_attributes = opentelemetry::sdk::resource::ResourceAttributes{ {"service.name", "Test OTel"} };
+  //  auto resource_ptr = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
+
+  //  std::unique_ptr<opentelemetry::sdk::trace::TracerContext> context =
+  //    opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors), resource_ptr);
+
+  //  auto traceProvider = opentelemetry::sdk::trace::TracerProviderFactory::Create(std::move(context));
+  //  auto tracer = traceProvider->GetTracer("OTel-Tracer-Foo");
+
+  //  {
+  //    auto spanFoo = tracer->StartSpan("Span-Foo");
+  //    spanFoo->AddEvent("FooEvent", opentelemetry::common::MakeAttributes({ {"foo_key", "foo_value"} }));
+  //    // spanFoo->End();
+  //  }
+
+  //  {
+  //    auto spanBar = tracer->StartSpan("Span-Bar");
+  //    spanBar->AddEvent("BarEvent", opentelemetry::common::MakeAttributes({ {"bar_key", "bar_value"} }));
+  //    spanBar->End();
+  //  }
+  //}
+
+
+  void TestOTelTracer()
+  {
+    auto ostream_exporter = opentelemetry::exporter::trace::OStreamSpanExporterFactory::Create();
+    auto ostream_processor = opentelemetry::sdk::trace::SimpleSpanProcessorFactory::Create(std::move(ostream_exporter));
+
+    std::vector<std::unique_ptr<opentelemetry::sdk::trace::SpanProcessor>> processors;
+    processors.push_back(std::move(ostream_processor));
+
+    auto resource_attributes = opentelemetry::sdk::resource::ResourceAttributes{ {"service.name", "Test OTel"} };
+    auto resource_ptr = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
+
+    std::unique_ptr<opentelemetry::sdk::trace::TracerContext> context =
+      opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors), resource_ptr);
+
+    auto traceProvider = opentelemetry::sdk::trace::TracerProviderFactory::Create(std::move(context));
+    auto tracer = traceProvider->GetTracer("OTel-Tracer-Foo");
+    auto spanFoo = tracer->StartSpan("Span-Foo");
+
+    tracer = traceProvider->GetTracer("OTel-Tracer-Bar");
+    auto spanBar = tracer->StartSpan("Span-Bar");
+    spanFoo->End();
+    spanBar->End();
+  }
+
+
+
+
+
+
   void OTelPipelineOtlp::Start()
   {
     InitLogger();
     InitTracer();
+    TestOTelTracer();
   }
 
   void OTelPipelineOtlp::Shutdown()
