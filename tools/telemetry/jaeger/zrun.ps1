@@ -10,6 +10,6 @@
 
 
 
-docker compose -f .\docker-compose-jaeger.yml up --remove-orphans
+docker compose -f .\docker-compose.yml up --remove-orphans
 
 
