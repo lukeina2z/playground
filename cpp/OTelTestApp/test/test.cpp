@@ -21,7 +21,9 @@ namespace MsaLab { namespace Details
   void TestLog(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {
-    auto span = tracer->StartSpan("Test-Log-Main-Span");
+    trace_api::StartSpanOptions options;
+    options.kind = trace_api::SpanKind::kServer;
+    auto span = tracer->StartSpan("Test-Log-Main-Span", options);
     {
       auto scopeFoo = tracer->WithActiveSpan(span);
 
@@ -53,15 +55,20 @@ namespace MsaLab { namespace Details
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {
     logger->Info("Inside TestTrace, Before span creation.");
-    auto s1 = tracer->StartSpan("Test-Trace-Main-Span");
+    trace_api::StartSpanOptions options;
+    options.kind = trace_api::SpanKind::kServer;
+    auto s1 = tracer->StartSpan("Test-Trace-Main-Span", options);
     auto scopeFoo = tracer->WithActiveSpan(s1);
 
     {
       L link1 = { {s1->GetContext(), {}} };
       {
+        trace_api::StartSpanOptions optionsS2;
+        optionsS2.kind = trace_api::SpanKind::kClient;
+        
         // Create Span with 1 SpanLink
         auto s2 = tracer->StartSpan(
-          "Child-Span", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }), link1);
+          "Child-Span", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }), link1, optionsS2);
 
         s2->SetAttribute("attr_key1", 123);
 
@@ -69,10 +76,14 @@ namespace MsaLab { namespace Details
         {
           L link2 = { {s1->GetContext(), {}}, {s2->GetContext(), {}} };
 
+          trace_api::StartSpanOptions optionsS3;
+          optionsS3.kind = trace_api::SpanKind::kServer;
           // Create Span with 2 SpanLinks
           auto s3 = tracer->StartSpan(
-            "Grandchild-Span", opentelemetry::common::MakeAttributes({ {"key3", "value 3"}, {"key4", 2} }),
-            link2);
+            "Grandchild-Span",
+            opentelemetry::common::MakeAttributes({ {"key3", "value 3"}, {"key4", 2} }),
+            link2,
+            optionsS3);
 
           s3->SetAttribute("attr_key2", 456);
 
