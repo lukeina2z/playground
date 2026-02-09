@@ -24,6 +24,21 @@ datasources:
         spanStartTimeShift: "-1h"
         spanEndTimeShift: "1h"
 
+  - name: Loki
+    type: loki
+    uid: loki
+    access: proxy
+    url: http://loki:3100
+    isDefault: false
+    editable: true
+    jsonData:
+      derivedFields:
+        - name: TraceID
+          datasourceUid: tempo
+          matcherRegex: "traceID=(\\w+)"
+          url: "$${__value.raw}"
+          matcherType: regex
+
   - name: Prometheus
     type: prometheus
     uid: prometheus

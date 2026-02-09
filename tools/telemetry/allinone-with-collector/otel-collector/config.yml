@@ -39,6 +39,11 @@ exporters:
     tls:
       insecure: true
 
+  otlphttp/loki:
+    endpoint: http://loki:3100/otlp
+    tls:
+      insecure: true
+
 connectors:
   spanmetrics:
     histogram:
@@ -66,4 +71,9 @@ service:
       receivers: [otlp, spanmetrics]
       processors: [memory_limiter, resource, batch]
       exporters: [prometheusremotewrite, prometheus]
+
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, batch]
+      exporters: [otlphttp/loki]
 
