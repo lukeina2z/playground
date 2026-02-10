@@ -10,7 +10,7 @@ function pingWebSite() {
     return new Promise((resolve, reject) => {
         const httpReq = https.get('https://login.live-tst.com:44329', (httpResponse) => {
             console.log('Response status code:', httpResponse.statusCode);
-            let data = "";""
+            let data = "";
             httpResponse.on('data', (chunk) => {
                 data += chunk;  // Accumulate the chunks of data
             });
