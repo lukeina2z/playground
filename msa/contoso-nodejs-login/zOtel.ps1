@@ -21,11 +21,11 @@ if ($env:NODE_OPTIONS) {
 npm install
 
 # Set environment variables and run
-$env:OTEL_LOG_LEVEL = "all"
+# $env:OTEL_LOG_LEVEL = "all"
 $env:OTEL_TRACES_EXPORTER = "otlp"
 $env:OTEL_EXPORTER_OTLP_ENDPOINT = "http://127.0.0.1:4318"
 $env:OTEL_NODE_RESOURCE_DETECTORS = "env,host,os,process"
-$env:OTEL_SERVICE_NAME = "OTel-Nodejs"
+$env:OTEL_SERVICE_NAME = "Contoso-Nodejs-Login-Service"
 $env:NODE_OPTIONS = "--require @opentelemetry/auto-instrumentations-node/register"
 
 node index.js
