@@ -10,7 +10,7 @@ datasources:
     editable: true
     jsonData:
       tracesToLogsV2:
-        datasourceUid: prometheus
+        datasourceUid: loki
         spanStartTimeShift: "-5m"
         spanEndTimeShift: "5m"
         filterByTraceID: true
@@ -33,11 +33,11 @@ datasources:
     editable: true
     jsonData:
       derivedFields:
-        - name: TraceID
-          datasourceUid: tempo
-          matcherRegex: "traceID=(\\w+)"
+        - datasourceUid: tempo
+          matcherRegex: "trace_id"
+          matcherType: label
+          name: TraceID
           url: "$${__value.raw}"
-          matcherType: regex
 
   - name: Prometheus
     type: prometheus
