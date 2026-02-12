@@ -1,67 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="test">
-      <UniqueIdentifier>{9897baa8-fa29-4772-b017-278cbb4b9ce5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="common">
-      <UniqueIdentifier>{d31eb1ea-4c6a-4434-b48b-4b343237c7a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="geneva">
-      <UniqueIdentifier>{f4da92db-3e67-46c7-bb84-7f652a11947f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="otlp">
-      <UniqueIdentifier>{e94fd49c-8127-47f4-a4ca-0bad8fc6916f}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="common\OTelPipeline.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="geneva\otelgeneva.cpp">
-      <Filter>geneva</Filter>
-    </ClCompile>
-    <ClCompile Include="otlp\otelotlp.cpp">
-      <Filter>otlp</Filter>
-    </ClCompile>
-    <ClCompile Include="test\GenevaTest.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\OtlpTest.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\main.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="IOTelPipeline.h" />
-    <ClInclude Include="common\common.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="geneva\otelgeneva.h">
-      <Filter>geneva</Filter>
-    </ClInclude>
-    <ClInclude Include="otlp\otelotlp.h">
-      <Filter>otlp</Filter>
-    </ClInclude>
-    <ClInclude Include="test\GenevaTest.h">
-      <Filter>test</Filter>
-    </ClInclude>
-    <ClInclude Include="test\OtlpTest.h">
-      <Filter>test</Filter>
-    </ClInclude>
-    <ClInclude Include="test\test.h">
-      <Filter>test</Filter>
-    </ClInclude>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="vcpkg-configuration.json" />
     <None Include="vcpkg.json" />
     <None Include="zrun.bat" />
+    <None Include="readme.md" />
   </ItemGroup>
 </Project>

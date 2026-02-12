@@ -134,25 +134,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="common\OTelPipeline.cpp" />
-    <ClCompile Include="geneva\otelgeneva.cpp" />
-    <ClCompile Include="otlp\otelotlp.cpp" />
-    <ClCompile Include="test\GenevaTest.cpp" />
-    <ClCompile Include="test\main.cpp" />
-    <ClCompile Include="test\OtlpTest.cpp" />
-    <ClCompile Include="test\test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="common\common.h" />
-    <ClInclude Include="geneva\otelgeneva.h" />
-    <ClInclude Include="IOTelPipeline.h" />
-    <ClInclude Include="otlp\otelotlp.h" />
-    <ClInclude Include="test\GenevaTest.h" />
-    <ClInclude Include="test\OtlpTest.h" />
-    <ClInclude Include="test\test.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="readme.md" />
     <None Include="vcpkg-configuration.json" />
     <None Include="vcpkg.json" />
     <None Include="zrun.bat" />

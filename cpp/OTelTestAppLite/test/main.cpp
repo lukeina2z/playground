@@ -5,7 +5,7 @@
 #include <iostream>
 #include <thread>
 
-#include <fmt/core.h>
+// #include <fmt/core.h>
 
 #include "GenevaTest.h"
 #include "OtlpTest.h"
@@ -22,9 +22,9 @@ void run_all_tests()
 
 }
 
-int main()
+int mainxx()
 {
-  fmt::print("\n\n Start of Main() \n\n");
+  // fmt::print("\n\n Start of Main() \n\n");
 
   // Run periodically instead of looping forever.
   for (std::uint64_t i = 0; i < 1'000'000ULL; ++i)
