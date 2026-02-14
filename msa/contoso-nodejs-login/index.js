@@ -6,8 +6,8 @@ async function runForever() {
   while (keepRunning) {
     // recordRequestMetric();
     await testingApp();
-    // await sleep(10000);  // Wait for 1 second
-    keepRunning = false;
+    await sleep(60000);  // Wait for 1 second
+    // keepRunning = false;
   }
 }
 

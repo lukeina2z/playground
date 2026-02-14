@@ -25,7 +25,11 @@ npm install
 $env:OTEL_TRACES_EXPORTER = "otlp"
 $env:OTEL_EXPORTER_OTLP_ENDPOINT = "http://127.0.0.1:4318"
 $env:OTEL_NODE_RESOURCE_DETECTORS = "env,host,os,process"
-$env:OTEL_SERVICE_NAME = "Contoso-Nodejs-Login-Service"
-$env:NODE_OPTIONS = "--require @opentelemetry/auto-instrumentations-node/register"
+$env:OTEL_SERVICE_NAME = "XBox-App"
 
-node index.js
+# $env:NODE_OPTIONS = "--require @opentelemetry/auto-instrumentations-node/register"
+
+
+node --require @opentelemetry/auto-instrumentations-node/register index.js
+
+
