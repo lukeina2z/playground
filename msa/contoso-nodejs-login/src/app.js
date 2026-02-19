@@ -60,10 +60,59 @@ async function PingLogin() {
 
 
 
-module.exports = async function main() {
+async function simulateTraffic() {
+    const minDelayMs = 200;
+    const maxDelayMs = 3000;
+    const burstChance = 0.25;       // 25% chance of a burst
+    const burstMinCount = 3;
+    const burstMaxCount = 8;
+    const sessionCount = Math.floor(Math.random() * 5) + 1; // 1-5 sessions per cycle
+
+    console.log(`\n--- Traffic cycle started at ${new Date().toISOString()} | sessions: ${sessionCount} ---`);
+
+    for (let session = 0; session < sessionCount; session++) {
+        const sessionDelay = Math.floor(Math.random() * (maxDelayMs - minDelayMs)) + minDelayMs;
+        const isBurst = Math.random() < burstChance;
+        const requestCount = isBurst
+            ? Math.floor(Math.random() * (burstMaxCount - burstMinCount)) + burstMinCount
+            : 1;
+
+        console.log(`  Session ${session + 1}/${sessionCount} — requests: ${requestCount}, burst: ${isBurst}`);
+
+        for (let r = 0; r < requestCount; r++) {
+            try {
+                await PingLoginProbe();
+            } catch (err) {
+                console.error(`  Probe request error: ${err.message}`);
+            }
+
+            const jitter = Math.floor(Math.random() * 500);
+            await new Promise(resolve => setTimeout(resolve, jitter));
+
+            try {
+                await PingLogin();
+            } catch (err) {
+                console.error(`  Login request error: ${err.message}`);
+            }
+
+            if (r < requestCount - 1) {
+                const gap = Math.floor(Math.random() * 400) + 50;
+                await new Promise(resolve => setTimeout(resolve, gap));
+            }
+        }
+
+        if (session < sessionCount - 1) {
+            await new Promise(resolve => setTimeout(resolve, sessionDelay));
+        }
+    }
+
+    console.log(`--- Traffic cycle finished at ${new Date().toISOString()} ---\n`);
+}
+
+module.exports = { main: async function main() {
 
     await PingLoginProbe();
 
     await PingLogin();
-}
+}, simulateTraffic };
 
