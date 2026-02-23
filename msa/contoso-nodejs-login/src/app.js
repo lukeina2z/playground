@@ -113,6 +113,6 @@ module.exports = { runOnceTest: async function main() {
 
     await PingLoginProbe();
 
-    await PingLogin();
+    // await PingLogin();
 }, simulateTraffic };
 
