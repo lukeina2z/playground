@@ -1,4 +1,4 @@
-const { main: testingApp, simulateTraffic } = require("./src/app");
+const { runOnceTest, simulateTraffic } = require("./src/app");
 // const {recordRequestMetric }= require("./src/metric");
 
 async function runForever() {
@@ -16,4 +16,6 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-runForever();
+// runForever();
+
+runOnceTest();

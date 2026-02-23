@@ -109,7 +109,7 @@ async function simulateTraffic() {
     console.log(`--- Traffic cycle finished at ${new Date().toISOString()} ---\n`);
 }
 
-module.exports = { main: async function main() {
+module.exports = { runOnceTest: async function main() {
 
     await PingLoginProbe();
 
