@@ -44,6 +44,11 @@ exporters:
     tls:
       insecure: true
 
+  # debug:
+  #   verbosity: detailed
+  #   sampling_initial: 2
+  #   sampling_thereafter: 500
+
 connectors:
   spanmetrics:
     histogram:
@@ -75,5 +80,5 @@ service:
     logs:
       receivers: [otlp]
       processors: [memory_limiter, resource, batch]
-      exporters: [otlphttp/loki]
+      exporters: [otlphttp/loki]  # add 'debug' to enable verbose log output
 

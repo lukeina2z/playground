@@ -8,5 +8,11 @@
         "geneva"
       ]
     }
+  ],
+  "overrides": [
+    {
+      "name": "opentelemetry-cpp",
+      "version": "1.24.0"
+    }
   ]
 }

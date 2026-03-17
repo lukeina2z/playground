@@ -21,7 +21,7 @@ namespace MsaLab { namespace Details
 
   static std::vector<std::pair<std::string, opentelemetry::common::AttributeValue>> BuildTestData()
   {
-      constexpr int kTestAttributeCount = 200;
+      constexpr int kTestAttributeCount = 150;
 
       // Keep value strings alive in a static vector so that the const char*
       // pointers stored inside AttributeValue remain valid.

@@ -34,10 +34,11 @@ datasources:
     jsonData:
       derivedFields:
         - datasourceUid: tempo
-          matcherRegex: "^trace_id$"
+          matcherRegex: "([a-f0-9]{32})"
           matcherType: label
-          name: TraceID
+          name: traceID
           url: "$${__value.raw}"
+          urlDisplayLabel: "View Trace"
 
   - name: Prometheus
     type: prometheus
