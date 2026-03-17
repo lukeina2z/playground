@@ -18,6 +18,45 @@ namespace MsaLab { namespace Details
 {
   using L = std::vector<std::pair<opentelemetry::trace::SpanContext, std::map<std::string, std::string>>>;
 
+
+  static std::vector<std::pair<std::string, opentelemetry::common::AttributeValue>> BuildTestData()
+  {
+      constexpr int kTestAttributeCount = 200;
+
+      // Keep value strings alive in a static vector so that the const char*
+      // pointers stored inside AttributeValue remain valid.
+      static std::vector<std::string> ownedValues;
+      ownedValues.clear();
+      ownedValues.reserve(kTestAttributeCount);
+
+      std::vector<std::pair<std::string, opentelemetry::common::AttributeValue>> testData;
+      testData.reserve(kTestAttributeCount);
+
+      // Use short keys/values to stay well under the 64KB ETW event size limit
+      // so we isolate the attribute-count limit (128 EVENT_DATA_DESCRIPTORs).
+      for (int i = 0; i < kTestAttributeCount; ++i)
+      {
+          std::string key = "K" + std::to_string(i);
+          ownedValues.emplace_back("V" + std::to_string(i));
+          const char* val = ownedValues.back().c_str();
+          testData.emplace_back(std::move(key), val);
+      }
+      return testData;
+  }
+
+
+  void TestLogAttributeLimit(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
+      opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
+  {
+
+      std::vector<std::pair<std::string, opentelemetry::common::AttributeValue>> processedAttrVec = BuildTestData(); // For testing, replace with real data point attributes when available.
+
+      auto attrView = opentelemetry::common::MakeKeyValueIterableView(processedAttrVec);
+      const opentelemetry::common::KeyValueIterable& attrIterable = attrView;
+      logger->Info("GenevaLogAttributeLimitTest", attrIterable);
+
+  }
+
   void TestLog(opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger>& logger,
     opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer>& tracer)
   {

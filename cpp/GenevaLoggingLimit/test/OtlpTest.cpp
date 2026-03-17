@@ -41,7 +41,9 @@ namespace MsaLab { namespace Details
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
     auto logger = MsaLab::Api::GetLogger(loggerName);
-    TestLog(logger, tracer);
+
+    // TestLog(logger, tracer);
+    TestLogAttributeLimit(logger, tracer);
 
     otel->Shutdown();
   }

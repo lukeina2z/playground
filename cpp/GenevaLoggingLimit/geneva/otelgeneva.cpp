@@ -20,7 +20,7 @@ namespace MsaLab { namespace Details
   std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider()
   {
 
-    static std::map<std::string, std::string> tableNameMappings = { {"libFoo", "logTableFoo"}, {"libBar", "logTableBar"} };
+    static std::map<std::string, std::string> tableNameMappings = { {"DatapointLogLib", "MSAWarmPathV2"}, {"libBar", "logTableBar"} };
     opentelemetry::exporter::etw::TelemetryProviderOptions options = { {"enableTableNameMappings", true},
                                                             {"tableNameMappings", tableNameMappings} };
 
@@ -68,8 +68,6 @@ namespace MsaLab { namespace Details
   {
     InitLogger();
     InitTracer();
-
-    TestEtwTracer();
   }
 
   void OTelPipelineGeneva::InitLogger()

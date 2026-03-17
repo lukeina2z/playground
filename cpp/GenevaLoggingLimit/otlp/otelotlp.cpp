@@ -55,8 +55,8 @@ namespace MsaLab { namespace Details
 
     auto otlp_exporter = otlp::OtlpHttpLogRecordExporterFactory::Create(logger_opts);
     logs_sdk::BatchLogRecordProcessorOptions batch_opts;
-    //processors.push_back(std::unique_ptr<logs_sdk::LogRecordProcessor>(
-    //  new logs_sdk::BatchLogRecordProcessor(std::move(otlp_exporter), batch_opts)));
+    processors.push_back(std::unique_ptr<logs_sdk::LogRecordProcessor>(
+      new logs_sdk::BatchLogRecordProcessor(std::move(otlp_exporter), batch_opts)));
 
     auto ostream_exporter = std::unique_ptr<logs_sdk::LogRecordExporter>(
       new logs_exporter::OStreamLogRecordExporter);
