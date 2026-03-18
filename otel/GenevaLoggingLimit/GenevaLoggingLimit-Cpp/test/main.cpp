@@ -16,7 +16,7 @@ void run_all_tests()
  
   // MsaLab::Details::TestTraceWithGeneva();
 
-  MsaLab::Details::TestLogWithOtlp();
+  // MsaLab::Details::TestLogWithOtlp();
   
   // MsaLab::Details::TestTraceWithOtlp();
 

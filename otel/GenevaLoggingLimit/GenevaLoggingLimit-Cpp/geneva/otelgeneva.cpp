@@ -1,3 +1,5 @@
+#define HAVE_MSGPACK
+
 #include "otelgeneva.h"
 
 #include "opentelemetry/context/propagation/global_propagator.h"
@@ -15,14 +17,15 @@ namespace trace_sdk = opentelemetry::sdk::trace;
 
 
 namespace MsaLab { namespace Details
-{
-
+{ 
   std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider()
   {
-
-    static std::map<std::string, std::string> tableNameMappings = { {"DatapointLogLib", "MSAWarmPathV2"}, {"libBar", "logTableBar"} };
-    opentelemetry::exporter::etw::TelemetryProviderOptions options = { {"enableTableNameMappings", true},
-                                                            {"tableNameMappings", tableNameMappings} };
+    static const std::string MSGPACK = "MessagePack";
+    static const std::map<std::string, std::string> tableNameMappings = { {"DatapointLogLib", "MSAWarmPathV2"}, {"libBar", "logTableBar"} };
+    opentelemetry::exporter::etw::TelemetryProviderOptions options = {
+        {"encoding", MSGPACK},
+        {"enableTableNameMappings", true},
+        {"tableNameMappings", tableNameMappings} };
 
     return std::make_unique<opentelemetry::exporter::etw::LoggerProvider>(options);
   }

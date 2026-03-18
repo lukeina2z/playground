@@ -55,10 +55,10 @@ internal class OTelPipelineGeneva : IOTelPipeline
                 logging.IncludeFormattedMessage = true;
                 logging.AddGenevaLogExporter(options =>
                 {
-                    options.ConnectionString = "EtwSession=OpenTelemetry";
+                    options.ConnectionString = "EtwSession=MSADataPointLogger";
                     options.TableNameMappings = new Dictionary<string, string>
                     {
-                        ["DatapointLogLib"] = "MSAWarmPathDotnet",
+                        ["DatapointLogLib"] = "MSAWarmPathV2",
                         ["libBar"] = "logTableBar"
                     };
                 });

@@ -9,7 +9,7 @@ namespace {
   //const std::string tracerName = "Geneva-Test-Library";
   //const std::string loggerName = tracerName;
   const std::string tracerName = "MSATraceV1";
-  const std::string loggerName = "MSALogV1";
+  const std::string loggerName = "MSADataPointLogger";
 }
 
 

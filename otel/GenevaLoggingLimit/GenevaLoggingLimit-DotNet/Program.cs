@@ -21,7 +21,7 @@ internal class Program
 
         // GenevaTest.TestTraceWithGeneva();
 
-        OtlpTest.TestLogWithOtlp();
+        // OtlpTest.TestLogWithOtlp();
 
         // OtlpTest.TestTraceWithOtlp();
 
