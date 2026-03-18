@@ -1,9 +1,13 @@
+#pragma once
+
+#include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
+#include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
+
 #include <memory>
 #include <string>
 
 #include "../IOTelPipeline.h"
-#include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
-#include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
+
 
 namespace MsaLab { namespace Details
 {
