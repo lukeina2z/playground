@@ -22,32 +22,6 @@ namespace MsaLab { namespace Details
 
   using L = std::vector<std::pair<opentelemetry::trace::SpanContext, std::map<std::string, std::string>>>;
 
-  void TestTraceWithOtlp()
-  {
-    auto otel = MsaLab::Api::CreateOTelPipelineWithOtlpExporter(serviceName);
-    otel->Start();
-
-    auto tracer = MsaLab::Api::GetTracer(tracerName);
-    auto logger = MsaLab::Api::GetLogger(loggerName);
-    // TestTrace(logger, tracer);
-
-    otel->Shutdown();
-  }
-
-  void TestLogWithOtlp()
-  {
-    auto otel = MsaLab::Api::CreateOTelPipelineWithOtlpExporter(serviceName);
-    otel->Start();
-
-    auto tracer = MsaLab::Api::GetTracer(tracerName);
-    auto logger = MsaLab::Api::GetLogger(loggerName);
-
-    // TestLog(logger, tracer);
-    TestLogAttributeLimit(logger, tracer);
-
-    otel->Shutdown();
-  }
-
 } // namespace Details
 } // namespace MsaLab
 

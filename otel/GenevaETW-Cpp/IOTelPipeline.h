@@ -34,7 +34,6 @@ namespace MsaLab { namespace Api
   };
 
   std::unique_ptr<IOTelPipeline> CreateOTelPipeline(const std::string& name);
-  std::unique_ptr<IOTelPipeline> CreateOTelPipelineWithOtlpExporter(const std::string& name);
 
   inline opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer(const std::string& tracerName,
       const std::string& version = "")

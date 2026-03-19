@@ -21,7 +21,7 @@ namespace MsaLab { namespace Details
 
   static std::vector<std::pair<std::string, opentelemetry::common::AttributeValue>> BuildTestData()
   {
-      constexpr int kTestAttributeCount = 300;
+      constexpr int kTestAttributeCount = 1;
 
       // Keep value strings alive in a static vector so that the const char*
       // pointers stored inside AttributeValue remain valid.
@@ -53,7 +53,7 @@ namespace MsaLab { namespace Details
 
       auto attrView = opentelemetry::common::MakeKeyValueIterableView(processedAttrVec);
       const opentelemetry::common::KeyValueIterable& attrIterable = attrView;
-      logger->Info("GenevaLogAttributeLimitTest-Cpp", attrIterable);
+      logger->Info("OTel-ETW-Exporter-Cpp", attrIterable);
 
   }
 

@@ -5,8 +5,6 @@
 #include <iostream>
 #include <thread>
 
-#include <fmt/core.h>
-
 #include "GenevaTest.h"
 #include "OtlpTest.h"
 
@@ -14,17 +12,11 @@ void run_all_tests()
 {
   MsaLab::Details::TestLogWithGeneva();
  
-  // MsaLab::Details::TestTraceWithGeneva();
-
-  // MsaLab::Details::TestLogWithOtlp();
-  
-  // MsaLab::Details::TestTraceWithOtlp();
-
+  MsaLab::Details::TestTraceWithGeneva();
 }
 
 int main()
 {
-  fmt::print("\n\n Start of Main() \n\n");
 
   // Run periodically instead of looping forever.
   for (std::uint64_t i = 0; i < 1'000'000ULL; ++i)
