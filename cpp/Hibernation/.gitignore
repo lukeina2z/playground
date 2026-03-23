@@ -1,0 +1,16 @@
+.vs
+
+*.vcxproj.user
+*.suo
+
+
+**/x64/Debug/*
+
+
+
+
+
+
+
+
+

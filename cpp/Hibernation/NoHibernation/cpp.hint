@@ -1,0 +1,2 @@
+#define NOHIBERNATION_API __declspec(dllexport)
+#define NOHIBERNATION_API __declspec(dllimport)
