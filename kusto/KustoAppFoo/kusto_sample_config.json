@@ -1,0 +1,31 @@
+{
+    "authenticationMode": "UserPrompt",
+    "waitForUser": true,
+    "waitForIngestSeconds": 20,
+    "batchingPolicy": {
+        "MaximumBatchingTimeSpan": "00:00:10",
+        "MaximumNumberOfItems": 500,
+        "MaximumRawDataSizeMB": 1024
+    },
+    "kustoUri": "https://lukezhangclusterfoo.westus.kusto.windows.net/",
+    "ingestUri": "https://ingest-lukezhangclusterfoo.westus.kusto.windows.net/",
+    "databaseName": "testdbfoo",
+    "tableName": "tablebar",
+    "useExistingTable": true,
+    "tableSchema": "(name:string, timestamp:datetime, alldata:string, count:int, data:string)",
+    "programmingLanguage": "C#",
+    "alterTable": true,
+    "queryData": true,
+    "ignoreFirstRecord": false,
+    "ingestData": true,
+    "data": [
+        {
+            "sourceType": "localFileSource",
+            "dataSourceUri": "Program.cs",
+            "format": "txt",
+            "useExistingMapping": false,
+            "mappingName": "tablebar_mapping",
+            "mappingValue": ""
+        }
+    ]
+}
