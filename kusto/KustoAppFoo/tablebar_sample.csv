@@ -1,0 +1,13 @@
+name,timestamp,data,count
+serviceA,2026-04-07T07:00:01Z,"{""rid"":""req-001"",""status"":""OK"",""region"":""westus""}",5
+serviceB,2026-04-07T07:01:15Z,"{""rid"":""req-002"",""status"":""FAIL"",""region"":""eastus""}",2
+serviceC,2026-04-07T07:02:30Z,"{""rid"":""req-003"",""status"":""OK"",""region"":""centralus""}",8
+serviceD,2026-04-07T07:03:45Z,"{""rid"":""req-004"",""status"":""WARN"",""region"":""westus2""}",3
+serviceE,2026-04-07T07:05:10Z,"{""rid"":""req-005"",""status"":""OK"",""region"":""northcentralus""}",6
+serviceF,2026-04-07T07:06:22Z,"{""rid"":""req-006"",""status"":""FAIL"",""region"":""southcentralus""}",1
+serviceG,2026-04-07T07:07:35Z,"{""rid"":""req-007"",""status"":""OK"",""region"":""eastus2""}",9
+serviceH,2026-04-07T07:08:49Z,"{""rid"":""req-008"",""status"":""WARN"",""region"":""westus""}",4
+serviceI,2026-04-07T07:10:03Z,"{""rid"":""req-009"",""status"":""OK"",""region"":""centralus""}",7
+serviceJ,2026-04-07T07:11:17Z,"{""rid"":""req-010"",""status"":""FAIL"",""region"":""eastus""}",2
+
+
