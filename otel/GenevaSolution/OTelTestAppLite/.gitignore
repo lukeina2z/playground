@@ -1,0 +1,16 @@
+
+*.vcxproj.user
+
+debug/*
+x64/Debug/*
+
+OTelTestAppLite/Debug/*
+OTelTestAppLite/x64/Debug/*
+
+msbuildfoo/x64/Debug/*
+
+vcpkg_installed/
+
+
+
+
