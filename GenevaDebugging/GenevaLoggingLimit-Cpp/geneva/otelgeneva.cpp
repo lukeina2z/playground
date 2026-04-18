@@ -16,12 +16,16 @@ namespace trace_api = opentelemetry::trace;
 namespace trace_sdk = opentelemetry::sdk::trace;
 
 
+namespace {
+    const std::string GenevaCppTestTableName = "GenevaCppTestTableV2";
+}
+
 namespace MsaLab { namespace Details
 { 
   std::unique_ptr<opentelemetry::exporter::etw::LoggerProvider> CreateGenevaLoggerProvider()
   {
     static const std::string MSGPACK = "MessagePack";
-    static const std::map<std::string, std::string> tableNameMappings = { {"DatapointLogLib", "MSAWarmPathV2"}, {"libBar", "logTableBar"} };
+    static const std::map<std::string, std::string> tableNameMappings = { {"DatapointLogLib", GenevaCppTestTableName.c_str()}};
     opentelemetry::exporter::etw::TelemetryProviderOptions options = {
         {"encoding", MSGPACK},
         {"enableTableNameMappings", true},

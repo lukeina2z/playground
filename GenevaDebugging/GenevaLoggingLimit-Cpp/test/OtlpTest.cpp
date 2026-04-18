@@ -12,7 +12,7 @@
 namespace {
   const std::string serviceName = "MsaLab-Foo-Otlp";
   const std::string tracerName = "Otlp-Tracer-Foo";
-  const std::string loggerName = "Otlp-Logger-Foo";
+  const std::string MyGenevaCppLogger = "Otlp-Logger-Foo";
 }
 
 namespace MsaLab { namespace Details
@@ -28,7 +28,7 @@ namespace MsaLab { namespace Details
     otel->Start();
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
-    auto logger = MsaLab::Api::GetLogger(loggerName);
+    auto logger = MsaLab::Api::GetLogger(MyGenevaCppLogger);
     // TestTrace(logger, tracer);
 
     otel->Shutdown();
@@ -40,10 +40,10 @@ namespace MsaLab { namespace Details
     otel->Start();
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
-    auto logger = MsaLab::Api::GetLogger(loggerName);
+    auto logger = MsaLab::Api::GetLogger(MyGenevaCppLogger);
 
-    // TestLog(logger, tracer);
-    TestLogAttributeLimit(logger, tracer);
+    TestLog(logger, tracer);
+    // TestLogAttributeLimit(logger, tracer);
 
     otel->Shutdown();
   }

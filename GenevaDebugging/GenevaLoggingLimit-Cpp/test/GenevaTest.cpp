@@ -9,7 +9,7 @@ namespace {
   //const std::string tracerName = "Geneva-Test-Library";
   //const std::string loggerName = tracerName;
   const std::string tracerName = "MSATraceV1";
-  const std::string loggerName = "MSALogV1";
+  const std::string MyGenevaCppLogger = "MyGenevaCppLogger";
 }
 
 
@@ -22,11 +22,11 @@ namespace MsaLab { namespace Details
     otel->Start();
 
     auto tracer = MsaLab::Api::GetTracer(tracerName);
-    auto logger = MsaLab::Api::GetLogger(loggerName, "DatapointLogLib");
+    auto logger = MsaLab::Api::GetLogger(MyGenevaCppLogger, "DatapointLogLib");
 
-    // TestLog(logger, tracer);
+    TestLog(logger, tracer);
 
-    TestLogAttributeLimit(logger, tracer);
+    // TestLogAttributeLimit(logger, tracer);
 
     otel->Shutdown();
   }
@@ -37,7 +37,7 @@ void TestTraceWithGeneva()
   otelPipeline->Start();
 
   auto tracer = MsaLab::Api::GetTracer(tracerName);
-  auto logger = MsaLab::Api::GetLogger(loggerName, "DatapointLogLib");
+  auto logger = MsaLab::Api::GetLogger(MyGenevaCppLogger, "DatapointLogLib");
 
   TestTrace(logger, tracer);
   otelPipeline->Shutdown();

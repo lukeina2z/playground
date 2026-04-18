@@ -69,14 +69,39 @@ namespace MsaLab { namespace Details
       logger->Fatal("Hello <Fatal> Otlp!");
       logger->Error("Hello <Error> Otlp!");
 
-      const logs_api::EventId process_request_event_id{ 0x12345678 /* event ID value */, "Company.Component.SubComponent.FunctionName" /* event name */ };
+      // const logs_api::EventId process_request_event_id{ 0x12345678 /* event ID value */, "Company.Component.SubComponent.FunctionName" /* event name */ };
 
-      logger->Info(process_request_event_id, "Info message from {pid}", opentelemetry::common::MakeAttributes({ {"pid", 12347} }));
-      logger->Error(process_request_event_id, "Error message from {pid}", opentelemetry::common::MakeAttributes({ {"pid", 12347} }));
+      // logger->Info(process_request_event_id, "Info message from {pid}", opentelemetry::common::MakeAttributes({ {"pid", 12347} }));
+      // logger->Error(process_request_event_id, "Error message from {pid}", opentelemetry::common::MakeAttributes({ {"pid", 12347} }));
 
+      // Test all OpenTelemetry attribute data types
+      {
+        static const bool boolArr[] = { true, false, true };
+        static const int32_t int32Arr[] = { 1, 2, 3 };
+        static const int64_t int64Arr[] = { 100LL, 200LL, 300LL };
+        static const uint32_t uint32Arr[] = { 10U, 20U, 30U };
+        static const double doubleArr[] = { 1.1, 2.2, 3.3 };
+        static const opentelemetry::nostd::string_view strArr[] = { "a", "b", "c" };
 
-      logger->Info("Hello <Info> Otlp!");
-      logger->Debug("Hello <Debug> Otlp!");
+        logger->Info("AllAttributeTypesTest",
+          opentelemetry::common::MakeAttributes({
+            {"attr_bool", true},
+            {"attr_int32", static_cast<int32_t>(42)},
+            {"attr_int64", static_cast<int64_t>(9876543210LL)},
+            {"attr_uint32", static_cast<uint32_t>(123U)},
+            {"attr_double", 3.14159},
+            {"attr_string", "hello opentelemetry"},
+            {"attr_bool_arr", opentelemetry::nostd::span<const bool>(boolArr)},
+            {"attr_int32_arr", opentelemetry::nostd::span<const int32_t>(int32Arr)},
+            {"attr_int64_arr", opentelemetry::nostd::span<const int64_t>(int64Arr)},
+            {"attr_uint32_arr", opentelemetry::nostd::span<const uint32_t>(uint32Arr)},
+            {"attr_double_arr", opentelemetry::nostd::span<const double>(doubleArr)},
+            {"attr_string_arr", opentelemetry::nostd::span<const opentelemetry::nostd::string_view>(strArr)},
+          }));
+      }
+
+      // logger->Info("Hello <Info> Otlp!");
+      // logger->Debug("Hello <Debug> Otlp!");
 
       auto ctx = tracer->GetCurrentSpan()->GetContext();
       // logger->Log(opentelemetry::logs::Severity::kError, "Hello <Current Span Context> Otlp!", ctx.trace_id(), ctx.span_id(), ctx.trace_flags());
