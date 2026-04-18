@@ -1,0 +1,16 @@
+.vs
+
+x64/
+
+*.vcxproj.user
+
+GenevaLoggingLimit-Cpp/GenevaLo.3f36f164
+GenevaLoggingLimit-Cpp/debug/*
+GenevaLoggingLimit-Cpp/x64/Debug/*
+GenevaLoggingLimit-Cpp/vcpkg_installed/
+
+
+GenevaLoggingLimit-DotNet/bin/*
+GenevaLoggingLimit-DotNet/obj/*
+
+
