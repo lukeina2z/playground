@@ -20,24 +20,3 @@ public:
 extern GENEVAETWDLL_API int nGenevaEtwDll;
 
 GENEVAETWDLL_API int fnGenevaEtwDll(void);
-
-
-#include "opentelemetry/common/key_value_iterable_view.h"
-#include "opentelemetry/nostd/shared_ptr.h"
-
-#include "opentelemetry/logs/logger.h"
-#include "opentelemetry/logs/logger_provider.h"
-
-#include "opentelemetry/trace/tracer.h"
-#include "opentelemetry/trace/tracer_provider.h"
-
-namespace MSA { namespace Telemetry {
-
-GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLoggerForDataPoint();
-
-GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLoggerForDiagnostic();
-
-GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer();
-
-} // namespace Telemetry
-} // namespace MSA

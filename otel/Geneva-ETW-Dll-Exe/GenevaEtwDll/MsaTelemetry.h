@@ -1,10 +1,11 @@
-﻿#include <string>
+#pragma once
 
-#include "../IOtelPipeline.h"
-#include "GenevaTest.h"
-#include "test.h"
+#define HAVE_MSGPACK
+
+#include "GenevaEtwDll.h"
 
 #include <deque>
+#include <string>
 
 #include "opentelemetry/common/attribute_value.h"
 #include "opentelemetry/common/key_value_iterable_view.h"
@@ -131,12 +132,7 @@
 #include "opentelemetry/trace/propagation/http_trace_context.h"
 #include "opentelemetry/trace/tracer_provider.h"
 
-
-
-
-#include "opentelemetry/logs/noop.h"
-#include "opentelemetry/trace/noop.h"
-
+namespace MSA { namespace Telemetry {
 
 namespace logs_api = opentelemetry::logs;
 namespace logs_sdk = opentelemetry::sdk::logs;
@@ -148,31 +144,95 @@ namespace trace_exporter = opentelemetry::exporter::trace;
 
 namespace otlp = opentelemetry::exporter::otlp;
 
-#include "../../GenevaEtwDll/MsaTelemetry.h"
-
-
-static auto tracer = MSA::Telemetry::GetTracer();
-
-
-
-namespace MsaLab { namespace Details
+struct IGenevaPipeline
 {
+public:
+    IGenevaPipeline() = default;
+    virtual ~IGenevaPipeline() = default;
 
-  void TestTraceWithGeneva()
-  {
+    virtual void Start() = 0;
+    virtual void Shutdown() = 0;
+
+    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer(const std::string& name,
+        const std::string& version = "")
+    {
+        auto provider = opentelemetry::trace::Provider::GetTracerProvider();
+        return provider->GetTracer(name, version);
+    }
+
+    opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLogger(const std::string& name,
+        const std::string& libName = "",
+        const std::string& version = "")
+    {
+        auto provider = opentelemetry::logs::Provider::GetLoggerProvider();
+        return provider->GetLogger(name, libName, version);
+    }
+};
+
+std::unique_ptr<IGenevaPipeline> CreateGenevaPipeline(const std::string& name);
+
+class GenevaEtwPipeline : public IGenevaPipeline
+{
+public:
+    GenevaEtwPipeline(const std::string& serviceName);
+    virtual ~GenevaEtwPipeline();
+
+    virtual void Start() override;
+    virtual void Shutdown() override;
+
+protected:
+    void InitLogger();
+    void InitTracer();
+
+    void CleanupLogger();
+    void CleanupTracer();
+
+private:
+    std::shared_ptr<opentelemetry::exporter::etw::LoggerProvider> m_loggerProvider;
+    std::shared_ptr<opentelemetry::exporter::etw::TracerProvider> m_tracerProvider;
+    std::string m_serviceName = "";
+};
 
 
-    trace_api::StartSpanOptions optionsS2;
-    optionsS2.kind = trace_api::SpanKind::kClient;
+class OTelPipelineOtlp : public IGenevaPipeline
+{
+public:
+    OTelPipelineOtlp(const std::string& serviceName);
+    virtual ~OTelPipelineOtlp();
+    virtual void Start() override;
+    virtual void Shutdown() override;
 
-    // Create Span with 1 SpanLink
-    auto s2 = tracer->StartSpan("Test-Span", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }), optionsS2);
+protected:
+    void InitLogger();
+    void InitTracer();
 
-    s2->SetAttribute("attr_key1", 123);
+    void CleanupLogger();
+    void CleanupTracer();
 
-    s2->End();
-  }
+private:
+    std::shared_ptr<logs_sdk::LoggerProvider> m_loggerProvider;
+    std::shared_ptr<trace_sdk::TracerProvider> m_tracerProvider;
+    std::string m_serviceName = "";
+};
 
-} // namespace Details
-} // namespace MsaLab
 
+class GenevaPipelineHolder
+{
+public:
+    GenevaPipelineHolder();
+    ~GenevaPipelineHolder();
+
+    IGenevaPipeline& GetGenevaPipeline() const;
+
+private:
+    std::unique_ptr<IGenevaPipeline> m_pipeline;
+};
+
+GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLoggerForDataPoint();
+
+GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLoggerForDiagnostic();
+
+GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer();
+
+} // namespace Telemetry
+} // namespace MSA

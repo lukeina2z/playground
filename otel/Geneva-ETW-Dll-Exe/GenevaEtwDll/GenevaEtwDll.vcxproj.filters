@@ -29,6 +29,9 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MsaTelemetry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GenevaEtwDll.cpp">
@@ -40,7 +43,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GenevaTelemetry.cpp">
+    <ClCompile Include="MsaTelemetry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

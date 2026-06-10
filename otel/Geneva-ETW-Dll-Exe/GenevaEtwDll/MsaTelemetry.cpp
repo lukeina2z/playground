@@ -1,250 +1,9 @@
 ﻿#include "pch.h"
 #include "framework.h"
-#include "GenevaEtwDll.h"
-
-#include <deque>
-#include <string>
-
-#include "opentelemetry/common/attribute_value.h"
-#include "opentelemetry/common/key_value_iterable_view.h"
-#include "opentelemetry/context/propagation/global_propagator.h"
-#include "opentelemetry/context/propagation/text_map_propagator.h"
-#include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
-#include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
-#include "opentelemetry/exporters/ostream/log_record_exporter.h"
-#include "opentelemetry/exporters/ostream/span_exporter_factory.h"
-#include "opentelemetry/logs/logger.h"
-
-#include "opentelemetry/logs/provider.h"
-
-#include "opentelemetry/logs/logger_provider.h"
-#include "opentelemetry/nostd/shared_ptr.h"
-#include "opentelemetry/sdk/logs/batch_log_record_processor.h"
-#include "opentelemetry/sdk/logs/exporter.h"
-#include "opentelemetry/sdk/logs/logger_provider_factory.h"
-#include "opentelemetry/sdk/logs/processor.h"
-#include "opentelemetry/sdk/logs/provider.h"
-#include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
-#include "opentelemetry/sdk/resource/resource.h"
-#include "opentelemetry/sdk/trace/batch_span_processor.h"
-#include "opentelemetry/sdk/trace/exporter.h"
-#include "opentelemetry/sdk/trace/processor.h"
-#include "opentelemetry/sdk/trace/provider.h"
-#include "opentelemetry/sdk/trace/simple_processor.h"
-#include "opentelemetry/sdk/trace/simple_processor_factory.h"
-#include "opentelemetry/sdk/trace/tracer_context.h"
-#include "opentelemetry/sdk/trace/tracer_context_factory.h"
-#include "opentelemetry/sdk/trace/tracer_provider.h"
-#include "opentelemetry/sdk/trace/tracer_provider_factory.h"
-#include "opentelemetry/trace/propagation/http_trace_context.h"
-#include "opentelemetry/trace/provider.h"
-#include "opentelemetry/trace/span_context.h"
-#include "opentelemetry/trace/tracer.h"
-#include "opentelemetry/trace/tracer_provider.h"
-
-
-
-
-
-#include "opentelemetry/trace/trace_id.h"
-#include "opentelemetry/trace/span_id.h"
-#include "opentelemetry/trace/trace_flags.h"
-
-
-
+#include "MsaTelemetry.h"
 
 #include "opentelemetry/logs/noop.h"
 #include "opentelemetry/trace/noop.h"
-
-#include <cassert>
-#include <map>
-#include <string>
-#include <vector>
-
-#include "opentelemetry/common/attribute_value.h"
-#include "opentelemetry/common/key_value_iterable_view.h"
-#include "opentelemetry/nostd/shared_ptr.h"
-
-#include "opentelemetry/logs/logger.h"
-#include "opentelemetry/logs/logger_provider.h"
-
-#include "opentelemetry/trace/tracer.h"
-#include "opentelemetry/trace/tracer_provider.h"
-#include "opentelemetry/trace/provider.h"
-#include "opentelemetry/trace/span_context.h"
-
-#include "opentelemetry/context/propagation/global_propagator.h"
-#include "opentelemetry/context/propagation/text_map_propagator.h"
-#include "opentelemetry/exporters/geneva/geneva_logger_exporter.h"
-#include "opentelemetry/exporters/geneva/geneva_tracer_exporter.h"
-#include "opentelemetry/exporters/ostream/log_record_exporter.h"
-#include "opentelemetry/exporters/ostream/span_exporter_factory.h"
-
-#include "opentelemetry/logs/logger_provider.h"
-#include "opentelemetry/sdk/logs/exporter.h"
-#include "opentelemetry/sdk/logs/logger_provider_factory.h"
-#include "opentelemetry/sdk/logs/processor.h"
-#include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
-#include "opentelemetry/sdk/trace/batch_span_processor.h"
-#include "opentelemetry/sdk/trace/exporter.h"
-#include "opentelemetry/sdk/trace/processor.h"
-
-#include <opentelemetry/sdk/trace/simple_processor.h>
-#include "opentelemetry/sdk/trace/simple_processor_factory.h"
-#include "opentelemetry/sdk/trace/tracer_context.h"
-#include "opentelemetry/sdk/trace/tracer_context_factory.h"
-#include "opentelemetry/sdk/trace/tracer_provider.h"
-#include "opentelemetry/sdk/trace/tracer_provider_factory.h"
-#include "opentelemetry/trace/propagation/http_trace_context.h"
-#include "opentelemetry/trace/provider.h"
-#include "opentelemetry/trace/tracer_provider.h"
-
-#include "opentelemetry/context/propagation/global_propagator.h"
-#include "opentelemetry/context/propagation/text_map_propagator.h"
-#include "opentelemetry/logs/logger_provider.h"
-#include "opentelemetry/sdk/logs/provider.h"
-#include "opentelemetry/sdk/trace/provider.h"
-#include "opentelemetry/trace/propagation/http_trace_context.h"
-
-#include "opentelemetry/context/propagation/global_propagator.h"
-#include "opentelemetry/context/propagation/text_map_propagator.h"
-#include "opentelemetry/exporters/ostream/log_record_exporter.h"
-#include "opentelemetry/exporters/ostream/span_exporter_factory.h"
-#include "opentelemetry/exporters/otlp/otlp_http_exporter.h"
-#include "opentelemetry/exporters/otlp/otlp_http_exporter_options.h"
-#include "opentelemetry/exporters/otlp/otlp_http_log_record_exporter_factory.h"
-#include "opentelemetry/exporters/otlp/otlp_http_log_record_exporter_options.h"
-#include "opentelemetry/logs/logger_provider.h"
-#include "opentelemetry/sdk/logs/batch_log_record_processor.h"
-#include "opentelemetry/sdk/logs/logger_provider_factory.h"
-#include "opentelemetry/sdk/logs/processor.h"
-#include "opentelemetry/sdk/logs/provider.h"
-#include "opentelemetry/sdk/logs/simple_log_record_processor_factory.h"
-#include "opentelemetry/sdk/resource/resource.h"
-#include "opentelemetry/sdk/trace/batch_span_processor.h"
-#include "opentelemetry/sdk/trace/provider.h"
-#include "opentelemetry/sdk/trace/simple_processor_factory.h"
-#include "opentelemetry/sdk/trace/tracer_context.h"
-#include "opentelemetry/sdk/trace/tracer_context_factory.h"
-#include "opentelemetry/sdk/trace/tracer_provider_factory.h"
-#include "opentelemetry/trace/propagation/http_trace_context.h"
-#include "opentelemetry/trace/tracer_provider.h"
-
-
-
-
-#include "opentelemetry/logs/noop.h"
-#include "opentelemetry/trace/noop.h"
-
-
-namespace logs_api = opentelemetry::logs;
-namespace logs_sdk = opentelemetry::sdk::logs;
-namespace logs_exporter = opentelemetry::exporter::logs;
-
-namespace trace_api = opentelemetry::trace;
-namespace trace_sdk = opentelemetry::sdk::trace;
-namespace trace_exporter = opentelemetry::exporter::trace;
-
-namespace otlp = opentelemetry::exporter::otlp;
-
-namespace MSA { namespace Telemetry {
-
-
-struct IGenevaPipeline
-{
-public:
-    IGenevaPipeline() = default;
-    virtual ~IGenevaPipeline() = default;
-
-    virtual void Start() = 0;
-    virtual void Shutdown() = 0;
-
-    opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer(const std::string& name,
-        const std::string& version = "")
-    {
-        auto provider = opentelemetry::trace::Provider::GetTracerProvider();
-        return provider->GetTracer(name, version);
-    }
-
-    opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLogger(const std::string& name,
-        const std::string& libName = "",
-        const std::string& version = "")
-    {
-        auto provider = opentelemetry::logs::Provider::GetLoggerProvider();
-        return provider->GetLogger(name, libName, version);
-    }
-};
-
-std::unique_ptr<IGenevaPipeline> CreateGenevaPipeline(const std::string& name);
-
-class GenevaEtwPipeline : public IGenevaPipeline
-{
-public:
-    GenevaEtwPipeline(const std::string& serviceName);
-    virtual ~GenevaEtwPipeline();
-
-    virtual void Start() override;
-    virtual void Shutdown() override;
-
-protected:
-    void InitLogger();
-    void InitTracer();
-
-    void CleanupLogger();
-    void CleanupTracer();
-
-private:
-    std::shared_ptr<opentelemetry::exporter::etw::LoggerProvider> m_loggerProvider;
-    std::shared_ptr<opentelemetry::exporter::etw::TracerProvider> m_tracerProvider;
-    std::string m_serviceName = "";
-};
-
-
-class OTelPipelineOtlp : public IGenevaPipeline
-{
-public:
-    OTelPipelineOtlp(const std::string& serviceName);
-    virtual ~OTelPipelineOtlp();
-    virtual void Start() override;
-    virtual void Shutdown() override;
-
-protected:
-    void InitLogger();
-    void InitTracer();
-
-    void CleanupLogger();
-    void CleanupTracer();
-
-private:
-    std::shared_ptr<logs_sdk::LoggerProvider> m_loggerProvider;
-    std::shared_ptr<trace_sdk::TracerProvider> m_tracerProvider;
-    std::string m_serviceName = "";
-};
-
-
-class GenevaPipelineHolder
-{
-public:
-    GenevaPipelineHolder();
-    ~GenevaPipelineHolder();
-
-    IGenevaPipeline& GetGenevaPipeline() const;
-
-private:
-    std::unique_ptr<IGenevaPipeline> m_pipeline;
-};
-
-//GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLoggerForDataPoint();
-//
-//GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::logs::Logger> GetLoggerForDiagnostic();
-
-// GENEVAETWDLL_API opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer();
-
-} // namespace Telemetry
-} // namespace MSA
-
-
-
 
 namespace
 {
@@ -260,10 +19,6 @@ namespace
     constexpr const char* EnableTableNameMappings = "enableTableNameMappings";
     constexpr const char* TableNameMappings = "tableNameMappings";
 }
-
-
-
-
 
 namespace MSA { namespace Telemetry {
 
@@ -348,6 +103,33 @@ const std::string kOtlpHttpServer = "http://127.0.0.1:4318";
 const std::string kOtlpHttpLogsEndpoint = kOtlpHttpServer + "/v1/logs";
 const std::string kOtlpHttpTracesEndpoint = kOtlpHttpServer + "/v1/traces";
 
+namespace
+{
+    std::string GetProcessExeName()
+    {
+        wchar_t exePath[MAX_PATH] = {};
+        if (GetModuleFileNameW(nullptr, exePath, MAX_PATH) == 0)
+            return {};
+        const wchar_t* exeName = wcsrchr(exePath, L'\\');
+        exeName = exeName ? exeName + 1 : exePath;
+        int len = WideCharToMultiByte(CP_UTF8, 0, exeName, -1, nullptr, 0, nullptr, nullptr);
+        if (len <= 0) return {};
+        std::string result(len - 1, '\0');
+        WideCharToMultiByte(CP_UTF8, 0, exeName, -1, &result[0], len, nullptr, nullptr);
+        return result;
+    }
+
+    std::string GetProcessCommandLine()
+    {
+        const wchar_t* cmdLine = GetCommandLineW();
+        if (!cmdLine) return {};
+        int len = WideCharToMultiByte(CP_UTF8, 0, cmdLine, -1, nullptr, 0, nullptr, nullptr);
+        if (len <= 0) return {};
+        std::string result(len - 1, '\0');
+        WideCharToMultiByte(CP_UTF8, 0, cmdLine, -1, &result[0], len, nullptr, nullptr);
+        return result;
+    }
+}
 
 std::unique_ptr<logs_sdk::LoggerProvider> CreateOtlpLoggerProvider(const std::string& serviceName)
 {
@@ -369,7 +151,16 @@ std::unique_ptr<logs_sdk::LoggerProvider> CreateOtlpLoggerProvider(const std::st
     // processors.push_back(
     //     logs_sdk::SimpleLogRecordProcessorFactory::Create(std::move(ostream_exporter)));
 
-    return logs_sdk::LoggerProviderFactory::Create(std::move(processors));
+    std::string resolvedServiceName = "Geneva-ETW-Test-SVC";
+
+    auto resource_attributes = opentelemetry::sdk::resource::ResourceAttributes{
+        {"service.name", resolvedServiceName},
+        {"process.pid", static_cast<int64_t>(GetCurrentProcessId())},
+        {"process.executable.name", GetProcessExeName()},
+        {"process.command_line", GetProcessCommandLine()} };
+    auto resource = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
+
+    return logs_sdk::LoggerProviderFactory::Create(std::move(processors), resource);
 }
 
 std::unique_ptr<trace_sdk::TracerProvider> CreateOtlpTracerProvider(
@@ -409,9 +200,21 @@ std::unique_ptr<trace_sdk::TracerProvider> CreateOtlpTracerProvider(
     // processors.push_back(std::move(ostream_processor));
     processors.push_back(std::move(otlp_http_processor));
 
+    std::string resolvedServiceName = "Geneva-OTLP-Test-SVC";
+    if (resolvedServiceName.empty())
+        resolvedServiceName = serviceName;
+
+    auto resource_attributes =
+        opentelemetry::sdk::resource::ResourceAttributes{
+            {"service.name", resolvedServiceName},
+            {"process.pid", static_cast<int64_t>(GetCurrentProcessId())},
+            {"process.executable.name", GetProcessExeName()},
+            {"process.command_line", GetProcessCommandLine()} };
+    auto resource_ptr = opentelemetry::sdk::resource::Resource::Create(resource_attributes);
+
     // Default is an always-on sampler.
     std::unique_ptr<opentelemetry::sdk::trace::TracerContext> context =
-        opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors));
+        opentelemetry::sdk::trace::TracerContextFactory::Create(std::move(processors), resource_ptr);
 
     auto sdk_provider = opentelemetry::sdk::trace::TracerProviderFactory::Create(std::move(context));
 
@@ -583,27 +386,3 @@ opentelemetry::nostd::shared_ptr<opentelemetry::trace::Tracer> GetTracer()
 
 } // namespace Telemetry
 } // namespace MSA
-
-
-
-namespace MsaLab { namespace Details
-{
-
-  void TestTraceWithGeneva()
-  {
-    auto tracer = MSA::Telemetry::GetTracer();
-
-    trace_api::StartSpanOptions optionsS2;
-    optionsS2.kind = trace_api::SpanKind::kClient;
-
-    // Create Span with 1 SpanLink
-    auto s2 = tracer->StartSpan("Test-Span", opentelemetry::common::MakeAttributes({ {"key1", "value 1"}, {"key2", 1} }), optionsS2);
-
-    s2->SetAttribute("attr_key1", 123);
-
-    s2->End();
-  }
-
-} // namespace Details
-} // namespace MsaLab
-
