@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37301.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenevaEtwDll", "GenevaEtwDll\GenevaEtwDll.vcxproj", "{F214984E-21E2-4C42-8BF2-5985EDC540F6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenevaEtwExe", "GenevaEtwExe\GenevaEtwExe.vcxproj", "{3F36F164-C428-4FD6-A618-F671438ABCA7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6} = {F214984E-21E2-4C42-8BF2-5985EDC540F6}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x64.ActiveCfg = Debug|x64
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x64.Build.0 = Debug|x64
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x86.ActiveCfg = Debug|Win32
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x86.Build.0 = Debug|Win32
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x64.ActiveCfg = Release|x64
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x64.Build.0 = Release|x64
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x86.ActiveCfg = Release|Win32
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x86.Build.0 = Release|Win32
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x64.ActiveCfg = Debug|x64
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x64.Build.0 = Debug|x64
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x86.ActiveCfg = Debug|Win32
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x86.Build.0 = Debug|Win32
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x64.ActiveCfg = Release|x64
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x64.Build.0 = Release|x64
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x86.ActiveCfg = Release|Win32
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {221A7A6F-99E3-4CD8-8F55-762800A7CE98}
+	EndGlobalSection
+EndGlobal

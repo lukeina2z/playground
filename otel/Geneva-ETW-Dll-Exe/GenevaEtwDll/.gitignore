@@ -1,0 +1,16 @@
+.vs
+
+x64/
+
+*.vcxproj.user
+
+GenevaLo.3f36f164
+/debug/*
+x64/Debug/*
+vcpkg_installed/
+
+
+bin/*
+obj/*
+
+
