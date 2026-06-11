@@ -134,20 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="common\OTelPipeline.cpp" />
-    <ClCompile Include="geneva\otelgeneva.cpp" />
-    <ClCompile Include="test\GenevaTest.cpp" />
     <ClCompile Include="test\main.cpp" />
-    <ClCompile Include="test\OtlpTest.cpp" />
-    <ClCompile Include="test\test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="common\common.h" />
-    <ClInclude Include="geneva\otelgeneva.h" />
-    <ClInclude Include="IOTelPipeline.h" />
-    <ClInclude Include="test\GenevaTest.h" />
-    <ClInclude Include="test\OtlpTest.h" />
-    <ClInclude Include="test\test.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
