@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.37301.10
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11828.311 oobstable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenevaEtwDll", "GenevaEtwDll\GenevaEtwDll.vcxproj", "{F214984E-21E2-4C42-8BF2-5985EDC540F6}"
 EndProject
@@ -10,30 +10,54 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenevaEtwExe", "GenevaEtwEx
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6} = {F214984E-21E2-4C42-8BF2-5985EDC540F6}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenevaDotNetConsoleExe", "GenevaDotNetConsoleExe\GenevaDotNetConsoleExe.csproj", "{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|Any CPU.Build.0 = Debug|x64
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x64.ActiveCfg = Debug|x64
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x64.Build.0 = Debug|x64
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x86.ActiveCfg = Debug|Win32
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Debug|x86.Build.0 = Debug|Win32
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|Any CPU.ActiveCfg = Release|x64
+		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|Any CPU.Build.0 = Release|x64
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x64.ActiveCfg = Release|x64
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x64.Build.0 = Release|x64
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x86.ActiveCfg = Release|Win32
 		{F214984E-21E2-4C42-8BF2-5985EDC540F6}.Release|x86.Build.0 = Release|Win32
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|Any CPU.Build.0 = Debug|x64
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x64.ActiveCfg = Debug|x64
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x64.Build.0 = Debug|x64
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x86.ActiveCfg = Debug|Win32
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Debug|x86.Build.0 = Debug|Win32
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|Any CPU.ActiveCfg = Release|x64
+		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|Any CPU.Build.0 = Release|x64
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x64.ActiveCfg = Release|x64
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x64.Build.0 = Release|x64
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x86.ActiveCfg = Release|Win32
 		{3F36F164-C428-4FD6-A618-F671438ABCA7}.Release|x86.Build.0 = Release|Win32
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Debug|x64.Build.0 = Debug|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Debug|x86.Build.0 = Debug|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Release|x64.ActiveCfg = Release|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Release|x64.Build.0 = Release|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Release|x86.ActiveCfg = Release|Any CPU
+		{A5FA9C35-E09D-4CE6-95ED-6804E3680DE0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
