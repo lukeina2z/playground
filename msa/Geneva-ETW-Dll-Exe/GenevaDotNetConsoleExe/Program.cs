@@ -11,7 +11,7 @@ public class Program
 
     public static async Task Main()
     {
-        var connectionString = "Account=lukezhangtestaccount;Namespace=HelloGeneva2";
+        var connectionString = "Account=lukezhangtestv2;Namespace=HelloGenevaV2";
         // var connectionString = "Account=MicrosoftAccountDev;Namespace=lukezhangtest";
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
@@ -34,7 +34,10 @@ public class Program
             MyFruitCounter.Add(2, new("name", "apple"), new("color", "green"));
             MyFruitCounter.Add(5, new("name", "apple"), new("color", "red"));
             MyFruitCounter.Add(4, new("name", "lemon"), new("color", "yellow"));
-            await Task.Delay(1000);
+
+            meterProvider.ForceFlush(timeoutMilliseconds: 20000);
+
+            await Task.Delay(10000);
         }
 
         // Dispose meterProvider at the end of the application.
