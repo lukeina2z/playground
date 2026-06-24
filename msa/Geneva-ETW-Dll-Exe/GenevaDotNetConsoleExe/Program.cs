@@ -50,7 +50,7 @@ public class Program
         }
 
         // Dispose meterProvider at the end of the application.
-        meterProvider.Dispose();
+        // meterProvider.Dispose();
     }
 
     // Produces a realistic-looking sales figure by combining a smooth demand

@@ -7,6 +7,9 @@
 
 #include "../../GenevaEtwDll/MsaTelemetry.h"
 
+extern void TestOTelMetrics();
+
+
 void TestLogWithGenevaEtwExporter()
 {
     auto logger = MSA::Telemetry::GetLoggerForDataPoint();
@@ -32,6 +35,8 @@ void TestTraceWithGenevaEtwExporter()
 
 int main()
 {
+    TestOTelMetrics();
+
     TestLogWithGenevaEtwExporter();
 
     TestTraceWithGenevaEtwExporter();
