@@ -37,9 +37,9 @@ int main()
 {
     TestOTelMetrics();
 
-    TestLogWithGenevaEtwExporter();
+    //TestLogWithGenevaEtwExporter();
 
-    TestTraceWithGenevaEtwExporter();
+    //TestTraceWithGenevaEtwExporter();
   
     std::cout << "\n\n End of Main() \n\n";
     return 0;
