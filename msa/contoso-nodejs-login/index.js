@@ -13,10 +13,24 @@ async function runForever() {
   }
 }
 
+
+async function runForeverFastMode() {
+  let keepRunning = true;
+  while (keepRunning) {
+    // recordRequestMetric();
+    await simulateTraffic(true);
+    const cooldown = Math.floor(Math.random() * 151) + 50; // 50-200 ms
+    await sleep(cooldown);
+    // keepRunning = false;
+  }
+}
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-runForever();
+// runForever();
+
+runForeverFastMode();
 
 // runOnceTest();

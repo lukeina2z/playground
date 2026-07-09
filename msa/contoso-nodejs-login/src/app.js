@@ -60,13 +60,15 @@ async function PingLogin() {
 
 
 
-async function simulateTraffic() {
-    const minDelayMs = 200;
-    const maxDelayMs = 3000;
+async function simulateTraffic(fastMode = false) {
+    const volumeMultiplier = fastMode ? 5 : 1;
+    const delayDivisor = fastMode ? 5 : 1;
+    const minDelayMs = Math.max(1, Math.floor(200 / delayDivisor));
+    const maxDelayMs = Math.max(minDelayMs, Math.floor(3000 / delayDivisor));
     const burstChance = 0.25;       // 25% chance of a burst
-    const burstMinCount = 3;
-    const burstMaxCount = 8;
-    const sessionCount = Math.floor(Math.random() * 5) + 1; // 1-5 sessions per cycle
+    const burstMinCount = 3 * volumeMultiplier;
+    const burstMaxCount = 8 * volumeMultiplier;
+    const sessionCount = (Math.floor(Math.random() * 5) + 1) * volumeMultiplier; // 1-5 sessions per cycle
 
     console.log(`\n--- Traffic cycle started at ${new Date().toISOString()} | sessions: ${sessionCount} ---`);
 
@@ -86,7 +88,7 @@ async function simulateTraffic() {
                 console.error(`  Probe request error: ${err.message}`);
             }
 
-            const jitter = Math.floor(Math.random() * 500);
+            const jitter = Math.floor(Math.random() * Math.max(1, Math.floor(500 / delayDivisor)));
             await new Promise(resolve => setTimeout(resolve, jitter));
 
             try {
@@ -96,7 +98,7 @@ async function simulateTraffic() {
             }
 
             if (r < requestCount - 1) {
-                const gap = Math.floor(Math.random() * 400) + 50;
+                const gap = Math.floor(Math.random() * Math.max(1, Math.floor(400 / delayDivisor))) + Math.max(1, Math.floor(50 / delayDivisor));
                 await new Promise(resolve => setTimeout(resolve, gap));
             }
         }
