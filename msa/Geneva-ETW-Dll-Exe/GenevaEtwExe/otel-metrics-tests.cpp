@@ -55,7 +55,7 @@ void TestOTelMetricsWithDefaultProvider()
 {
 	auto provider = metrics_api::Provider::GetMeterProvider();
 	auto meter = provider->GetMeter("my_meter_name", "1.2.0");
-	int count = kLoopCount / 4;
+	int count = kLoopCount; // / 4;
 	while (count > 0)
 	{
 		// Create a Counter instrument and report measurements :
@@ -65,7 +65,7 @@ void TestOTelMetricsWithDefaultProvider()
 		http_request_completed->Add(1, { {"request.type", "GET"} });
 		http_request_completed->Add(1, { {"request.type", "PUT"} });
 		http_request_completed->Add(1, { {"request.type", "GET"} });
-		http_request_completed->Add(1, { {"request.type", "PUT"} });
+		// http_request_completed->Add(1, { {"request.type", "PUT"} });
 
 		// Create a Histogram instrument and report measurements :
 
