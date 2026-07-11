@@ -29,8 +29,8 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// runForever();
+runForever();
 
-runForeverFastMode();
+// runForeverFastMode();
 
 // runOnceTest();
