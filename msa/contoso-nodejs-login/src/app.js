@@ -45,6 +45,34 @@ async function PingLoginProbe() {
 }
 
 
+async function PingSapiProbe() {
+    const url = 'https://api.login.live-tst.com:44404/probe.srf';
+    const tracer = trace.getTracer('Contoso-Nodejs');
+    const rootSpan = tracer.startSpan('Ping-Sapi-Probe');
+    const newContext = trace.setSpan(context.active(), rootSpan);
+    await context.with(newContext, async () => {
+        await pingWebSite(url);
+    });
+
+    // Be sure to end the span.
+    rootSpan.end();
+}
+
+
+async function PingSapiInfo() {
+    const url = 'https://api.login.live-tst.com:44404/info.srf';
+    const tracer = trace.getTracer('Contoso-Nodejs');
+    const rootSpan = tracer.startSpan('Ping-Sapi-Info');
+    const newContext = trace.setSpan(context.active(), rootSpan);
+    await context.with(newContext, async () => {
+        await pingWebSite(url);
+    });
+
+    // Be sure to end the span.
+    rootSpan.end();
+}
+
+
 async function PingLogin() {
     const url = 'https://login.live-tst.com:44329';
     const tracer = trace.getTracer('Contoso-Nodejs');
@@ -95,6 +123,21 @@ async function simulateTraffic(fastMode = false) {
                 await PingLogin();
             } catch (err) {
                 console.error(`  Login request error: ${err.message}`);
+            }
+
+            try {
+                await PingSapiProbe();
+            } catch (err) {
+                console.error(`  SAPI probe request error: ${err.message}`);
+            }
+
+            const sapiJitter = Math.floor(Math.random() * Math.max(1, Math.floor(500 / delayDivisor)));
+            await new Promise(resolve => setTimeout(resolve, sapiJitter));
+
+            try {
+                await PingSapiInfo();
+            } catch (err) {
+                console.error(`  SAPI info request error: ${err.message}`);
             }
 
             if (r < requestCount - 1) {
