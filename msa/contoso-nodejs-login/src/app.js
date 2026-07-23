@@ -28,11 +28,8 @@ function pingWebSite(url) {
     });
 };
 
-
-
-
 async function PingLoginProbe() {
-    const url = 'https://login.live-tst.com:44329/probe.srf';
+    const url = 'https://login.live-tst.com:44329/probe.srf?id=12081';
     const tracer = trace.getTracer('Contoso-Nodejs');
     const rootSpan = tracer.startSpan('Ping-Login-Probe');
     const newContext = trace.setSpan(context.active(), rootSpan);
@@ -45,8 +42,22 @@ async function PingLoginProbe() {
 }
 
 
+async function PingLoginInfo() {
+    const url = 'https://login.live-tst.com:44329/info.srf?id=12081';
+    const tracer = trace.getTracer('Contoso-Nodejs');
+    const rootSpan = tracer.startSpan('Ping-Login-Info');
+    const newContext = trace.setSpan(context.active(), rootSpan);
+    await context.with(newContext, async () => {
+        await pingWebSite(url);
+    });
+
+    // Be sure to end the span.
+    rootSpan.end();
+}
+
+
 async function PingSapiProbe() {
-    const url = 'https://api.login.live-tst.com:44404/probe.srf';
+    const url = 'https://api.login.live-tst.com:44404/probe.srf?id=12081';
     const tracer = trace.getTracer('Contoso-Nodejs');
     const rootSpan = tracer.startSpan('Ping-Sapi-Probe');
     const newContext = trace.setSpan(context.active(), rootSpan);
@@ -60,7 +71,7 @@ async function PingSapiProbe() {
 
 
 async function PingSapiInfo() {
-    const url = 'https://api.login.live-tst.com:44404/info.srf';
+    const url = 'https://api.login.live-tst.com:44404/info.srf?id=12081';
     const tracer = trace.getTracer('Contoso-Nodejs');
     const rootSpan = tracer.startSpan('Ping-Sapi-Info');
     const newContext = trace.setSpan(context.active(), rootSpan);
@@ -123,6 +134,12 @@ async function simulateTraffic(fastMode = false) {
                 await PingLogin();
             } catch (err) {
                 console.error(`  Login request error: ${err.message}`);
+            }
+
+            try {
+                await PingLoginInfo();
+            } catch (err) {
+                console.error(`  Login info request error: ${err.message}`);
             }
 
             try {
