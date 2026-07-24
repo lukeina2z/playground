@@ -29,7 +29,7 @@ function pingWebSite(url) {
 };
 
 async function PingLoginProbe() {
-    const url = 'https://login.live-tst.com:44329/probe.srf?id=12081';
+    const url = 'https://login.live-tst.com:44329/probe.srf?id=39000';
     const tracer = trace.getTracer('Contoso-Nodejs');
     const rootSpan = tracer.startSpan('Ping-Login-Probe');
     const newContext = trace.setSpan(context.active(), rootSpan);
@@ -57,7 +57,7 @@ async function PingLoginInfo() {
 
 
 async function PingSapiProbe() {
-    const url = 'https://api.login.live-tst.com:44404/probe.srf?id=12081';
+    const url = 'https://api.login.live-tst.com:44404/probe.srf?id=12080';
     const tracer = trace.getTracer('Contoso-Nodejs');
     const rootSpan = tracer.startSpan('Ping-Sapi-Probe');
     const newContext = trace.setSpan(context.active(), rootSpan);
