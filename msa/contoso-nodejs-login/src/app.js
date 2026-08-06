@@ -98,6 +98,34 @@ async function PingLogin() {
 }
 
 
+async function PingNexusPartner() {
+    const url = 'https://nexus.passport-tst.com/public/partner/partner4.xml';
+    const tracer = trace.getTracer('Contoso-Nodejs');
+    const rootSpan = tracer.startSpan('Ping-Nexus-Partner');
+    const newContext = trace.setSpan(context.active(), rootSpan);
+    await context.with(newContext, async () => {
+        await pingWebSite(url);
+    });
+
+    // Be sure to end the span.
+    rootSpan.end();
+}
+
+
+async function PingNexusRpsNetwork() {
+    const url = 'https://nexus.passport-tst.com/public/partner/rpsnetwork4.xml';
+    const tracer = trace.getTracer('Contoso-Nodejs');
+    const rootSpan = tracer.startSpan('Ping-Nexus-RpsNetwork');
+    const newContext = trace.setSpan(context.active(), rootSpan);
+    await context.with(newContext, async () => {
+        await pingWebSite(url);
+    });
+
+    // Be sure to end the span.
+    rootSpan.end();
+}
+
+
 
 async function simulateTraffic(fastMode = false) {
     const volumeMultiplier = fastMode ? 5 : 1;
@@ -155,6 +183,18 @@ async function simulateTraffic(fastMode = false) {
                 await PingSapiInfo();
             } catch (err) {
                 console.error(`  SAPI info request error: ${err.message}`);
+            }
+
+            try {
+                await PingNexusPartner();
+            } catch (err) {
+                console.error(`  Nexus partner request error: ${err.message}`);
+            }
+
+            try {
+                await PingNexusRpsNetwork();
+            } catch (err) {
+                console.error(`  Nexus RPS network request error: ${err.message}`);
             }
 
             if (r < requestCount - 1) {
